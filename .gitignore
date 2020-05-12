@@ -22,3 +22,10 @@ hs_err_pid*
 /Merlot/mavenproject4/target/
 /Merlot/mavenproject3/target/
 /Apacs/target/
+/com.ceos.merlot.features/target/
+/com.ceos.merlot/target/
+/com.ceos.merlot.branding/target/
+/com.ceos.merlot.scheduler/target/
+/com.ceos.merlot.pva/target/
+/com.ceos.merlot.das/target/
+/com.ceos.merlot.db/target/

@@ -147,6 +147,12 @@
             <groupId>com.ceos.merlot.das.api</groupId>
             <artifactId>com.ceos.merlot.das.api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-all</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -157,6 +163,17 @@
             <groupId>com.ceos.merlot.das.drv.basic</groupId>
             <artifactId>com.ceos.merlot.das.drv.basic</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-all</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.42.Final</version>
         </dependency>
     </dependencies>
 </project>
