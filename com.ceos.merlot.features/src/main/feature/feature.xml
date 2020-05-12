@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
+-->
+<features name="${project.artifactId}-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+
+    <feature name='${project.artifactId}' description='${project.name}' version='${project.version}'>
+        <details>${project.description}</details>        
+        <!-- <config>foo=bar</config> -->
+        <feature>wrap</feature>
+        <feature>scr</feature>
+        
+        <!-- Karaf branding bundle -->
+        <bundle start-level="10">wrap:mvn:com.ceos.merlot.branding/com.ceos.merlot.branding/${project.version}/$Bundle-SymbolicName=ceos-branding&amp;Bundle-Version=${project.version}&amp;Export-Package=*;version=&quot;${project.version}&quot;,!*</bundle>
+        <bundle>wrap:mvn:org.apache.karaf/org.apache.karaf.util/4.2.7/$Export-Package=*;version=&quot;4.2.7&quot;,!*</bundle> 
+	<!-- Netty Core network library -->
+        <bundle start-level="80">wrap:mvn:io.netty/netty-all/4.1.43.Final/$Bundle-SymbolicName=netty-all&amp;Bundle-Version=4.1.42&amp;Export-Package=*;version=&quot;4.1.42.Final&quot;,!*</bundle>
+        	
+	<!-- Encrypt -->
+	<bundle start-level="80">wrap:mvn:org.jasypt/jasypt/1.9.2/$Export-Package=*;version=&quot;1.9.2&quot;,!*</bundle>
+	<bundle start-level="80">wrap:mvn:org.bouncycastle/bcprov-jdk15on/1.64/$Export-Package=*;version=&quot;1.64&quot;,!*</bundle>                        	
+        		
+	<!-- Google Libraries -->
+	<!-- <bundle start-level="80">wrap:mvn:com.google.guava/guava/26.0-jre/$Export-Package=*;version=&quot;26.0-jre&quot;,!*</bundle> -->  
+	<bundle start-level="80">wrap:mvn:com.google.guava/guava/19.0/$Export-Package=*;version=&quot;19.0&quot;,!*</bundle> 
+        <bundle start-level="80">wrap:mvn:com.google.code.findbugs/jsr305/3.0.2/$Export-Package=*;version=&quot;3.0.2&quot;,!*</bundle>	  
+        
+	<!--  OSGi Device Access Specification -->
+	<bundle start-level="82">wrap:mvn:org.osgi/org.osgi.service.device/1.1.0/$Export-Package=*;version=&quot;1.1.0&quot;,!*</bundle> 
+	<!-- <bundle start-level="82">wrap:mvn:org.eclipse.platform/org.eclipse.equinox.device/1.0.400/$Export-Package=*;version=&quot;1.0.400&quot;,!*</bundle> -->
+        
+	<!--  H2 Database bundle -->		
+	<!-- <bundle start-level="80">wrap:mvn:com.h2database/h2/1.4.197/$Export-Package=*;version=&quot;1.4.197&quot;,!*</bundle> -->		
+		
+	<!--  LMAX Disruptor-->
+	<bundle start-level="80">wrap:mvn:com.lmax/disruptor/3.4.2/$Export-Package=*;version=&quot;3.4.2&quot;,!*</bundle> 
+        
+	<!--  OPC-UA Components -->
+        <!--
+	<bundle start-level="81">wrap:mvn:org.eclipse.milo/stack-core/0.3.4</bundle>			
+	<bundle start-level="81">wrap:mvn:org.eclipse.milo/stack-client/0.3.4</bundle>
+	<bundle start-level="81">wrap:mvn:org.eclipse.milo/stack-server/0.3.4</bundle>
+	<bundle start-level="81">wrap:mvn:org.eclipse.milo/sdk-core/0.3.4</bundle>
+	<bundle start-level="81" start="false">wrap:mvn:org.eclipse.milo/sdk-client/0.3.4</bundle>
+	<bundle start-level="81" start="false">wrap:mvn:org.eclipse.milo/sdk-server/0.3.4</bundle>
+        -->
+        
+	<!-- Database support feature -->
+        <!--
+	<feature>jndi</feature>
+	<feature>transaction</feature>
+	<feature>pax-jdbc</feature>
+	<feature>pax-jdbc-config</feature>
+	<feature>pax-jdbc-pool-dbcp2</feature>
+	<feature>pax-jdbc-h2</feature>
+	<feature>openjpa3</feature>                    
+        -->
+        <!--  EPICS core -->
+        <bundle start-level="80">wrap:mvn:org.glassfish.corba/glassfish-corba-omgapi/4.2.1/$Export-Package=*;version=&quot;4.2.1&quot;,!*</bundle> 
+        <bundle start-level="80">wrap:mvn:org.epics/epics-pvdatabase/4.3.1/$Export-Package=*;version=&quot;4.3.1&quot;,!*</bundle> 
+        <bundle start-level="80">wrap:mvn:org.epics/epics-ntypes/0.3.3/$Export-Package=*;version=&quot;0.3.3&quot;,!*</bundle> 
+        <bundle start-level="80">wrap:mvn:org.epics/epics-pvaccess/5.1.2/$overwrite=merge&amp;Export-Package=org.epics.pvaccess.server.impl.remote.*,*;version=&quot;5.1.2&quot;,!*</bundle> 
+        <bundle start-level="80">wrap:mvn:org.epics/epics-pvaclient/4.3.2/$Export-Package=*;version=&quot;4.3.2&quot;,!*</bundle>
+        <bundle start-level="80">wrap:mvn:org.epics/epics-pvdata/6.1.3/$Export-Package=*;version=&quot;6.1.3&quot;,!*</bundle>
+        <bundle start-level="80">wrap:mvn:org.epics/epics-util/1.0.1/$Export-Package=*;version=&quot;1.0.1&quot;,!*</bundle>        
+        <bundle start-level="80">wrap:mvn:org.epics/jca/2.4.3/$Export-Package=*;version=&quot;2.4.3&quot;,!*</bundle>
+        
+        <!--  PLC4X core -->
+        <bundle>mvn:org.apache.plc4x/plc4j-driver-s7/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-api/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-on-tcp/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-tp/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-s7/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-utils-driver-base-java/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base-serial/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base-tcp/0.6.0-SNAPSHOT</bundle>
+        
+        <bundle>mvn:com.fazecast/jSerialComm/2.6.0</bundle>
+        <bundle>mvn:io.netty/netty-codec/4.1.39.Final</bundle>
+        <bundle>mvn:com.github.jinahya/bit-io/1.4.3</bundle>
+        <bundle>mvn:commons-codec/commons-codec/1.12</bundle>
+        <bundle>mvn:io.netty/netty-common/4.1.39.Final</bundle>
+        <bundle>mvn:io.netty/netty-transport/4.1.39.Final</bundle>
+        <bundle>mvn:io.netty/netty-resolver/4.1.39.Final</bundle>
+        <bundle>mvn:io.netty/netty-buffer/4.1.39.Final</bundle>
+        <bundle>mvn:org.apache.commons/commons-configuration2/2.6</bundle>
+        <bundle>mvn:org.apache.commons/commons-text/1.8</bundle>
+        <bundle>mvn:commons-logging/commons-logging/1.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-lang3/3.7</bundle>
+        <bundle>mvn:commons-io/commons-io/2.6</bundle>
+                   
+        <!--  PLC4X Modbus Protocol & Driver -->         
+        <bundle>wrap:mvn:com.digitalpetri.modbus/modbus-core/1.1.1/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle> 
+        <bundle>wrap:mvn:com.digitalpetri.modbus/modbus-codec/1.1.1/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle>  
+        <bundle>wrap:mvn:com.digitalpetri.modbus/modbus-master-tcp/1.1.1/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle>  
+
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-modbus/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-driver-modbus/0.6.0-SNAPSHOT</bundle>
+
+                                
+        <!--  PLC4X S7 Protocol & Driver -->
+        <!--
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-s7/0.6.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-driver-s7/0.6.0-SNAPSHOT</bundle>        
+        -->
+        
+        <!--  Merlot base app -->
+        <bundle>mvn:javax.xml.bind/jaxb-api/2.3.1</bundle>  
+        <bundle>wrap:mvn:com.mchange/c3p0/0.9.5.4/$Export-Package=*;version=&quot;0.9.5.4&quot;,!*</bundle>  
+        <bundle>wrap:mvn:com.zaxxer/HikariCP/2.7.9/$Export-Package=*;version=&quot;2.7.9&quot;,!*</bundle> 
+        <bundle>wrap:mvn:org.quartz-scheduler/quartz/2.3.2/$Export-Package=*;version=&quot;2.3.2&quot;,!*</bundle> 
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.api/com.ceos.merlot.das.api/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.modbus.dev/com.ceos.merlot.modbus.dev/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.db/com.ceos.merlot.db/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.pva/com.ceos.merlot.pva/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.scheduler/com.ceos.merlot.scheduler/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                      
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das/com.ceos.merlot.das/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        
+        <!-- -->
+    </feature>
+
+    <feature name='config_devices' description='${project.name}' version='${project.version}'>
+        <configfile finalname="/etc/com.ceos.merlot.das.devices.cfg">mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/cfg</configfile>        
+    </feature>
+    
+    <feature name='config_modbus_devices' description='${project.name}' version='${project.version}'>
+        <configfile finalname="/etc/com.ceos.merlot.modbus.dev.cfg">mvn:com.ceos.merlot.modbus.dev/com.ceos.merlot.modbus.dev/0.0.1-SNAPSHOT/cfg</configfile>        
+    </feature>  
+    
+    <feature name='config_modbus_server' description='${project.name}' version='${project.version}'>
+        <configfile finalname="/etc/com.ceos.merlot.modbus.svr.cfg">mvn:com.ceos.merlot.modbus.svr/com.ceos.merlot.modbus.svr/0.0.1-SNAPSHOT/cfg</configfile>        
+    </feature>          
+    
+    <feature name='config_records' description='${project.name}' version='${project.version}'>
+        <configfile finalname="/etc/com.ceos.merlot.db.records.cfg">mvn:com.ceos.merlot.db/com.ceos.merlot.db/0.0.1-SNAPSHOT/cfg</configfile>        
+    </feature>    
+
+</features>

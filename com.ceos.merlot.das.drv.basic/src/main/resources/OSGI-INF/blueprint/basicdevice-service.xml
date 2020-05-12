@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+ * Copyright 2019 César García
+ * cesar.garcia@ceos.com.ve
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="eager">
+
+    <reference id="DeviceManagerService"
+        interface="com.ceos.merlot.das.api.DeviceManager"
+        timeout="10000"
+        availability="mandatory">
+    </reference>  
+           
+    <bean id="BasicDeviceBean" class="com.ceos.merlot.das.drv.basic.impl.BasicDeviceImpl"
+            init-method="init" destroy-method="destroy" scope="singleton">
+        <argument ref="blueprintBundleContext" />
+    </bean>
+    
+    <bean id="BasicDriverBean" class="com.ceos.merlot.das.drv.basic.impl.BasicDriverImpl"
+            init-method="init" destroy-method="destroy" scope="singleton">
+            <argument ref="blueprintBundleContext" />
+            <property name="bundleContext" ref="blueprintBundleContext"/>
+    </bean>
+   
+    <bean id="BasicDeviceManagedService" 
+            class="com.ceos.merlot.das.drv.basic.core.BasicDeviceManagedService" 
+            scope="singleton">
+            <argument ref="blueprintBundleContext" />
+    </bean>     
+    
+    <service id="BasicDeviceService" ref="BasicDeviceBean" interface="org.osgi.service.device.Device">
+        <service-properties>
+            <entry key="DEVICE_CATEGORY" value="com.ceos.basic"/>
+            <entry key="DEVICE_DESCRIPTION" value="AS01"/> 
+            <entry key="DEVICE_SERIAL" value="1.2.3.4.5"/>  
+            <entry key="DEVICE_FRIENDLY_NAME" value="Dummy device. Only make callback."/>
+            <entry key="service.pid" value="pid_1"/>                                             
+        </service-properties>
+    </service>
+
+    <service id="BasicDriverService" ref="BasicDriverBean" interface="org.osgi.service.device.Driver">
+    	<service-properties>
+            <entry key="DRIVER_ID" value="com.ceos.basic"/>                                                      
+     	</service-properties>
+    </service>
+    
+    <service ref="BasicDeviceManagedService" interface="org.osgi.service.cm.ManagedServiceFactory">
+    	<service-properties>
+            <entry key="service.pid" value="com.ceos.merlot.das.devices"/>  
+            <entry key="scheduler.name" value="BasicDeviceManagedService"/>  
+            <entry key="scheduler.period" value="5000"/>
+            <!-- <entry key="scheduler.times" value="USHORT"/> -->
+            <entry key="scheduler.immediate" value="true"/>
+            <entry key="scheduler.concurrent" value="false"/>                                                                    
+     	</service-properties>        
+    </service>    
+
+</blueprint>

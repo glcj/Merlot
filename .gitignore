@@ -1,0 +1,24 @@
+##########################
+## Java
+##########################
+*.class
+.mtj.tmp/
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+/Merlot/mavenproject2/target/
+/Merlot/com.ceos.merlot.branding/target/
+/Merlot/com.ceos.merlot/target/
+/Merlot/com.ceos.merlot.features/target/
+/Merlot/com.ceos.merlot.db/target/
+/Borrar/mavenproject1/target/
+/Merlot/com.ceos.merlot.pva/target/
+/Merlot/com.ceos.merlot.scheduler/target/
+/mavenproject1/target/
+/Merlot/com.ceos.merlot.das/target/
+/Merlot/com.ceos.merlot.das.drv.mb/target/
+/Merlot/mavenproject4/target/
+/Merlot/mavenproject3/target/
+/Apacs/target/
