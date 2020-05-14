@@ -1,6 +1,8 @@
 
 # ![Image of Yaktocat](https://raw.githubusercontent.com/glcj/Merlot/master/docs/imgs/00_01_intro.png)
 
+[Indice](01_FiveMinutes.md)
+
 ## A brief introduction
 
 Merlot (Karaf for Automation), is the implementation of a communications gateway for process automation using open source tools. Merlot is based on Karaf [1] a container for Java objects and applications based on OSGi technology [2].
