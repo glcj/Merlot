@@ -44,16 +44,6 @@
             scope="singleton">
             <argument ref="blueprintBundleContext" />
     </bean>     
-    
-    <service id="BasicDeviceService" ref="BasicDeviceBean" interface="org.osgi.service.device.Device">
-        <service-properties>
-            <entry key="DEVICE_CATEGORY" value="com.ceos.basic"/>
-            <entry key="DEVICE_DESCRIPTION" value="AS01"/> 
-            <entry key="DEVICE_SERIAL" value="1.2.3.4.5"/>  
-            <entry key="DEVICE_FRIENDLY_NAME" value="Dummy device. Only make callback."/>
-            <entry key="service.pid" value="pid_1"/>                                             
-        </service-properties>
-    </service>
 
     <service id="BasicDriverService" ref="BasicDriverBean" interface="org.osgi.service.device.Driver">
     	<service-properties>

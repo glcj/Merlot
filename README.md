@@ -1,5 +1,5 @@
 
-# ![Image of Yaktocat](docs/imgs/00_01_intro.png)
+# ![00_01_intro.png](https://raw.githubusercontent.com/glcj/Merlot/master/docs/imgs/00_01_intro.png)
 
 ## A brief introduction
 
@@ -15,7 +15,7 @@ In short Merlot it comes as a communications gateway, specifically aimed at indu
 
 The following image is a quick view of the fundamental components for which we will make a brief description
 
-![Image of Yaktocat](docs/imgs/00_02_arquitectura.png)
+![00_02_arquitectura.png](https://raw.githubusercontent.com/glcj/Merlot/master/docs/imgs/00_02_arquitectura.png)
 
 Of the components of Merlot:
 

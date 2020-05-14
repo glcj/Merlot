@@ -62,7 +62,6 @@ public class ModbusServerManagedService implements ManagedService {
     @Override
     public void updated(Dictionary props) throws ConfigurationException {
         Enumeration<String> keys = props.keys();
-        System.out.println("\r\n");
         int port = 502;
         while (keys.hasMoreElements()) {
             String key = keys.nextElement();
@@ -75,22 +74,18 @@ public class ModbusServerManagedService implements ManagedService {
                     if (matchPortAddress.matches()){
                         port = Integer.parseInt(sub_fields[sub_fields.length - 1]);
                         int size = sub_fields.length-3;
-                        System.out.println("Puerto TCP: " + port);
-                        System.out.println("Number of IP address: " + size);
+                        LOGGER.info("Modbus server registering to TCP port: " + port);
                         SocketAddress[] sas = new SocketAddress[size];
-                        System.out.println("Contador: " + (sub_fields.length-1));
                         for (int i=2; i<(sub_fields.length-1); i++){
-                            System.out.println("Bind address: " + sub_fields[i]);
+                            LOGGER.info("Modbus server bind address: " + sub_fields[i]);
                             sas[i-2] = new InetSocketAddress(sub_fields[i],port);
                         }
                         
-                        System.out.println("Registrando servidor...");
                         ModbusServer mbServer = new ModbusServerImpl();
                         //mbServer.setSocketAddress(sas);
                         mbServer.setBundleContext(bundleContext);
                         mbServer.start();
-                        
-                        System.out.println("Registrando servicio...");
+
                         Hashtable properties = new Hashtable();
                         properties.put(MODBUS_SERVER_ID, key);                            
                         properties.put(MODBUS_SERVER_DESC, short_description);

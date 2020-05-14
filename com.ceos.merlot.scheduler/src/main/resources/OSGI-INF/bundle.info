@@ -27,7 +27,8 @@ h1. Synopsis
 
 h1. Description
 
-	This bundle registers a service listener, which listens from service events related to java.lang.Runnable and org.apache.karaf.scheduler.Job interface.
+        This is the same original Karaf bundle, modified to allow the execution of tasks in milli seconds.
+	This bundle registers a service listener, which listens from service events related to java.lang.Runnable and com.ceos.merlot.scheduler.api.Job interface.
 	Each service with such interface may be added the following properties:
 		* scheduler.name
 		* scheduler.period

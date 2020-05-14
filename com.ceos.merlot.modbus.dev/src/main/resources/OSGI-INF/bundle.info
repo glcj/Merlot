@@ -27,18 +27,13 @@ h1. Synopsis
 
 h1. Description
 
-	This bundle registers basic Modbus services. Export diferents interfac
-	Each service with such interface may be added the following properties:
-		* scheduler.name
-		* scheduler.period
-		* scheduler.expression
-		* scheduler.immediate
-		* scheduler.concurrent
-
+    This bundle allows you to deploy ModbusDevice. A ModbusDevice can be seen as a shared memory area within the gateway.
+    It allows creating up to 255 ModbusDevcie, the maximum number of elements established by the Modbus protocol.
+    Devices can be created via the command line or permanently in the associated configuration file.
 
 h1. Commands
 
 	The bundle contains the following commands:
-\${command-list|modbus|indent=8,list,cyan}
+    \${command-list|modbus|indent=8,list,cyan}
 
 

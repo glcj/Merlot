@@ -46,7 +46,6 @@ public class MerlotPvaServerImpl implements MerlotPvaServer  {
     @Override
     public void init() {
         try {
-            System.out.println("channelProvider: " + channelProvider.getProviderName());
             context = ServerContextImpl.startPVAServer(channelProvider.getProviderName(),0,true,null);
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(os);

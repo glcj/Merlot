@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1589316695015
+Bnd-LastModified: 1589403305761
 Build-Jdk: 11.0.4
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/mb-service.xml
@@ -20,10 +20,10 @@ Export-Package: com.ceos.merlot.das.drv.mb.api;version="0.0.1.SNAPSHOT";
  das.drv.basic.impl,com.ceos.merlot.das.drv.mb.api,com.ceos.merlot.sched
  uler.api,org.apache.plc4x.java.spi,org.osgi.framework,org.osgi.service.
  device"
-Export-Service: org.osgi.service.device.Driver;DRIVER_ID=com.ceos.modbus
- ;osgi.service.blueprint.compname=MbDriverReferring,com.ceos.merlot.das.
- drv.basic.api.BasicDeviceFactory;device.factory=modbus;osgi.service.blu
- eprint.compname=MbDeviceFactory
+Export-Service: com.ceos.merlot.das.drv.basic.api.BasicDeviceFactory;dev
+ ice.factory=modbus;osgi.service.blueprint.compname=MbDeviceFactory,org.
+ osgi.service.device.Driver;DRIVER_ID=com.ceos.modbus;osgi.service.bluep
+ rint.compname=MbDriverReferring
 Import-Package: com.ceos.merlot.api;version="[0.0,1)",com.ceos.merlot.co
  re;version="[0.0,1)",com.ceos.merlot.das.drv.basic.api;version="[0.0,1)
  ",com.ceos.merlot.das.drv.basic.impl;version="[0.0,1)",com.ceos.merlot.

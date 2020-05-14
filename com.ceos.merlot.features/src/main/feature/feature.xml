@@ -127,30 +127,39 @@ under the License.
         <bundle>wrap:mvn:com.mchange/c3p0/0.9.5.4/$Export-Package=*;version=&quot;0.9.5.4&quot;,!*</bundle>  
         <bundle>wrap:mvn:com.zaxxer/HikariCP/2.7.9/$Export-Package=*;version=&quot;2.7.9&quot;,!*</bundle> 
         <bundle>wrap:mvn:org.quartz-scheduler/quartz/2.3.2/$Export-Package=*;version=&quot;2.3.2&quot;,!*</bundle> 
-        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.api/com.ceos.merlot.das.api/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
-        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
-        <bundle start-level="84">wrap:mvn:com.ceos.merlot.modbus.dev/com.ceos.merlot.modbus.dev/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>
-        <bundle start-level="84">wrap:mvn:com.ceos.merlot.db/com.ceos.merlot.db/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>
-        <bundle start-level="84">wrap:mvn:com.ceos.merlot.pva/com.ceos.merlot.pva/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>
-        <bundle start-level="84">wrap:mvn:com.ceos.merlot.scheduler/com.ceos.merlot.scheduler/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                      
-        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das/com.ceos.merlot.das/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        
+        <bundle start-level="80">wrap:mvn:com.ceos.merlot.scheduler/com.ceos.merlot.scheduler/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                              
         <!-- -->
     </feature>
 
     <feature name='config_devices' description='${project.name}' version='${project.version}'>
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.api/com.ceos.merlot.das.api/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                 
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.das/com.ceos.merlot.das/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                
         <configfile finalname="/etc/com.ceos.merlot.das.devices.cfg">mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/cfg</configfile>        
     </feature>
     
     <feature name='config_modbus_devices' description='${project.name}' version='${project.version}'>
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.modbus.dev/com.ceos.merlot.modbus.dev/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        
         <configfile finalname="/etc/com.ceos.merlot.modbus.dev.cfg">mvn:com.ceos.merlot.modbus.dev/com.ceos.merlot.modbus.dev/0.0.1-SNAPSHOT/cfg</configfile>        
     </feature>  
     
     <feature name='config_modbus_server' description='${project.name}' version='${project.version}'>
+        <bundle start-level="86">wrap:mvn:com.ceos.merlot.modbus.svr/com.ceos.merlot.modbus.svr/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                
         <configfile finalname="/etc/com.ceos.merlot.modbus.svr.cfg">mvn:com.ceos.merlot.modbus.svr/com.ceos.merlot.modbus.svr/0.0.1-SNAPSHOT/cfg</configfile>        
     </feature>          
     
     <feature name='config_records' description='${project.name}' version='${project.version}'>
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.pva/com.ceos.merlot.pva/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        
+        <bundle start-level="84">wrap:mvn:com.ceos.merlot.db/com.ceos.merlot.db/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        
         <configfile finalname="/etc/com.ceos.merlot.db.records.cfg">mvn:com.ceos.merlot.db/com.ceos.merlot.db/0.0.1-SNAPSHOT/cfg</configfile>        
-    </feature>    
+    </feature>
+    
+    <feature name='config_mb_drv' description='${project.name}' version='${project.version}'>
+        <bundle start-level="86">wrap:mvn:com.ceos.merlot.das.drv.mb/com.ceos.merlot.das.drv.mb/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                     
+    </feature>     
+    
+    <feature name='config_s7_drv' description='${project.name}' version='${project.version}'>
+        <bundle start-level="86">wrap:mvn:com.ceos.merlot.das.drv.s7/com.ceos.merlot.das.drv.s7/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                     
+    </feature>             
 
 </features>
