@@ -37,6 +37,9 @@
     <module>com.ceos.merlot.das</module>
     <module>com.ceos.merlot.das.drv.mb</module>
     <module>com.ceos.merlot.modbus.dev</module>
+    <module>com.ceos.merlot.iotdb.sync</module>
+    <module>com.ceos.merlot.iotdb.svr</module>
+    <module>com.ceos.merlot.iotdb.htc</module>
   </modules>
     <dependencies>
         <dependency>

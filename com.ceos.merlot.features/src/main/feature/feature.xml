@@ -130,12 +130,12 @@ under the License.
         <bundle start-level="80">wrap:mvn:com.ceos.merlot.scheduler/com.ceos.merlot.scheduler/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                              
         <!-- -->
     </feature>
-
+    
     <feature name='config_devices' description='${project.name}' version='${project.version}'>
         <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.api/com.ceos.merlot.das.api/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
         <bundle start-level="84">wrap:mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                 
         <bundle start-level="84">wrap:mvn:com.ceos.merlot.das/com.ceos.merlot.das/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                
-        <configfile finalname="/etc/com.ceos.merlot.das.devices.cfg">mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/cfg</configfile>        
+        <configfile finalname="/etc/com.ceos.merlot.das.drv.basic.cfg">mvn:com.ceos.merlot.das.drv.basic/com.ceos.merlot.das.drv.basic/0.0.1-SNAPSHOT/cfg</configfile>        
     </feature>
     
     <feature name='config_modbus_devices' description='${project.name}' version='${project.version}'>
@@ -160,6 +160,34 @@ under the License.
     
     <feature name='config_s7_drv' description='${project.name}' version='${project.version}'>
         <bundle start-level="86">wrap:mvn:com.ceos.merlot.das.drv.s7/com.ceos.merlot.das.drv.s7/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                     
-    </feature>             
+    </feature> 
+    
+    <feature name='config_iotdb_server' description='${project.name}' version='${project.version}'>
+        
+        <bundle>wrap:mvn:org.antlr/antlr-runtime/3.5.2/$Export-Package=*;version=&quot;3.5.2&quot;,!*</bundle>
+        <bundle>wrap:mvn:io.airlift/airline/0.8/$Export-Package=*;version=&quot;0.8&quot;,!*</bundle>
+        
+        <bundle>wrap:mvn:io.dropwizard.metrics/metrics-core/4.1.8/$Export-Package=*;version=&quot;4.1.8&quot;,!*</bundle> 
+        <bundle>wrap:mvn:io.dropwizard.metrics/metrics-json/4.1.8/$Export-Package=*;version=&quot;4.1.8&quot;,!*</bundle> 
+        <bundle>wrap:mvn:io.dropwizard.metrics/metrics-jvm/4.1.8/$Export-Package=*;version=&quot;4.1.8&quot;,!*</bundle> 
+        
+        <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-core/2.11.0/$Export-Package=*;version=&quot;2.11.0&quot;,!*</bundle>         
+        <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-databind/2.11.0/$Export-Package=*;version=&quot;2.11.0&quot;,!*</bundle> 
+        <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-annotations/2.11.0/$Export-Package=*;version=&quot;2.11.0&quot;,!*</bundle> 
+        
+        <bundle>wrap:mvn:org.apache.thrift/libthrift/0.13.0/$Export-Package=*;version=&quot;0.13.0&quot;,!*</bundle>         
+        <bundle>wrap:mvn:org.apache.iotdb/iotdb-server/0.9.3/$Export-Package=*;version=&quot;0.9.3&quot;,!*</bundle>  
+        <bundle>wrap:mvn:org.apache.iotdb/service-rpc/0.9.3/$Export-Package=*;version=&quot;0.9.3&quot;,!*</bundle>  
+                 
+        <bundle>wrap:mvn:org.apache.iotdb/tsfile/0.9.3/$Export-Package=*;version=&quot;0.9.3&quot;,!*</bundle> 
+        <bundle start-level="90">wrap:mvn:com.ceos.merlot.iotdb.svr/com.ceos.merlot.iotdb.svr/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
+        <configfile finalname="/etc/iotdb-engine.properties">mvn:com.ceos.merlot.iotdb.svr/com.ceos.merlot.iotdb.svr/0.0.1-SNAPSHOT/cfg</configfile>        
+    </feature>
+
+    <feature name='config_iotdb_sync' description='${project.name}' version='${project.version}'>
+        <bundle>wrap:mvn:org.apache.iotdb/iotdb-client/0.9.3/$Export-Package=*;version=&quot;0.9.3&quot;,!*</bundle>  
+        <bundle start-level="92">wrap:mvn:com.ceos.merlot.iotdb.sync/com.ceos.merlot.iotdb.sync/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle> 
+        <configfile finalname="/etc/iotdb-sync-client.properties">mvn:com.ceos.merlot.iotdb.sync/com.ceos.merlot.iotdb.sync/0.0.1-SNAPSHOT/cfg</configfile>        
+    </feature>                                
 
 </features>

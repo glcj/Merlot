@@ -123,9 +123,7 @@ public class MerlotPVGetCommand implements Action, PvaClientMonitorRequester  {
             }                
         }       
             
-        
-            
-
+                    
         //pvaClient.clearRequester();
         //pva.destroy();
         

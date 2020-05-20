@@ -27,7 +27,8 @@ h1. Synopsis
 
 h1. Description
 
-Driver wrapper around PLC4X Modbus driver. Support for driver management, adding and stopping devices through the command line.
+    Driver wrapper around PLC4X Modbus driver. 
+    Support for driver management, adding and stopping devices through the command line.
 
 
 h1. Commands

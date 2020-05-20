@@ -29,3 +29,9 @@ hs_err_pid*
 /com.ceos.merlot.pva/target/
 /com.ceos.merlot.das/target/
 /com.ceos.merlot.db/target/
+/TestModbus6/target/
+/TestPLC4XS7_V070/target/
+/TestPLC4XS7_061/target/
+/com.ceos.merlot.iotdb.sync/target/
+/com.ceos.merlot.iotdb.svr/target/
+/com.ceos.merlot.iotdb.htc/target/
