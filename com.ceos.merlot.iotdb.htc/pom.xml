@@ -46,6 +46,7 @@
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Export-Package>com.ceos.merlot.iotdb.htc*;version=${project.version}</Export-Package>
+                        <Karaf-Commands>com.ceos.merlot.iotdb.htc.command*</Karaf-Commands>                           
                         <Import-Package>*</Import-Package>
                     </instructions>
                 </configuration>
@@ -59,6 +60,26 @@
                     <maxmem>256M</maxmem>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>src/main/cfg/com.ceos.merlot.iotdb.htc.cfg</file>
+                                    <type>cfg</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>                
         </plugins>
     </build>
     <dependencies>
@@ -86,6 +107,12 @@
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
             <version>4.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.iotdb</groupId>
+            <artifactId>iotdb-client</artifactId>
+            <version>0.9.3</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>

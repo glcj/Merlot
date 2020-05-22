@@ -31,6 +31,14 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>feature</packaging>
 
+    <repositories>
+        <repository>
+            <id>sonatype-nexus</id>
+            <name>OSS</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>     
+    </repositories>
+
     <name>Merlot :: features :: Features required</name>
     <description>com.ceos.merlot.features details</description>
 
@@ -61,5 +69,11 @@
             </plugin>
         </plugins>
     </build>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.28</version>
+        </dependency>
+    </dependencies>
 </project>
