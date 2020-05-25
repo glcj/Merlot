@@ -34,13 +34,12 @@ public class SyncFileManagedService implements ManagedService {
     public void updated(Dictionary<String, ?> props) throws ConfigurationException {
         String key = null;
         if (props == null) return;
-        System.out.println("Actualizando la configuracion...: " + props.size());        
+        //System.out.println("Actualizando la configuracion...: " + props.size());        
         Enumeration<String> keys = props.keys();
         String etcKaraf = System.getProperty(ConfigProperties.PROP_KARAF_ETC);
         System.setProperty(IoTDBConstant.IOTDB_CONF, etcKaraf);   
         
         confSyncDescriptor = SyncSenderDescriptor.getInstance();
-        System.out.println("Paso por aqui: " + keys);
         
         /*
         while (keys.hasMoreElements()){

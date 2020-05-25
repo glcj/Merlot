@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1590104431921
+Bnd-LastModified: 1590432534871
 Build-Jdk: 11.0.4
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/mb-service.xml

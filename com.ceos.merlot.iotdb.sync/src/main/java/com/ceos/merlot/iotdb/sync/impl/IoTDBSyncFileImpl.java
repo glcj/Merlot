@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
-import java.time.LocalTime;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.sync.conf.SyncSenderConfig;
 import org.apache.iotdb.db.sync.conf.SyncSenderDescriptor;
@@ -40,8 +39,7 @@ public class IoTDBSyncFileImpl implements IoTDBSyncFile, Job {
     }
     
     @Override
-    public void init() {
-        System.out.println("IoTDBSyncFileImpl.Init: " + LocalTime.now().getNano());        
+    public void init() {       
         config = SyncSenderDescriptor.getInstance().getConfig();
         dtm = DataTransferManager.getInstance();
     }

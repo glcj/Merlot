@@ -24,16 +24,16 @@
     <artifactId>Merlot</artifactId>
     <groupId>com.ceos.merlot</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    </parent>
+  </parent>
 
-    <groupId>com.ceos.merlot.iotdb.jdbc</groupId>
-    <artifactId>com.ceos.merlot.iotdb.jdbc</artifactId>
+    <groupId>com.ceos.merlot.modbus.sim</groupId>
+    <artifactId>com.ceos.merlot.modbus.sim</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
-    <name>Merlot :: iotdb :: JDBC DataSource</name>
-    <description>IoTDB JDBC driver with plugins required to run in Karaf. 
-Evaluate a PR for the IoTDB project.</description>
+    <name>Merlot :: mb :: Modbus value simulator</name>
+    <description>Simulation module for Modbus server. It allows simulating individual values,
+or generating noise in a range.</description>
 
     <build>
         <plugins>
@@ -46,7 +46,8 @@ Evaluate a PR for the IoTDB project.</description>
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>com.ceos.merlot.iotdb.jdbc*;version=${project.version}</Export-Package>
+                        <Export-Package>com.ceos.merlot.modbus.sim*;version=${project.version}</Export-Package>
+                        <Karaf-Commands>com.ceos.merlot.modbus.sim.command*</Karaf-Commands>                        
                         <Import-Package>*</Import-Package>
                     </instructions>
                 </configuration>
@@ -60,38 +61,58 @@ Evaluate a PR for the IoTDB project.</description>
                     <maxmem>256M</maxmem>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>src/main/cfg/com.ceos.merlot.modbus.sim.cfg</file>
+                                    <type>cfg</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>                   
         </plugins>
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.apache.iotdb</groupId>
-            <artifactId>iotdb-jdbc</artifactId>
-            <version>0.9.3</version>
+            <groupId>com.fathzer</groupId>
+            <artifactId>javaluator</artifactId>
+            <version>3.0.3</version>
         </dependency>
         <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>6.0.0</version>
+            <groupId>com.ceos.merlot.modbus.dev</groupId>
+            <artifactId>com.ceos.merlot.modbus.dev</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ceos.merlot.scheduler</groupId>
+            <artifactId>com.ceos.merlot.scheduler</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-buffer</artifactId>
+            <version>4.1.50.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.epics</groupId>
+            <artifactId>epics-pvdata</artifactId>
+            <version>6.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.cmpn</artifactId>
             <version>6.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.jdbc</groupId>
-            <artifactId>pax-jdbc</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.jdbc</groupId>
-            <artifactId>pax-jdbc-common</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.logging</groupId>
-            <artifactId>pax-logging-api</artifactId>
-            <version>1.11.2</version>
         </dependency>
     </dependencies>
 </project>

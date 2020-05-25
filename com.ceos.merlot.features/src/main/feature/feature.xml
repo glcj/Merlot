@@ -148,12 +148,20 @@ under the License.
         <bundle>wrap:mvn:org.osgi/org.osgi.service.device/1.1.0/$Export-Package=*;version=&quot;1.1.0&quot;,!*</bundle>        
         <bundle start-level="84">wrap:mvn:com.ceos.merlot.modbus.dev/com.ceos.merlot.modbus.dev/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        
         <configfile finalname="/etc/com.ceos.merlot.modbus.dev.cfg">mvn:com.ceos.merlot.modbus.dev/com.ceos.merlot.modbus.dev/0.0.1-SNAPSHOT/cfg</configfile>        
-    </feature>  
+    </feature> 
+    
+    <feature name='config_modbus_sim' description='${project.name}' version='${project.version}'>    
+        <bundle>wrap:mvn:com.fathzer/javaluator/3.0.3/$Export-Package=*;version=&quot;3.0.3&quot;,!*</bundle>            
+        <bundle start-level="86">wrap:mvn:com.ceos.merlot.modbus.sim/com.ceos.merlot.modbus.sim/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        
+        <configfile finalname="/etc/com.ceos.merlot.modbus.sim.cfg">mvn:com.ceos.merlot.modbus.sim/com.ceos.merlot.modbus.sim/0.0.1-SNAPSHOT/cfg</configfile>        
+    </feature>        
     
     <feature name='config_modbus_server' description='${project.name}' version='${project.version}'>
-        <bundle start-level="86">wrap:mvn:com.ceos.merlot.modbus.svr/com.ceos.merlot.modbus.svr/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                
+        <bundle start-level="88">wrap:mvn:com.ceos.merlot.modbus.svr/com.ceos.merlot.modbus.svr/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>                
         <configfile finalname="/etc/com.ceos.merlot.modbus.svr.cfg">mvn:com.ceos.merlot.modbus.svr/com.ceos.merlot.modbus.svr/0.0.1-SNAPSHOT/cfg</configfile>        
-    </feature>          
+    </feature>   
+    
+                  
     
     <feature name='config_records' description='${project.name}' version='${project.version}'>
         <bundle start-level="84">wrap:mvn:com.ceos.merlot.pva/com.ceos.merlot.pva/0.0.1-SNAPSHOT/$Export-Package=*;version=&quot;0.0.1-SNAPSHOT&quot;,!*</bundle>        

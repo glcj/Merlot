@@ -53,6 +53,7 @@
     <module>com.ceos.merlot.iotdb.htc</module>
     <module>com.ceos.merlot.iotdb.grafana</module>
     <module>com.ceos.merlot.iotdb.jdbc</module>
+    <module>com.ceos.merlot.modbus.sim</module>
   </modules>
     <dependencies>
         <dependency>

@@ -63,7 +63,7 @@ public class ModbusDeviceManagedService implements ManagedService {
                 deviceFilter = deviceFilter.replace("$", fields[0]);
 
                 ServiceReference[] references = bundleContext.getServiceReferences((String) null, deviceFilter);
-                if (references != null)System.out.println("Referencias: " + references.length);
+                //if (references != null)System.out.println("Referencias: " + references.length);
 
                 if ((references == null) 
                         && (fields.length == 6) 
