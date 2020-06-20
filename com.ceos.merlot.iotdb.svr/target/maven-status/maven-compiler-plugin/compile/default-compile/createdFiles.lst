@@ -1,6 +1,0 @@
-com\ceos\merlot\iotdb\svr\api\IoTDBServerConfigLoader.class
-com\ceos\merlot\iotdb\svr\api\IoTDBServer.class
-com\ceos\merlot\iotdb\svr\impl\IoTDBServerConfigLoaderImpl.class
-com\ceos\merlot\iotdb\svr\command\IoTDBServerAdminCommand.class
-com\ceos\merlot\iotdb\svr\core\IoTDBManagedService.class
-com\ceos\merlot\iotdb\svr\impl\IoTDBServerImpl.class
