@@ -21,11 +21,14 @@ package com.ceos.merlot.modbus.dev.command;
 
 import com.ceos.merlot.modbus.dev.api.ModbusDevice;
 import com.ceos.merlot.modbus.dev.api.ModbusDeviceArray;
+import com.ceos.merlot.modbus.dev.core.ModbusDeviceHelper;
 import org.apache.karaf.shell.api.action.Action;
 import org.apache.karaf.shell.api.action.Argument;
 import org.apache.karaf.shell.api.action.Command;
+import org.apache.karaf.shell.api.action.Option;
 import org.apache.karaf.shell.api.action.lifecycle.Reference;
 import org.apache.karaf.shell.api.action.lifecycle.Service;
+import org.epics.pvdata.pv.ScalarType;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
@@ -40,36 +43,35 @@ public class ModbusDeviceReadCommand implements Action {
     int uid;
     
     //@Option(name = "-r", aliases = { "--reg" }, description = "The data bank to dump.", required = true, multiValued = false)
-    @Argument(index = 1, name = "type", description = "1:Digital register, 2:Coil, 3:Input register, 4:Holding register.", required = true, multiValued = false)    
-    int type;
+    @Argument(index = 1, name = "type", description = "0:Digital output coil, 1:Digital input Coil, 3:Input register, 4:Holding register.", required = true, multiValued = false)    
+    int registerType;
     
     //@Option(name = "-s", aliases = { "--start" }, description = "The initial register.", required = true, multiValued = false)
     @Argument(index = 2, name = "register", description = "Register address in the device.", required = true, multiValued = false)     
     int register;
-        
+    
+    @Argument(index = 3, name = "scalar", description = "Scalar for the value.", required = true, multiValued = false)     
+    String scalar;  
+    
+    @Option(name = "-l", aliases = { "--le" }, description = "Use Little Endian format.", required = false, multiValued = false)    
+    boolean blnLE = false;    
     
 	public Object execute() throws Exception {
 		
-		int value = 0;
+		double value = 0;
 		try {
             //Bundle bundle = bundleContext.getSe
         	ServiceReference<?> reference = bundleContext.getServiceReference(ModbusDeviceArray.class.getName());
         	ModbusDeviceArray mdbarray = (ModbusDeviceArray) bundleContext.getService(reference);
         	ModbusDevice mbd =  (ModbusDevice) mdbarray.getModbusDevicesArray()[uid];
-        	
-        	switch(type) {
-    			case 1: value =  (short) (mbd.getDiscreteInput(register)?1:0);
-    					break;
-    			case 2: value =  (short) (mbd.getCoil(register)?1:0);					
-    					break;
-    			case 3: value 	= mbd.getInputRegister(register);        		
-    					break;
-    			case 4: value 	= mbd.getHoldingRegister(register);          		
-    					break;
-        	};
-        	System.out.println(value);
+        	ScalarType valueScalar = ScalarType.getScalarType(scalar);
+                
+                value = ModbusDeviceHelper.getValue(mbd, valueScalar, registerType, register, blnLE);
+                
+        	System.out.println(registerType + ":" + register + ":" + valueScalar + " = " + value);
         } catch (NumberFormatException ex) {
             // It was not a number, so ignore.
+            ex.printStackTrace();
         }
 
 		return null;

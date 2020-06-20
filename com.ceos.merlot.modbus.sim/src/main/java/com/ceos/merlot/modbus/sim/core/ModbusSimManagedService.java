@@ -21,7 +21,9 @@ package com.ceos.merlot.modbus.sim.core;
 
 import com.ceos.merlot.modbus.dev.api.ModbusDeviceArray;
 import com.ceos.merlot.modbus.sim.api.ModbusSim;
+import com.ceos.merlot.modbus.sim.api.ModbusSimMBean;
 import com.ceos.merlot.modbus.sim.impl.ModbusSimFuncImpl;
+import com.ceos.merlot.modbus.sim.impl.ModbusSimMBeanImpl;
 import com.ceos.merlot.modbus.sim.impl.ModbusSimRandomImpl;
 import com.ceos.merlot.modbus.sim.impl.ModbusSimSignalImpl;
 import com.ceos.merlot.scheduler.api.Job;
@@ -32,6 +34,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
+import org.osgi.service.device.Constants;
 
 /**
  *
@@ -96,12 +99,13 @@ public class ModbusSimManagedService implements ManagedService {
                         ModbusSim mbsim = null;
                                                 
                         String[] fields = ((String)props.get(key)).split(",");
-                        int device = Integer.parseInt(fields[0]);                        
+                        int device = Integer.parseInt(fields[0]);    
+
                         Long scan = Long.parseLong(fields[2]);
                         if ("rand".equalsIgnoreCase(fields[1])){
                             if (mbdevs.getModbusDevice(device) != null){
                                 mbsim = new ModbusSimRandomImpl(mbdevs.getModbusDevice(device));
-                                String[] address ={fields[3]};
+                                String[] address ={fields[3],fields[4]};
                                 mbsim.setVariables(address);
                             }
                         } else if ("func".equalsIgnoreCase(fields[1])){
@@ -120,19 +124,27 @@ public class ModbusSimManagedService implements ManagedService {
                                 scan = 100L; //alway 100 ms
                             }                                         
                         }
-                                                
-                        Dictionary osgiprops = new Properties();                        
-                        osgiprops.put("scheduler.name", "ModbusSim:" + key);
-                        osgiprops.put("scheduler.period", scan);
-                        //properties.put("scheduler.times", 5);
-                        osgiprops.put("scheduler.immediate", true);
-                        osgiprops.put("scheduler.concurrent", false);  
-                        if (mbsim != null) {
+                      if (mbsim != null) {                                                
+                            Dictionary osgiprops = new Properties();                        
+                            osgiprops.put("scheduler.name", "ModbusSim:" + key);
+                            osgiprops.put("scheduler.period", scan);
+                            //properties.put("scheduler.times", 5);
+                            osgiprops.put("scheduler.immediate", true);
+                            osgiprops.put("scheduler.concurrent", false);  
+
                             mbsim.init();                          
                             bundleContext.registerService(new String[]{ModbusSim.class.getName(), Job.class.getName()}, mbsim, osgiprops);                         
-                            mbsim.start();                              
+                            mbsim.start();       
+                            
+                            Dictionary mbean_props = new Properties();                                              
+                            ModbusSimMBean msimmb = new ModbusSimMBeanImpl(mbsim);
+                            String strProp  = "com.ceos.merlot:type=sim,name=com.ceos.modbus.sim,id="+key;
+                            mbean_props.put("jmx.objectname", strProp);                        
+                            bundleContext.registerService(new String[]{ModbusSimMBean.class.getName()}, msimmb, mbean_props);                              
+                                                                                    
                         }
                         
+
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

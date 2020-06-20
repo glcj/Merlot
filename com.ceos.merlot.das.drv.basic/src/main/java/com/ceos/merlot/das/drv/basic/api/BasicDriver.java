@@ -20,6 +20,7 @@ under the License.
 package com.ceos.merlot.das.drv.basic.api;
 
 import com.ceos.merlot.api.Driver;
+import java.time.LocalDateTime;
 import org.apache.plc4x.java.api.PlcConnection;
 import org.apache.plc4x.java.spi.PlcDriver;
 import org.osgi.framework.BundleContext;
@@ -34,8 +35,7 @@ public interface BasicDriver extends Driver {
     
     public PlcConnection getPlcConnection();
     
-    public void setUrl(String url);
+
     
-    public String getUrl();    
 
 }

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1592583791970
+Build-Jdk: 11.0.4
+Built-By: cgarcia
+Bundle-Blueprint: OSGI-INF/blueprint/iotdb-jdbc-service.xml
+Bundle-Description: IoTDB JDBC driver with plugins required to run in Ka
+ raf. Evaluate a PR for the IoTDB project.
+Bundle-ManifestVersion: 2
+Bundle-Name: Merlot :: iotdb :: JDBC DataSource
+Bundle-SymbolicName: com.ceos.merlot.iotdb.jdbc
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.ceos.merlot.iotdb.jdbc.core;version="0.0.1.SNAPSHOT"
+ ;uses:="javax.sql,org.osgi.service.jdbc"
+Export-Service: org.osgi.service.jdbc.DataSourceFactory;osgi.jdbc.driver
+ .class=org.apache.iotdb.jdbc.IoTDBDriver;osgi.jdbc.driver.name=IoTDB;os
+ gi.jdbc.driver.version=0.9.3;osgi.service.blueprint.compname=IoTDBDataS
+ ourceFactory
+Import-Package: javax.sql,org.apache.iotdb.jdbc,org.ops4j.pax.jdbc.commo
+ n,org.osgi.service.blueprint;version="[1.0.0,2.0.0)",org.osgi.service.j
+ dbc;version="[1.0,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-4.2.0.201903051501

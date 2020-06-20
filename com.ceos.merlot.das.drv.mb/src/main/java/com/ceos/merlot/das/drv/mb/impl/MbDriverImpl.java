@@ -46,18 +46,17 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(MbDriverImpl.class);
    
-    private Boolean started = false;    
-    private Boolean connected = false;
-  
+
     
     public MbDriverImpl(BundleContext bc) {
         super(bc);   
         this.bc = bc;
-        this.plcDriver =  null;                        
+        this.plcDriver =  null;  
+        this.stats_min_delay = 10000000L;
     }
     
     @Override
-    public void init() throws Exception {
+    public void init() throws Exception {       
         
         RequestExecutor  = Executors.newCachedThreadPool();
         ResponseExecutor = Executors.newCachedThreadPool();
@@ -76,6 +75,7 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
         RequestDisruptor.handleEventsWith(new EventHandler<DriverEvent>() {
             @Override
             public void onEvent(DriverEvent rxevent, long sequence, boolean endOfBatch) throws Exception {
+                long start = System.currentTimeMillis();
                 PlcReadResponse plcReadResponse = null;
                 PlcWriteResponse  plcWriteResponse = null;
                 
@@ -120,6 +120,7 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
                                 break;                          
                         }
                     }
+                    
                     txevent.setSequence(ressequence);
                     txevent.setFunctionCode(rxevent.getFunctionCode());
                     txevent.setPlcReadResponse(plcReadResponse);
@@ -127,13 +128,26 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
                     txevent.setCallback(rxevent.getCallback());
                     
                     rxevent.setCallback(null);
+                    stats_SendMessages++;
                     
                 } catch (Exception ex) {
                     // TODO Auto-generated catch block
+                    stats_FailedMessages++;
                     ex.printStackTrace();
                     LOGGER.info("RequestDisruptor: " + ex.toString());
                 } finally {
+                    connected = plcConn.isConnected();
+                    if (!connected){
+                        if (!stats_RunningTime.isSuspended()) stats_RunningTime.suspend();
+                        if (stats_StoppedTime.isSuspended()) stats_StoppedTime.resume();                
+                    }
+                    
+                    
                     ResponseRingBuffer.publish(ressequence);
+                    long finish = System.currentTimeMillis();
+                    stats_delay = finish - start;
+                    if (stats_delay > stats_max_delay){stats_max_delay = stats_delay;};
+                    if (stats_delay < stats_min_delay){stats_min_delay = stats_delay;};                    
                 }
             }
         });
@@ -148,7 +162,10 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        });        
+        });    
+        
+        RequestDisruptor.start();
+        ResponseDisruptor.start();
                          
     }    
     
@@ -166,7 +183,6 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
                 if (plcDriver != null){
                     LOGGER.info("PlcDriver name: {}",plcDriver.getProtocolName());
                     LOGGER.info("PlcDriver code: {}",plcDriver.getProtocolCode());
-                    System.out.println("Conexión a: " + url);
                     try {
                         plcConn = plcDriver.connect(url);
                         plcConn.connect();
@@ -198,11 +214,11 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
     @Override
     public void stop() {
         super.stop();
+        started = false;
         if (connected) {
             try{
                 plcConn.close();
                 connected = plcConn.isConnected();             
-                started = false;
                 if (!connected){
                     LOGGER.info("Disconnected from ({}).",url);
                 }                
@@ -219,8 +235,8 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
                 plcConn.connect();
                 connected = plcConn.isConnected();
                 if (!connected){
-                    LOGGER.info("Native driver don't connect to ({}).",url);
-                }                
+                    LOGGER.info("Native driver don't connect to ({}).",url);                     
+                }          
             }
             catch (Exception ex) {
                 LOGGER.info("Reconnect: " + ex.toString());
@@ -229,6 +245,13 @@ public class MbDriverImpl extends BasicDriverImpl implements MbDriver, Job {
         
         try{
             connected = plcConn.isConnected();
+            if (connected){
+                if (stats_RunningTime.isSuspended()) stats_RunningTime.resume();
+                if (!stats_StoppedTime.isSuspended()) stats_StoppedTime.suspend();                
+            } else {
+                if (!stats_RunningTime.isSuspended()) stats_RunningTime.suspend();
+                if (stats_StoppedTime.isSuspended()) stats_StoppedTime.resume();                  
+            }
         } catch  (Exception ex) {
             LOGGER.info("Connected?: " + ex.toString());
         }

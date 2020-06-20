@@ -46,15 +46,20 @@ public class ModbusSimRandomImpl extends ModbusSimImpl {
         Double value = 0.0;
         if (!started) return;
         if (tagF != null) {
+            if (tagX != null) {
+                x = getValue(mbdev,tagX,0);
+            }               
             for (int i=0; i<tagF.range; i++) {
                 switch(tagF.stType){
                     case pvBoolean: 
-                        value = random.nextBoolean()?1.0:0.0;
+                        value = (random.nextBoolean()?1.0:0.0) * x ;
                         putValue(value, mbdev,tagF,i);
+                        f = value;
                         break;
                     default: {                       
-                        value = random.nextDouble()*100;                      
+                        value = random.nextDouble() * x;                      
                         putValue(value, mbdev,tagF,i);
+                        f = value;
                     }
                 }
             }

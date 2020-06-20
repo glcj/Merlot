@@ -35,7 +35,7 @@ import org.epics.pvdata.pv.ScalarType;
 public class ModbusSimImpl implements ModbusSim {
 
     protected ModbusDevice mbdev;
-    protected String strFunction = null;
+    protected String strFunction = "";
     protected String[] strVariables = null;
     protected DoubleEvaluator eval;
     protected TagPoint tagF = null;
@@ -48,6 +48,11 @@ public class ModbusSimImpl implements ModbusSim {
     
     protected boolean init = false;
     protected boolean started = false;
+    
+    protected double f = 0.0;
+    protected double x = 0.0;
+    protected double y = 0.0;
+    protected double z = 0.0;
     
 
     public ModbusSimImpl(ModbusDevice mbdev) {
@@ -71,8 +76,7 @@ public class ModbusSimImpl implements ModbusSim {
         if (strVariables.length>3)
         if (strVariables[3] != null){       
             tagZ = getTag(mbdev, strVariables[3]);           
-        }        
-        
+        }                
     }
 
     @Override
@@ -95,12 +99,11 @@ public class ModbusSimImpl implements ModbusSim {
     
     @Override
     public void setFunction(String strFunction) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public String getFunction() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return strFunction;
     }    
 
     @Override
@@ -117,6 +120,51 @@ public class ModbusSimImpl implements ModbusSim {
     public void execute(JobContext context) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    public double getF(){
+        return f;
+    };
+
+    @Override
+    public void setF(double F) {
+       if (tagF != null){
+           putValue(F, mbdev, tagF, 0);
+       }
+    }
+    
+    public double getX(){
+        return x;
+    };    
+    
+    @Override
+    public void setX(double X) {
+       if (tagX != null){
+           putValue(X, mbdev, tagX, 0);
+       }
+    }    
+    
+    public double getY(){
+        return y;
+    };    
+    
+    @Override
+    public void setY(double Y) {
+       if (tagY != null){
+           putValue(Y, mbdev, tagY, 0);
+       }
+    }        
+    
+    public double getZ(){
+        return z;
+    };     
+    
+    @Override
+    public void setZ(double Z) {
+       if (tagZ != null){
+           putValue(Z, mbdev, tagZ, 0);
+       }
+    }    
+    
     
     public static Double getValue(ModbusDevice mbdev, TagPoint tag, int index){
         Double value = null;
@@ -229,7 +277,6 @@ public class ModbusSimImpl implements ModbusSim {
         int end = -1;  
         
         if (fields.length == 2) {
-            System.out.println("Compo1_: " + fields[1]);
             start = fields[1].indexOf("[");
             end = fields[1].indexOf("]"); 
             if ((start == -1) && (end == -1)) {
@@ -353,6 +400,8 @@ public class ModbusSimImpl implements ModbusSim {
         
         return tag;
     }
+    
+    
     
     
     class TagPoint {

@@ -24,7 +24,7 @@ function demo_sawtooth()
 
 
 
-    my_plot_desc          = "ModSim signal Sawtooth";
+    my_plot_desc          = "ModbusSim signal Sawtooth";
     my_handle.figure_name = my_plot_desc;
 
 //Tomaremos la muestra por punto de muestro

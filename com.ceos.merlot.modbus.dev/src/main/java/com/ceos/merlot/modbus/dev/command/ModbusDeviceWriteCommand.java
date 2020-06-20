@@ -21,11 +21,14 @@ package com.ceos.merlot.modbus.dev.command;
 
 import com.ceos.merlot.modbus.dev.api.ModbusDevice;
 import com.ceos.merlot.modbus.dev.api.ModbusDeviceArray;
+import com.ceos.merlot.modbus.dev.core.ModbusDeviceHelper;
 import org.apache.karaf.shell.api.action.Action;
 import org.apache.karaf.shell.api.action.Argument;
 import org.apache.karaf.shell.api.action.Command;
+import org.apache.karaf.shell.api.action.Option;
 import org.apache.karaf.shell.api.action.lifecycle.Reference;
 import org.apache.karaf.shell.api.action.lifecycle.Service;
+import org.epics.pvdata.pv.ScalarType;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
@@ -40,46 +43,40 @@ public class ModbusDeviceWriteCommand implements Action {
     int uid;
     
     //@Option(name = "-r", aliases = { "--reg" }, description = "The data bank to dump.", required = true, multiValued = false)
-    @Argument(index = 1, name = "type", description = "1:Digital register, 2:Coil, 3:Input register, 4:Holding register.", required = true, multiValued = false)    
-    int type;
+    @Argument(index = 1, name = "type", description = "0:Digital output coil, 1:Digital input Coil, 3:Input register, 4:Holding register.", required = true, multiValued = false)    
+    int registerType = -1;
     
     //@Option(name = "-s", aliases = { "--start" }, description = "The initial register.", required = true, multiValued = false)
     @Argument(index = 2, name = "register", description = "Register address in the device.", required = true, multiValued = false)     
     int register;
+    
+    @Argument(index = 3, name = "scalar", description = "Scalar for the value.", required = true, multiValued = false)     
+    String scalar;    
 
     //@Option(name = "-l", aliases = { "--length" }, description = "Number of registers to dump.", required = true, multiValued = false)
-    @Argument(index = 3, name = "value", description = "Value to write.", required = true, multiValued = false)     
-    short value;     
+    @Argument(index = 4, name = "value", description = "Value to write.", required = true, multiValued = false)     
+    double value = 0.0;     
+    
+    @Option(name = "-l", aliases = { "--le" }, description = "Use Little Endian format.", required = false, multiValued = false)    
+    boolean blnLE = false;
     
     Boolean boolValue = false;
     
-	public Object execute() throws Exception {
+    public Object execute() throws Exception {
 
         try {
-            //Bundle bundle = bundleContext.getSe
-        	ServiceReference<?> reference = bundleContext.getServiceReference(ModbusDeviceArray.class.getName());
-        	ModbusDeviceArray mdbarray = (ModbusDeviceArray) bundleContext.getService(reference);
-        	ModbusDevice mbd =  (ModbusDevice) mdbarray.getModbusDevicesArray()[uid];
-        	if (mbd != null) {         		
-        		switch (type) {
-        			case 1: boolValue = (value > 0)?true:false;
-        					mbd.setDiscreteInput(register, boolValue);
-        					break;
-        			case 2: boolValue = (value > 0)?true:false;
-        					mbd.setCoil(register, boolValue);
-        					break;
-        			case 3: mbd.setInputRegister(register,  value);
-        					break;
-        			case 4: mbd.setHoldingRegister(register, value);
-        					break;
-        			default: System.out.println("No data �rea deine.");
-        					break;
-        		}
-        	};
+            ServiceReference<?> reference = bundleContext.getServiceReference(ModbusDeviceArray.class.getName());
+            ModbusDeviceArray mdbarray = (ModbusDeviceArray) bundleContext.getService(reference);
+            ModbusDevice mbd =  (ModbusDevice) mdbarray.getModbusDevicesArray()[uid];
+            ScalarType valueScalar = ScalarType.getScalarType(scalar);
+                       
+            ModbusDeviceHelper.putValue(value, mbd, valueScalar, registerType, register, blnLE);
+
         } catch (NumberFormatException ex) {
             // It was not a number, so ignore.
+            ex.printStackTrace();
         }
-		return null;
-	}
+            return null;
+    }
 
 }

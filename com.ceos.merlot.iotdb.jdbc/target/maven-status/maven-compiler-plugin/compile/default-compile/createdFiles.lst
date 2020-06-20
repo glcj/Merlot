@@ -1,0 +1,3 @@
+com\ceos\merlot\iotdb\jdbc\core\IoTDBDataSourceFactory.class
+com\ceos\merlot\iotdb\jdbc\core\IoTDBCommonDataSource.class
+com\ceos\merlot\iotdb\jdbc\core\IoTDBDataSource.class

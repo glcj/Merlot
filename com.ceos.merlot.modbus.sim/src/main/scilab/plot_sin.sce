@@ -24,7 +24,7 @@ function demo_sin()
 
 
 
-    my_plot_desc          = "ModSim signal sine";
+    my_plot_desc          = "ModbusSim signal sine";
     my_handle.figure_name = my_plot_desc;
 
 //Tomaremos la muestra por punto de muestro

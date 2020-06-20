@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
  * @author cgarcia
  */
 public class BasicDeviceManagedService implements ManagedServiceFactory, Job {
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicDeviceManagedService.class);     
     private final BundleContext bundleContext;
     private static Map<String, Dictionary<String, ?>> waitingConfigs = null;     
@@ -127,12 +128,11 @@ public class BasicDeviceManagedService implements ManagedServiceFactory, Job {
     }
     
     @Override
-    public void execute(JobContext arg0) {
+    public void execute(JobContext arg0) {       
         String pid = null;
         Dictionary<String, ?> props = null;
         Set<String> keys = new HashSet<>();
         keys.addAll(waitingConfigs.keySet());
-        System.out.println("execute...");
         for (String key:keys){
             pid = key;
             props = waitingConfigs.remove(key);            

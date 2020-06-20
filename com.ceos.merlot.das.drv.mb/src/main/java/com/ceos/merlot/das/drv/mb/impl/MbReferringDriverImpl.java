@@ -19,6 +19,8 @@ under the License.
 
 package com.ceos.merlot.das.drv.mb.impl;
 
+import com.ceos.merlot.das.drv.basic.api.BasicDriverMBean;
+import com.ceos.merlot.das.drv.basic.impl.BasicDriverMBeanImpl;
 import com.ceos.merlot.das.drv.mb.api.MbDevice;
 import com.ceos.merlot.das.drv.mb.api.MbDriver;
 import com.ceos.merlot.scheduler.api.Job;
@@ -76,6 +78,13 @@ public class MbReferringDriverImpl implements Driver{
                         //TODO: Change to "attach" method
                         device.attach(mbdrv);
                         refbc.registerService(new String[]{Driver.class.getName(), Job.class.getName()}, mbdrv, properties); 
+                        
+                        //Add the MBean
+                        Hashtable mbean_props = new Hashtable();
+                        BasicDriverMBean mbean = new BasicDriverMBeanImpl(mbdrv);
+                        String strProp  = "org.apache.karaf:type=merlot,name=" + MbDeviceImpl.MB_DEVICE_CATEGORY+",id="+(String) reference.getProperty(Constants.DEVICE_SERIAL);
+                        mbean_props.put("jmx.objectname", strProp);
+                        refbc.registerService(new String[]{BasicDriverMBean.class.getName()}, mbean, mbean_props);                        
                     }
                     return 1;
                 }                                     

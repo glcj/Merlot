@@ -85,7 +85,7 @@ public class S7DriverImpl extends BasicDriverImpl implements S7Driver, Job{
 
                     switch(rxevent.getFunctionCode()) {
                         case FC_WRITE_DATA_BYTES:
-                             plcWriteResponse = rxevent.getPlcWriteRequest().execute().get(1, TimeUnit.SECONDS);
+                            plcWriteResponse = rxevent.getPlcWriteRequest().execute().get(1, TimeUnit.SECONDS);
                             break;
                         case FC_READ_MEMORY_BYTES:
                             plcReadResponse = rxevent.getPlcReadRequest().execute().get(2, TimeUnit.SECONDS);                            

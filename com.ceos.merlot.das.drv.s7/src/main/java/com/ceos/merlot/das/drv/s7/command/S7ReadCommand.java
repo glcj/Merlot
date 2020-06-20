@@ -106,15 +106,15 @@ public class S7ReadCommand implements Action, DriverCallback  {
             case UINT:
             case INT:
             case DINT:
-                System.out.println("CHAR|STRING: " + response.getAllIntegers(userRef) + "\r\n");
+                System.out.println("WORD|USINT|SINT|UINT|INT|DINT: " + response.getAllIntegers(userRef) + "\r\n");
                 break;
             case UDINT:
             case ULINT:
             case LINT:
-                System.out.println("CHAR|STRING: " + response.getAllLongs(userRef) + "\r\n");                
+                System.out.println("UDINT|ULINT|LINT: " + response.getAllLongs(userRef) + "\r\n");                
                 break;
             case BOOL:
-                System.out.println("DATE: " + response.getAllBooleans(userRef) + "\r\n");                 
+                System.out.println("BOOL: " + response.getAllBooleans(userRef) + "\r\n");                 
                 break;
             case REAL:
             case LREAL:
@@ -122,7 +122,7 @@ public class S7ReadCommand implements Action, DriverCallback  {
                 break;
             case DT:
             case DATE_AND_TIME:
-                System.out.println("DATE_AND_TIME: " + response.getAllDateTimes(userRef) + "\r\n");                  
+                System.out.println("DT|DATE_AND_TIME: " + response.getAllDateTimes(userRef) + "\r\n");                  
                 break;
             case DATE:
                 System.out.println("DATE: " + response.getAllDates(userRef) + "\r\n");                 
@@ -135,7 +135,7 @@ public class S7ReadCommand implements Action, DriverCallback  {
                 break;
             case TOD:
             case TIME_OF_DAY:
-                System.out.println("TIME_OF_DAY: " + response.getAllTimes(userRef) + "\r\n");
+                System.out.println("TOD|TIME_OF_DAY: " + response.getAllTimes(userRef) + "\r\n");
                 break;               
             default:
                 throw new NotImplementedException("The response type for datatype " + requestField.getDataType() + " is not yet implemented");                

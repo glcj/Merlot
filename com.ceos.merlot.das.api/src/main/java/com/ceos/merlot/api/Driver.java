@@ -20,22 +20,55 @@ under the License.
 package com.ceos.merlot.api;
 
 import com.ceos.merlot.core.Merlot;
+import java.time.LocalDateTime;
 
 
 public interface Driver extends org.osgi.service.device.Driver {
 	
-	public void init() throws Exception;
-	
-	public void destroy() throws Exception;
-	
-	public void start();
-	
-	public void stop();	
+    public void init() throws Exception;
 
-        public void putEvent(DriverEvent event);   
+    public void destroy() throws Exception;
+
+    public void start();
+
+    public void stop();	
         
-	public DriverEvent getEvent();
-	
-        public DriverEvent EventFactory(Merlot m);
+    public void setUrl(String url);
+    
+    public String getUrl();   
+    
+    public LocalDateTime getStartDateTime();
+    
+    public LocalDateTime getLastFailDateTime();
+    
+    public long getRunningTime();
+    
+    public long getStoppedTime();    
+    
+    public long getSendMessages();
+    
+    public long getFailedMessages();          
+        
+    public long getDelay();
+    
+    public long getMaxDelay();
+    
+    public long getMinDelay();
+        
+    public void putEvent(DriverEvent event);   
+
+    public DriverEvent getEvent();
+
+    public DriverEvent EventFactory(Merlot m);
+    
+    public long getRequestQueueSize();
+    
+    public long getRequestQueueItems();   
+
+    public long getResponseQueueSize();
+    
+    public long getResponseQueueItems();      
+        
+      
 
 }

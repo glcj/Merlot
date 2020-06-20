@@ -1,0 +1,38 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1592583792243
+Build-Jdk: 11.0.4
+Built-By: cgarcia
+Bundle-Blueprint: OSGI-INF/blueprint/modbus-sim-service.xml
+Bundle-Description: Simulation module for Modbus server. It allows simul
+ ating individual values,or generating noise in a range.
+Bundle-ManifestVersion: 2
+Bundle-Name: Merlot :: mb :: Modbus value simulator
+Bundle-SymbolicName: com.ceos.merlot.modbus.sim
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.ceos.merlot.modbus.sim.api;version="0.0.1.SNAPSHOT";
+ uses:="com.ceos.merlot.scheduler.api",com.ceos.merlot.modbus.sim.comman
+ d;version="0.0.1.SNAPSHOT";uses:="org.apache.karaf.shell.api.action,org
+ .apache.karaf.shell.api.action.lifecycle",com.ceos.merlot.modbus.sim.co
+ re;version="0.0.1.SNAPSHOT";uses:="com.ceos.merlot.modbus.dev.api,org.o
+ sgi.framework,org.osgi.service.cm",com.ceos.merlot.modbus.sim.impl;vers
+ ion="0.0.1.SNAPSHOT";uses:="com.ceos.merlot.modbus.dev.api,com.ceos.mer
+ lot.modbus.sim.api,com.ceos.merlot.scheduler.api,com.fathzer.soft.javal
+ uator,javax.management"
+Export-Service: org.osgi.service.cm.ManagedService;service.pid=com.ceos.
+ merlot.modbus.sim;osgi.service.blueprint.compname=ModbusSimManagedServi
+ ce
+Import-Package: com.ceos.merlot.modbus.dev.api;version="[0.0,1)",com.ceo
+ s.merlot.modbus.sim.api;version="[0.0,1)",com.ceos.merlot.modbus.sim.co
+ re;version="[0.0,1)",com.ceos.merlot.modbus.sim.impl;version="[0.0,1)",
+ com.ceos.merlot.scheduler.api;version="[0.0,1)",com.fathzer.soft.javalu
+ ator,io.netty.buffer;version="[4.1,5)",javax.management,org.apache.kara
+ f.shell.api.action;version="[4.1,5)",org.apache.karaf.shell.api.action.
+ lifecycle;version="[4.1,5)",org.epics.pvdata.pv;version="[6.1,7)",org.o
+ sgi.framework;version="[1.8,2)",org.osgi.service.blueprint;version="[1.
+ 0.0,2.0.0)",org.osgi.service.cm;version="[1.4,2)"
+Import-Service: com.ceos.merlot.modbus.dev.api.ModbusDeviceArray;multipl
+ e:=false
+Karaf-Commands: com.ceos.merlot.modbus.sim.command*
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-4.2.0.201903051501

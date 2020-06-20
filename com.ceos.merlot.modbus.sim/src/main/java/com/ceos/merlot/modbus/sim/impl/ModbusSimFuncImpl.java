@@ -45,10 +45,10 @@ public class ModbusSimFuncImpl extends ModbusSimImpl {
     public void execute(JobContext context) {
         Double result = 0.0;
         if (!started) return;
-        double f = getValue(mbdev,tagF,0);
-        double x = getValue(mbdev,tagX,0); 
-        double y = getValue(mbdev,tagY,0);
-        double z = getValue(mbdev,tagZ,0);
+        f = getValue(mbdev,tagF,0);
+        x = getValue(mbdev,tagX,0); 
+        y = getValue(mbdev,tagY,0);
+        z = getValue(mbdev,tagZ,0);
         if (tagF != null) {
             variables.set("f", f);
         }

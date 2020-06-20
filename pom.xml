@@ -1,88 +1,259 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        
     
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ceos.merlot</groupId>
-    <artifactId>Merlot</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <feature.version>0.0.1-SNAPSHOT</feature.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-   
-    <repositories>
-        <repository>
-            <id>sonatype-nexus</id>
-            <name>OSS</name>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>     
-        <repository>
-            <id>apache-repo</id>
-            <name>Apache</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>          
+  
+  <modelVersion>4.0.0</modelVersion>
+        
+  
+  <groupId>com.ceos.merlot</groupId>
+        
+  
+  <artifactId>Merlot</artifactId>
+        
+  
+  <version>0.0.1-SNAPSHOT</version>
+        
+  
+  <packaging>pom</packaging>
+        
+  
+  <properties>
+                
+    
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                
+    
+    <feature.version>0.0.1-SNAPSHOT</feature.version>
+                
+    
+    <maven.compiler.source>1.8</maven.compiler.source>
+                
+    
+    <maven.compiler.target>1.8</maven.compiler.target>
+            
+  
+  </properties>
+       
+    
+  
+  <repositories>
+                
+    
+    <repository>
+                        
+      
+      <id>sonatype-nexus</id>
+                        
+      
+      <name>OSS</name>
+                        
+      
+      <url>https://repo1.maven.org/maven2/</url>
+                    
+    
+    </repository>
+             
+        
+    
+    <repository>
+                        
+      
+      <id>apache-repo</id>
+                        
+      
+      <name>Apache</name>
+                        
+      
+      <url>https://repo.maven.apache.org/maven2/</url>
+                    
+    
+    </repository>
+                  
            
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>OSS Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-    </repositories>
-
+        
     
+    <repository>
+                        
+      
+      <id>sonatype-nexus-snapshots</id>
+                        
+      
+      <name>OSS Snapshots</name>
+                        
+      
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    
+    
+    </repository>
+            
+  
+  </repositories>
+        
+  
+  
   <modules>
+            
+    
     <module>com.ceos.merlot</module>
+            
+    
     <module>com.ceos.merlot.features</module>
+            
+    
     <module>com.ceos.merlot.branding</module>
+            
+    
     <module>com.ceos.merlot.das.api</module>
+            
+    
     <module>com.ceos.merlot.das.drv.basic</module>
+            
+    
     <module>com.ceos.merlot.modbus.svr</module>
+            
+    
     <module>com.ceos.merlot.das.drv.s7</module>
+            
+    
     <!--<module>com.ceos.merlot.das.drv.mre</module>-->
+            
+    
     <module>com.ceos.merlot.db</module>
+            
+    
     <module>com.ceos.merlot.pva</module>
+            
+    
     <module>com.ceos.merlot.scheduler</module>
+            
+    
     <module>com.ceos.merlot.das</module>
+            
+    
     <module>com.ceos.merlot.das.drv.mb</module>
+            
+    
     <module>com.ceos.merlot.modbus.dev</module>
+            
+    
     <module>com.ceos.merlot.iotdb.sync</module>
+            
+    
     <module>com.ceos.merlot.iotdb.svr</module>
+            
+    
     <module>com.ceos.merlot.iotdb.htc</module>
+            
+    
     <module>com.ceos.merlot.iotdb.grafana</module>
+            
+    
     <module>com.ceos.merlot.iotdb.jdbc</module>
+            
+    
     <module>com.ceos.merlot.modbus.sim</module>
+            
+    
+    <module>com.ceos.merlot.iotdb.pbraw</module>
+            
+    
+    <module>com.ceos.merlot.iotdb.xmlrpc</module>
+            
+    
+    <module>com.ceos.merlot.rpc</module>
+      
   </modules>
-    <dependencies>
-        <dependency>
-            <groupId>org.epics</groupId>
-            <artifactId>epics-core</artifactId>
-            <version>7.0.4</version>
-            <type>pom</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.epics</groupId>
-                    <artifactId>epics-ntypes</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.epics</groupId>
-                    <artifactId>epics-pvaccess</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.epics</groupId>
-                    <artifactId>epics-pvdata</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.epics</groupId>
-                    <artifactId>epics-util</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.epics</groupId>
-                    <artifactId>jca</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+        
+  
+  <dependencies>
+                
+    
+    <dependency>
+                        
+      
+      <groupId>org.epics</groupId>
+                        
+      
+      <artifactId>epics-core</artifactId>
+                        
+      
+      <version>7.0.4</version>
+                        
+      
+      <type>pom</type>
+                        
+      
+      <exclusions>
+                                
+        
+        <exclusion>
+                                        
+          
+          <groupId>org.epics</groupId>
+                                        
+          
+          <artifactId>epics-ntypes</artifactId>
+                                    
+        
+        </exclusion>
+                                
+        
+        <exclusion>
+                                        
+          
+          <groupId>org.epics</groupId>
+                                        
+          
+          <artifactId>epics-pvaccess</artifactId>
+                                    
+        
+        </exclusion>
+                                
+        
+        <exclusion>
+                                        
+          
+          <groupId>org.epics</groupId>
+                                        
+          
+          <artifactId>epics-pvdata</artifactId>
+                                    
+        
+        </exclusion>
+                                
+        
+        <exclusion>
+                                        
+          
+          <groupId>org.epics</groupId>
+                                        
+          
+          <artifactId>epics-util</artifactId>
+                                    
+        
+        </exclusion>
+                                
+        
+        <exclusion>
+                                        
+          
+          <groupId>org.epics</groupId>
+                                        
+          
+          <artifactId>jca</artifactId>
+                                    
+        
+        </exclusion>
+                            
+      
+      </exclusions>
+                    
+    
+    </dependency>
+            
+  
+  </dependencies>
+    
+
 </project>

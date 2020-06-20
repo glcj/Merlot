@@ -41,7 +41,23 @@ public interface ModbusSim extends Job {
     
     public void setVariables(String... variables);
     
-    public String[] getVariables();    
+    public String[] getVariables();  
+    
+    public double getF();
+    
+    public void setF(double f);    
+    
+    public double getX();    
+    
+    public void setX(double x);     
+    
+    public double getY();    
+    
+    public void setY(double y);     
+    
+    public double getZ();    
+    
+    public void setZ(double z);  
     
     
 }

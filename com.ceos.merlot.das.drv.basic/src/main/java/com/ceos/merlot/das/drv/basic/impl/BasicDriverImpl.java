@@ -32,8 +32,10 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.lmax.disruptor.util.DaemonThreadFactory;
+import java.time.LocalDateTime;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.plc4x.java.api.PlcConnection;
 import org.apache.plc4x.java.api.messages.PlcReadRequest;
 import org.apache.plc4x.java.api.messages.PlcRequest;
@@ -71,6 +73,20 @@ public class BasicDriverImpl implements BasicDriver {
     protected PlcRequest plcRequest = null;
     protected PlcResponse plcResponse = null;
     protected String url = null;
+    protected Boolean started = false;    
+    protected Boolean connected = false;
+  
+    
+    //Some stats
+    protected LocalDateTime stats_StartDateTime;
+    protected LocalDateTime stats_LastFailDateTime;
+    protected StopWatch stats_RunningTime = new StopWatch() ;
+    protected StopWatch stats_StoppedTime = new StopWatch();
+    protected long stats_SendMessages = 0L;
+    protected long stats_FailedMessages = 0L;
+    protected long stats_delay = 0L;
+    protected long stats_max_delay = 0L;
+    protected long stats_min_delay = 0L;
     
     // The factory for the event
     //MerlotBasicDeviceEventFactory factory = new MerlotBasicDeviceEventFactory();
@@ -91,17 +107,18 @@ public class BasicDriverImpl implements BasicDriver {
      * 
      * @param bc 
      */
-    public BasicDriverImpl(BundleContext bc){
-        
+    public BasicDriverImpl(BundleContext bc){        
         this.bc = bc;
-        this.plcDriver =  null;
-              
-       
+        this.plcDriver =  null; 
+        this.stats_RunningTime.start(); this.stats_RunningTime.suspend();
+        this.stats_StoppedTime.start(); this.stats_StoppedTime.suspend();
     }
 
     @Override
     public void init() throws Exception {
-
+        
+        
+        
         RequestExecutor  = Executors.newCachedThreadPool();
         ResponseExecutor = Executors.newCachedThreadPool();
 
@@ -120,6 +137,7 @@ public class BasicDriverImpl implements BasicDriver {
         RequestDisruptor.handleEventsWith(new EventHandler<DriverEvent>() {
             @Override
             public void onEvent(DriverEvent rxevent, long sequence, boolean endOfBatch) throws Exception {
+                long start = System.currentTimeMillis();
                 try {
 
                     ressequence = ResponseRingBuffer.next();  // Grab the next sequence
@@ -183,6 +201,11 @@ public class BasicDriverImpl implements BasicDriver {
                     e.printStackTrace();
                 } finally {
                     ResponseRingBuffer.publish(ressequence);
+                    long finish = System.currentTimeMillis();
+                    stats_delay = finish - start;
+                    if (stats_delay > stats_max_delay){stats_max_delay = stats_delay;};
+                    if (stats_min_delay == 0L){stats_min_delay = stats_delay;};
+                    if (stats_delay < stats_min_delay){stats_min_delay = stats_delay;};
                 }
             }
         });
@@ -195,7 +218,10 @@ public class BasicDriverImpl implements BasicDriver {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });        
+        });
+
+        RequestDisruptor.start();
+        ResponseDisruptor.start();
                     
         start();
     }
@@ -210,8 +236,8 @@ public class BasicDriverImpl implements BasicDriver {
     @Override
     public void start() {
         try {
-            RequestDisruptor.start();
-            ResponseDisruptor.start();
+            if(stats_RunningTime.isSuspended()) stats_RunningTime.resume();
+            if(!stats_StoppedTime.isSuspended()) stats_StoppedTime.suspend();
         } catch (Exception ex) {
             LOGGER.info(ex.toString());
         }
@@ -220,8 +246,8 @@ public class BasicDriverImpl implements BasicDriver {
     @Override
     public void stop() {
         //TODO Evaluate drainAndHalt()
-        RequestDisruptor.halt();
-        ResponseDisruptor.halt();
+        if(!stats_RunningTime.isSuspended()) stats_RunningTime.suspend();
+        if(stats_StoppedTime.isSuspended()) stats_StoppedTime.resume();        
     }
 
     @Override
@@ -231,6 +257,7 @@ public class BasicDriverImpl implements BasicDriver {
     
     @Override
     public DriverEvent getEvent() {
+        if ((!connected) ||  (!started)) return null;
         long sequence = RequestRingBuffer.next();  // Grab the next sequence
     	DriverEvent de = RequestRingBuffer.get(sequence); // Get the entry in the Disruptor  
     	de.setSequence(sequence);
@@ -277,7 +304,7 @@ public class BasicDriverImpl implements BasicDriver {
             
     @Override
     public DriverEvent EventFactory(Merlot m) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
@@ -289,7 +316,74 @@ public class BasicDriverImpl implements BasicDriver {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public LocalDateTime getStartDateTime() {
+        return this.stats_StartDateTime;
+    }
+    
+    @Override
+    public LocalDateTime getLastFailDateTime() {
+        return this.stats_LastFailDateTime;
+    }    
+
+    @Override
+    public long getRunningTime() {
+        return this.stats_RunningTime.getTime();
+    }
+
+    @Override
+    public long getStoppedTime() {
+        return this.stats_StoppedTime.getTime();
+    }
+
+    @Override
+    public long getSendMessages() {
+        return this.stats_SendMessages;
+    }
+
+    @Override
+    public long getFailedMessages() {
+        return this.stats_FailedMessages;
+    }
+
+    @Override
+    public long getDelay() {
+        return stats_delay;
+    }
+
+    @Override
+    public long getMaxDelay() {
+        return stats_max_delay;
+    }
+
+    @Override
+    public long getMinDelay() {
+        return stats_min_delay;
+    }
+
+    @Override
+    public long getRequestQueueSize() {
+        return RequestRingBuffer.getBufferSize();
+    }
+
+    @Override
+    public long getRequestQueueItems() {
+        return (RequestRingBuffer.getBufferSize() - RequestRingBuffer.remainingCapacity());
+    }
+
+    @Override
+    public long getResponseQueueSize() {
+        return ResponseRingBuffer.getBufferSize();
+    }
+
+    @Override
+    public long getResponseQueueItems() {
+        return (ResponseRingBuffer.getBufferSize() - ResponseRingBuffer.remainingCapacity());
+    }
  
+    
+    
     
 
 }

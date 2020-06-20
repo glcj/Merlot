@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1590432534871
+Bnd-LastModified: 1592583789583
 Build-Jdk: 11.0.4
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/mb-service.xml
@@ -20,10 +20,10 @@ Export-Package: com.ceos.merlot.das.drv.mb.api;version="0.0.1.SNAPSHOT";
  das.drv.basic.impl,com.ceos.merlot.das.drv.mb.api,com.ceos.merlot.sched
  uler.api,org.apache.plc4x.java.spi,org.osgi.framework,org.osgi.service.
  device"
-Export-Service: com.ceos.merlot.das.drv.basic.api.BasicDeviceFactory;dev
- ice.factory=modbus;osgi.service.blueprint.compname=MbDeviceFactory,org.
- osgi.service.device.Driver;DRIVER_ID=com.ceos.modbus;osgi.service.bluep
- rint.compname=MbDriverReferring
+Export-Service: org.osgi.service.device.Driver;DRIVER_ID=com.ceos.modbus
+ ;osgi.service.blueprint.compname=MbDriverReferring,com.ceos.merlot.das.
+ drv.basic.api.BasicDeviceFactory;device.factory=modbus;osgi.service.blu
+ eprint.compname=MbDeviceFactory
 Import-Package: com.ceos.merlot.api;version="[0.0,1)",com.ceos.merlot.co
  re;version="[0.0,1)",com.ceos.merlot.das.drv.basic.api;version="[0.0,1)
  ",com.ceos.merlot.das.drv.basic.impl;version="[0.0,1)",com.ceos.merlot.
@@ -32,15 +32,16 @@ Import-Package: com.ceos.merlot.api;version="[0.0,1)",com.ceos.merlot.co
  duler.api;version="[0.0,1)",com.lmax.disruptor;version="[3.3,4)",com.lm
  ax.disruptor.dsl;version="[3.3,4)",com.lmax.disruptor.util;version="[3.
  3,4)",io.netty.buffer;version="[4.1,5)",org.apache.commons.lang3;versio
- n="[3.7,4)",org.apache.karaf.shell.api.action;version="[4.2,5)",org.apa
- che.karaf.shell.api.action.lifecycle;version="[4.2,5)",org.apache.karaf
- .shell.api.console;version="[4.2,5)",org.apache.karaf.shell.support.tab
- le;version="[4.2,5)",org.apache.plc4x.java.api;version="[0.6,1)",org.ap
- ache.plc4x.java.api.messages;version="[0.6,1)",org.apache.plc4x.java.ap
- i.types;version="[0.6,1)",org.apache.plc4x.java.modbus.model;version="[
- 0.6,1)",org.apache.plc4x.java.spi;version="[0.6,1)",org.osgi.framework;
- version="[1.8,2)",org.osgi.service.blueprint;version="[1.0.0,2.0.0)",or
- g.osgi.service.device;version="[1.1,2)",org.slf4j;version="[1.7,2)"
+ n="[3.7,4)",org.apache.commons.lang3.time;version="[3.7,4)",org.apache.
+ karaf.shell.api.action;version="[4.2,5)",org.apache.karaf.shell.api.act
+ ion.lifecycle;version="[4.2,5)",org.apache.karaf.shell.api.console;vers
+ ion="[4.2,5)",org.apache.karaf.shell.support.table;version="[4.2,5)",or
+ g.apache.plc4x.java.api;version="[0.6,1)",org.apache.plc4x.java.api.mes
+ sages;version="[0.6,1)",org.apache.plc4x.java.api.types;version="[0.6,1
+ )",org.apache.plc4x.java.modbus.model;version="[0.6,1)",org.apache.plc4
+ x.java.spi;version="[0.6,1)",org.osgi.framework;version="[1.8,2)",org.o
+ sgi.service.blueprint;version="[1.0.0,2.0.0)",org.osgi.service.device;v
+ ersion="[1.1,2)",org.slf4j;version="[1.7,2)"
 Import-Service: org.apache.plc4x.java.spi.PlcDriver;multiple:=false;filt
  er=(component.name=org.apache.plc4x.java.modbus.ModbusPlcDriver)
 Karaf-Commands: com.ceos.merlot.das.drv.mb.command*

@@ -39,6 +39,8 @@ public interface ModbusServer {
 
     public String getHost();
     
+    public boolean isStarted();
+    
     public void setSocketAddress(SocketAddress[] saddress);
     
     public SocketAddress[] getSocketAddress();
@@ -47,6 +49,22 @@ public interface ModbusServer {
 
     public String getElapseTime();
     
-    public void setBundleContext(BundleContext bundleContext);    
-
+    public void setBundleContext(BundleContext bundleContext);   
+    
+    public long getCheckInterval();
+    
+    public void setCheckInterval(long newCheckInterval);
+        
+    public long getLastReadThroughput();
+    
+    public long getLastWriteThroughput();
+    
+    public long getCumulativeReadBytes();
+    
+    public long getCumulativeWrittenBytes();
+    
+    public long getCurrentReadBytes();
+    
+    public long getCurrentWrittenBytes();
+    
 }

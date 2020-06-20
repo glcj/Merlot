@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="lazy">
+
+    <reference  id="EventAdminService" interface="org.osgi.service.event.EventAdmin"
+          availability="mandatory" />
+    
+    <bean id="IoTDBCollector" class="com.ceos.merlot.iotdb.htc.impl.IoTDBCollectorImpl"
+        init-method="init" destroy-method="destroy">
+        <argument ref="EventAdminService" />
+    </bean>
+    
+    <bean id="IoTDBAppender" class="com.ceos.merlot.iotdb.htc.impl.IoTDBAppenderImpl"
+        init-method="init" destroy-method="destroy">
+        <!-- <argument ref="EventAdminService" /> -->
+    </bean>
+    
+    <bean id="IoTDBAlert" class="com.ceos.merlot.iotdb.htc.impl.IoTDBAlertImpl"
+        init-method="init" destroy-method="destroy">
+        <!-- <argument ref="EventAdminService" /> -->
+    </bean>               
+
+    <service ref="IoTDBCollector" auto-export="interfaces">
+    	<service-properties> 
+            <entry key="service.pid" value="com.ceos.merlot.iotdb.htc"/>  
+            <entry key="scheduler.name" value="IoTDbCollector"/>  
+            <entry key="scheduler.period" value="5000"/>
+            <!-- <entry key="scheduler.times" value="USHORT"/> -->
+            <entry key="scheduler.immediate" value="true"/>
+            <entry key="scheduler.concurrent" value="false"/>                                                                                 
+     	</service-properties>  
+    </service>
+    
+    <service ref="IoTDBAppender" auto-export="interfaces">
+    	<service-properties>
+            <entry key="event.topics" value="decanter/collect/ceos"/>                                                                                
+     	</service-properties>  
+    </service>   
+    
+    <service ref="IoTDBAlert" auto-export="interfaces">
+    	<service-properties>
+            <entry key="event.topics" value="decanter/alert/ceos"/>                                                                                
+     	</service-properties>  
+    </service>       
+
+</blueprint>

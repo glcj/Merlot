@@ -5,7 +5,6 @@
  */
 package com.ceos.merlot.iotdb.htc.command;
 
-import org.apache.iotdb.client.WinClient;
 import org.apache.karaf.shell.api.action.Action;
 import org.apache.karaf.shell.api.action.Command;
 import org.apache.karaf.shell.api.action.lifecycle.Reference;
@@ -42,7 +41,7 @@ public class IoTDBClientCommand  implements Action {
     @Override
     public Object execute() throws Exception {
         String args[] = {"-h","127.0.0.1","-p","6667","-u","root","-pw","root"};
-        WinClient.main(args);
+        //WinClient.main(args);
         return null;
     }
     

@@ -20,14 +20,18 @@ under the License.
 package com.ceos.merlot.modbus.svr.core;
 
 import com.ceos.merlot.modbus.svr.api.ModbusServer;
+import com.ceos.merlot.modbus.svr.api.ModbusServerMBean;
 import com.ceos.merlot.modbus.svr.impl.ModbusServerImpl;
+import com.ceos.merlot.modbus.svr.impl.ModbusServerMBeanImpl;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.management.NotCompliantMBeanException;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.service.cm.ConfigurationException;
@@ -84,6 +88,7 @@ public class ModbusServerManagedService implements ManagedService {
                         ModbusServer mbServer = new ModbusServerImpl();
                         //mbServer.setSocketAddress(sas);
                         mbServer.setBundleContext(bundleContext);
+                        mbServer.setPort(port);
                         mbServer.start();
 
                         Hashtable properties = new Hashtable();
@@ -94,7 +99,20 @@ public class ModbusServerManagedService implements ManagedService {
                                 ,properties);
                         LOGGER.info("Registered ModbusDevice [{}] [{}]"
                                 ,key
-                                ,short_description);                        
+                                ,short_description);   
+
+                        Hashtable mbean_props = new Hashtable();
+                        ModbusServerMBean msmbean;
+                        try {
+                            msmbean = new ModbusServerMBeanImpl(mbServer);
+                            String strProp  = "com.ceos.merlot:type=server,name=com.ceos.modbus.svr,id="+key;
+                            mbean_props.put("jmx.objectname", strProp);                        
+                            bundleContext.registerService(new String[]{ModbusServerMBean.class.getName()}, msmbean, mbean_props);                              
+                        } catch (NotCompliantMBeanException ex) {
+                            LOGGER.info(ex.getMessage());
+                        }
+
+                        
                         
                     }
                 }                

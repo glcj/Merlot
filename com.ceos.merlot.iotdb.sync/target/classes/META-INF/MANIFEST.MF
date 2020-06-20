@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1592583790761
+Build-Jdk: 11.0.4
+Built-By: cgarcia
+Bundle-Blueprint: OSGI-INF/blueprint/iotdb-sync-service.xml
+Bundle-Description: SyncFile service wrapper.
+Bundle-ManifestVersion: 2
+Bundle-Name: Merlot :: iotdb :: SyncFile service
+Bundle-SymbolicName: com.ceos.merlot.iotdb.sync
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Service: com.ceos.merlot.iotdb.sync.api.IoTDBSyncFile;osgi.servic
+ e.blueprint.compname=IoTDBSyncFile
+Import-Package: com.ceos.merlot.iotdb.svr.api,com.ceos.merlot.scheduler.
+ api;version="[0.0,1)",org.apache.iotdb.client,org.apache.iotdb.db.conf,
+ org.apache.iotdb.db.sync.conf,org.apache.iotdb.db.sync.sender.transfer,
+ org.apache.karaf.shell.api.action;version="[4.2,5)",org.apache.karaf.sh
+ ell.api.action.lifecycle;version="[4.2,5)",org.apache.karaf.shell.suppo
+ rt.table;version="[4.2,5)",org.osgi.framework;version="[1.8,2)",org.osg
+ i.service.blueprint;version="[1.0.0,2.0.0)",org.osgi.service.cm;version
+ ="[1.5,2)",org.slf4j;version="[1.7,2)"
+Import-Service: com.ceos.merlot.iotdb.svr.api.IoTDBServerConfigLoader;mu
+ ltiple:=false
+Karaf-Commands: com.ceos.merlot.iotdb.sync.command*
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-4.2.0.201903051501

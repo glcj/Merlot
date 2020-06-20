@@ -45,21 +45,23 @@
             <argument ref="blueprintBundleContext" />
     </bean>     
 
+    <!--
     <service id="BasicDriverService" ref="BasicDriverBean" interface="org.osgi.service.device.Driver">
     	<service-properties>
             <entry key="DRIVER_ID" value="com.ceos.basic"/>                                                      
      	</service-properties>
     </service>
-    
-    <service ref="BasicDeviceManagedService" interface="org.osgi.service.cm.ManagedServiceFactory">
+    -->
+    <service ref="BasicDeviceManagedService" auto-export="interfaces">
     	<service-properties>
             <entry key="service.pid" value="com.ceos.merlot.das.devices"/>  
             <entry key="scheduler.name" value="BasicDeviceManagedService"/>  
             <entry key="scheduler.period" value="5000"/>
-            <!-- <entry key="scheduler.times" value="USHORT"/> -->
+            <entry key="scheduler.times" value="USHORT"/>
             <entry key="scheduler.immediate" value="true"/>
             <entry key="scheduler.concurrent" value="false"/>                                                                    
      	</service-properties>        
     </service>    
 
+    
 </blueprint>

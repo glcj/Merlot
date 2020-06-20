@@ -30,6 +30,10 @@
     <artifactId>com.ceos.merlot.features</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>feature</packaging>
+    
+    <properties>
+        <karaf.version>4.2.8</karaf.version>
+    </properties>    
 
     <repositories>
         <repository>
@@ -48,7 +52,7 @@
                 <plugin>
                     <groupId>org.apache.karaf.tooling</groupId>
                     <artifactId>karaf-maven-plugin</artifactId>
-                    <version>4.2.7</version>
+                    <version>4.2.8</version>
                     <extensions>true</extensions>
                 </plugin>
             </plugins>
@@ -57,23 +61,90 @@
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
-
                 <configuration>
-                    <startLevel>50</startLevel>
+                    <startLevel>10</startLevel>
                     <aggregateFeatures>true</aggregateFeatures>
                     <checkDependencyChange>true</checkDependencyChange>
                     <failOnDependencyChange>false</failOnDependencyChange>
                     <logDependencyChanges>true</logDependencyChanges>
                     <overwriteChangedDependencies>true</overwriteChangedDependencies>
+                    
+                    <bootFeatures>
+                        <feature>log</feature>                             
+                        <feature>wrap</feature>
+                        <feature>bundle</feature>
+                        
+                        <feature>config</feature>
+                        <feature>system</feature>
+                        <feature>feature</feature>
+                        <feature>package</feature>
+                        <feature>jndi</feature>                     
+                        <feature>ssh</feature>
+                        <feature>instance</feature>
+                        <feature>shell</feature>
+                        <feature>management</feature>
+                        <feature>service</feature>
+                        <feature>jaas</feature>
+                        <feature>deployer</feature>
+                        <feature>diagnostic</feature>
+                        <feature>scr</feature>
+                        <feature>http</feature>
+                        <feature>war</feature>      
+                        
+                        <feature>pax-jdbc</feature>
+                        <feature>pax-jdbc-config</feature>     
+                        <feature>jdbc</feature>                                                                                                                                                                                                 
+                    </bootFeatures> 
+                    
+                    <startupFeatures>
+                        <feature>pax-jdbc</feature>
+                        <feature>pax-jdbc-config</feature>     
+                        <feature>jdbc</feature>                         
+                    </startupFeatures>
+                        
+                    <generateConsistencyReport>c:\temp\borrar</generateConsistencyReport>
                 </configuration>
+              
             </plugin>
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.28</version>
-        </dependency>
+    <dependency>
+        <groupId>org.apache.karaf.features</groupId>
+        <artifactId>framework</artifactId>
+        <version>4.2.8</version>
+        <type>kar</type>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.karaf.features</groupId>
+        <artifactId>framework</artifactId>
+        <version>4.2.8</version>
+        <classifier>features</classifier>
+        <type>xml</type>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.karaf.features</groupId>
+        <artifactId>standard</artifactId>
+        <version>4.2.8</version>
+        <classifier>features</classifier>
+        <type>xml</type>
+    </dependency>
+    <!--
+    <dependency>
+        <groupId>org.apache.karaf.decanter</groupId>
+        <artifactId>apache-karaf-decanter</artifactId>
+        <version>4.2.8</version>
+        <classifier>features</classifier>
+        <type>xml</type>
+        <scope>runtime</scope>
+    </dependency>        
+        -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.27</version>
+        <scope>provided</scope>
+    </dependency>
     </dependencies>
 </project>

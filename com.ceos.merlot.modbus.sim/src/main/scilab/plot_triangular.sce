@@ -24,7 +24,7 @@ function demo_triangular()
 
 
 
-    my_plot_desc          = "ModSim señal triangular";
+    my_plot_desc          = "ModbusSim signal triangular";
     my_handle.figure_name = my_plot_desc;
 
 //Tomaremosla muestra por punto de muestro

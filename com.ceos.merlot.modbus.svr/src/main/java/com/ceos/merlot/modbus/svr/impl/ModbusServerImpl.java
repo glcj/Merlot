@@ -32,6 +32,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.traffic.GlobalChannelTrafficShapingHandler;
 import java.net.SocketAddress;
 import java.time.Duration;
 import java.time.Instant;
@@ -50,10 +51,13 @@ public class ModbusServerImpl implements ModbusServer {
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
     private ServerBootstrap b;
+    private GlobalChannelTrafficShapingHandler traffic;
 
     private int port = 502;
     private String host = "0.0.0.0";
     private SocketAddress[] saddress = null;
+    private boolean started = false;
+    private long checkInterval = 5000;
 
     private Date date = new Date();
     private Instant StartTime;
@@ -69,11 +73,15 @@ public class ModbusServerImpl implements ModbusServer {
     }
 
     public void start() {
-        StartServer();
+        if (!started) {
+            StartServer();
+        };
     }
 
     public void stop() {
-        ShutDownServer();
+        if (started){
+            ShutDownServer();
+        }
     }
 
     public void setBundleContext(BundleContext bundleContext) {
@@ -97,6 +105,11 @@ public class ModbusServerImpl implements ModbusServer {
     }
 
     @Override
+    public boolean isStarted() {
+        return started;
+    }
+        
+    @Override
     public void setSocketAddress(SocketAddress[] saddress) {
         this.saddress = saddress;
     }
@@ -105,15 +118,12 @@ public class ModbusServerImpl implements ModbusServer {
     public SocketAddress[] getSocketAddress() {
         return this.saddress;
     }
-    
-    
-    
 
     public void StartServer() {
         bossGroup = new NioEventLoopGroup(); // (1)
         workerGroup = new NioEventLoopGroup();
         StartTime = Instant.now();
-
+        traffic = new GlobalChannelTrafficShapingHandler(workerGroup, checkInterval);
         try {
             b = new ServerBootstrap(); // (2)
             b.group(bossGroup, workerGroup)
@@ -124,6 +134,7 @@ public class ModbusServerImpl implements ModbusServer {
                             ch.pipeline().addLast(
                                 new LengthFieldBasedFrameDecoder(1024, 4, 2),
                                 new LoggingHandler(),
+                                traffic,                                
                                 new ModbusServerADUDecoder(),
                                 new ModbusServerADUEncoder(),
                                 new ModbusServerADUHandler(bc));
@@ -180,4 +191,46 @@ public class ModbusServerImpl implements ModbusServer {
         return Duration.between(StartTime, EndTime).toString();
     }
 
+    @Override
+    public long getCheckInterval() {
+        return traffic.trafficCounter().checkInterval();
+    }
+
+    @Override
+    public void setCheckInterval(long newCheckInterval) {
+        traffic.trafficCounter().configure(newCheckInterval);
+    }
+
+    @Override
+    public long getLastReadThroughput() {
+        return traffic.trafficCounter().lastReadThroughput();
+    }
+
+    @Override
+    public long getLastWriteThroughput() {
+        return traffic.trafficCounter().lastWriteThroughput();
+    }
+
+    @Override
+    public long getCumulativeReadBytes() {
+        return traffic.trafficCounter().cumulativeReadBytes();
+    }
+
+    @Override
+    public long getCumulativeWrittenBytes() {
+        return traffic.trafficCounter().cumulativeWrittenBytes();
+    }
+
+    @Override
+    public long getCurrentReadBytes() {
+        return traffic.trafficCounter().currentReadBytes();
+    }
+
+    @Override
+    public long getCurrentWrittenBytes() {
+        return traffic.trafficCounter().currentWrittenBytes();
+    }
+
+    
+    
 }

@@ -21,7 +21,7 @@
  */
 -->
 
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="eager">
  
     
     <reference-list id="ModbusDeviceReferenceList" interface="com.ceos.merlot.modbus.dev.api.ModbusDevice"
@@ -30,7 +30,8 @@
         </reference-listener>
     </reference-list>
     
-    <bean id="ModbusDevicesList" class="com.ceos.merlot.modbus.dev.impl.ModbusDeviceArrayImpl">
+    <bean id="ModbusDevicesList" class="com.ceos.merlot.modbus.dev.impl.ModbusDeviceArrayImpl"
+            scope="singleton">
     	<property name="modbusDeviceList" ref="ModbusDeviceReferenceList" />
     </bean>
     

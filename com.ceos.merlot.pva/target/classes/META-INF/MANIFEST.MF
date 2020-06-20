@@ -1,0 +1,44 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1592583788021
+Build-Jdk: 11.0.4
+Built-By: cgarcia
+Bundle-Blueprint: OSGI-INF/blueprint/pva-service.xml
+Bundle-Description: com.ceos.merlot.pva OSGi blueprint bundle project.
+Bundle-ManifestVersion: 2
+Bundle-Name: Merlot :: pva :: Server implementation
+Bundle-SymbolicName: com.ceos.merlot.pva
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.ceos.merlot.pva.api;version="0.0.1.SNAPSHOT";uses:="
+ org.epics.pvaClient,org.epics.pvaccess.client",com.ceos.merlot.pva.comm
+ and;version="0.0.1.SNAPSHOT";uses:="org.apache.karaf.shell.api.action,o
+ rg.apache.karaf.shell.api.action.lifecycle,org.epics.pvaClient",com.ceo
+ s.merlot.pva.core;version="0.0.1.SNAPSHOT";uses:="org.epics.pvaccess.cl
+ ient,org.epics.pvaccess.client.rpc,org.epics.pvaccess.server.rpc,org.ep
+ ics.pvdata.pv",com.ceos.merlot.pva.impl;version="0.0.1.SNAPSHOT";uses:=
+ "com.ceos.merlot.pva.api,org.epics.pvaClient,org.epics.pvaccess.client"
+Export-Service: org.epics.pvaccess.client.impl.remote.ClientContextImpl;
+ osgi.service.blueprint.compname=ClientContextImpl,com.ceos.merlot.pva.a
+ pi.MerlotPvaServer;osgi.service.blueprint.compname=PvaServerBean,com.ce
+ os.merlot.pva.api.MerlotPvaClient;osgi.service.blueprint.compname=Merlo
+ tPvaClient
+Import-Package: com.ceos.merlot.pva.api;version="[0.0,1)",com.ceos.merlo
+ t.pva.core;version="[0.0,1)",org.apache.karaf.shell.api.action;version=
+ "[4.2,5)",org.apache.karaf.shell.api.action.lifecycle;version="[4.2,5)"
+ ,org.apache.karaf.shell.api.console;version="[4.2,5)",org.epics.pvaClie
+ nt;version="[4.3,5)",org.epics.pvaccess;version="[5.1,6)",org.epics.pva
+ ccess.client;version="[5.1,6)",org.epics.pvaccess.client.impl.remote,or
+ g.epics.pvaccess.client.rpc;version="[5.1,6)",org.epics.pvaccess.impl.r
+ emote.utils,org.epics.pvaccess.server.impl.remote,org.epics.pvaccess.se
+ rver.rpc;version="[5.1,6)",org.epics.pvaccess.util;version="[5.1,6)",or
+ g.epics.pvaccess.util.configuration;version="[5.1,6)",org.epics.pvacces
+ s.util.configuration.impl,org.epics.pvdata.copy;version="[6.1,7)",org.e
+ pics.pvdata.factory;version="[6.1,7)",org.epics.pvdata.misc;version="[6
+ .1,7)",org.epics.pvdata.property;version="[6.1,7)",org.epics.pvdata.pv;
+ version="[6.1,7)",org.osgi.service.blueprint;version="[1.0.0,2.0.0)",or
+ g.slf4j;version="[1.7,2)"
+Import-Service: org.epics.pvaccess.client.ChannelProvider;multiple:=fals
+ e
+Karaf-Commands: com.ceos.merlot.pva.command*
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-4.2.0.201903051501

@@ -48,7 +48,6 @@ public class ModbusSimSignalImpl extends ModbusSimImpl {
     public void execute(JobContext context) {
         
         Double result = 0.0;
-        double f = 0.0;
         double frecuencia = 0.5; 
         double fase = 0.0;
         double magnitud = 1.0;
@@ -64,13 +63,16 @@ public class ModbusSimSignalImpl extends ModbusSimImpl {
         
         if (tagX != null) {
             frecuencia = getValue(mbdev,tagX,0);
+            x = frecuencia;
         }
         if (tagY != null) {
             fase = getValue(mbdev,tagY,0);
+            y = fase;
         }
         
         if (tagZ != null) {
             magnitud = getValue(mbdev,tagZ,0);
+            z = magnitud;
         } 
         
         if (strFunction != null) {
@@ -79,13 +81,13 @@ public class ModbusSimSignalImpl extends ModbusSimImpl {
         
         if (tagF != null) {
             putValue(result, mbdev,tagF,0);
+            f = result;          
         }
         
         paso = paso + 2*Math.PI*frecuencia/10;         
         
     }
-    
-               
+                   
     private Double getSignalValue(ModbusSimSignalType signal, Double t, Double fase){
         Double value = 0.0;
         switch(signal){
