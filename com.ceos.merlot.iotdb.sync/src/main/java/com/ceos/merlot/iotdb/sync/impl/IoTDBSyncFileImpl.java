@@ -15,8 +15,8 @@ import java.nio.channels.FileLock;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.sync.conf.SyncSenderConfig;
 import org.apache.iotdb.db.sync.conf.SyncSenderDescriptor;
-import org.apache.iotdb.db.sync.sender.transfer.DataTransferManager;
-import org.apache.iotdb.db.sync.sender.transfer.IDataTransferManager;
+import org.apache.iotdb.db.sync.sender.manage.SyncFileManager;
+import org.apache.iotdb.db.sync.sender.transfer.SyncClient;
 import org.osgi.framework.BundleContext;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +28,7 @@ public class IoTDBSyncFileImpl implements IoTDBSyncFile, Job {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(IoTDBSyncFileImpl.class);   
     
     private static SyncSenderConfig config = null;
-    private IDataTransferManager dtm = null;
+    private SyncClient syncli = null;
 
     private BundleContext bundleContext;
     private boolean started = false;
@@ -41,22 +41,22 @@ public class IoTDBSyncFileImpl implements IoTDBSyncFile, Job {
     @Override
     public void init() {       
         config = SyncSenderDescriptor.getInstance().getConfig();
-        dtm = DataTransferManager.getInstance();
+        syncli = SyncClient.getInstance();
     }
 
     //TODO: Remove lock file
     @Override
     public void destroy() {
-        dtm.stop();
+        syncli.stop();
     }    
     
     @Override
     public void start() {
         try {
             //TODO: Replace verifySingleton with Karaf way lock. System.exit(1)!!!!
-            verifySingleton();
-            dtm.startMonitor();
-            dtm.startTimedTask();
+            //verifySingleton();
+            syncli.startMonitor();
+            syncli.startTimedTask();
         } catch (Exception ex) {
             ex.printStackTrace();
             LOGGER.info(ex.getMessage());
@@ -65,14 +65,14 @@ public class IoTDBSyncFileImpl implements IoTDBSyncFile, Job {
 
     @Override
     public void stop() {
-        dtm.stop();
+        syncli.stop();
     }    
     
     @Override
     public void execute(JobContext context) {
         try {
             if (started){
-                dtm.syncAll();
+                syncli.syncAll();
             };
         } catch (Exception ex) {
             
@@ -112,6 +112,7 @@ public class IoTDBSyncFileImpl implements IoTDBSyncFile, Job {
     String[] dataDirs = IoTDBDescriptor.getInstance().getConfig().getDataDirs();
     for (String dataDir : dataDirs) {
       config.update(dataDir);
+      /*
       File lockFile = new File(config.getLockFilePath());
       if (!lockFile.getParentFile().exists()) {
         lockFile.getParentFile().mkdirs();
@@ -119,9 +120,11 @@ public class IoTDBSyncFileImpl implements IoTDBSyncFile, Job {
       if (!lockFile.exists()) {
         lockFile.createNewFile();
       }
+
       if (!lockInstance(config.getLockFilePath())) {
         LOGGER.error("Sync client is already running.");
       }
+      */
     }
   }    
     

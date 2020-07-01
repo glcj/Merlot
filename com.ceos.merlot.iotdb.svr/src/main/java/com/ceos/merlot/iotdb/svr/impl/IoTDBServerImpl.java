@@ -6,6 +6,8 @@
 package com.ceos.merlot.iotdb.svr.impl;
 
 import com.ceos.merlot.iotdb.svr.api.IoTDBServer;
+import java.io.IOException;
+import java.util.logging.Level;
 import org.apache.iotdb.db.conf.IoTDBConfigCheck;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.service.IoTDB;
@@ -30,7 +32,11 @@ public class IoTDBServerImpl implements IoTDBServer {
     
     @Override
     public void init() {
-        IoTDBConfigCheck.getInstance().checkConfig();
+        try {
+            IoTDBConfigCheck.getInstance().checkConfig();
+        } catch (IOException ex) {
+            LOGGER.info(ex.getMessage());
+        }
         daemon = IoTDB.getInstance();
     }
 

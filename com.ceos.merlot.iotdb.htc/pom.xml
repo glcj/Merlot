@@ -26,12 +26,12 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-    <groupId>com.ceos.merlot.iotdb.htc</groupId>
-    <artifactId>com.ceos.merlot.iotdb.htc</artifactId>
+    <groupId>com.ceos.merlot.iotdb.decanter</groupId>
+    <artifactId>com.ceos.merlot.iotdb.decanter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
-    <name>Merlot :: iotdb :: Historical collector</name>
+    <name>Merlot :: iotdb :: Karaf Decanter</name>
     <description>com.ceos.merlot.iotdb.htc OSGi blueprint bundle project.</description>
 
     <build>
@@ -128,6 +128,11 @@
             <groupId>com.ceos.merlot.scheduler</groupId>
             <artifactId>com.ceos.merlot.scheduler</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.4.2</version>
         </dependency>
     </dependencies>
 </project>

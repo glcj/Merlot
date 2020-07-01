@@ -70,15 +70,17 @@ public class IoTDBSynFileAdminCommand implements Action {
         ShellTable table = new ShellTable();
         table.column("propertie");
         table.column("value");            
-        
+
         SyncSenderConfig config = SyncSenderDescriptor.getInstance().getConfig();
-        
+
         table.addRow().addContent("serverIp", config.getServerIp());
         table.addRow().addContent("serverPort", config.getServerPort());
         table.addRow().addContent("syncPeriodInSecond", config.getSyncPeriodInSecond());
         table.addRow().addContent("senderFolderPath", config.getSenderFolderPath());
+        /*
         table.addRow().addContent("lockFilePath", config.getLockFilePath());
         table.addRow().addContent("uuidPath", config.getUuidPath());
+        */
         table.addRow().addContent("lastFileInfoPath", config.getLastFileInfoPath());
         table.addRow().addContent("snapshotPath", config.getSnapshotPath());        
         table.addRow().addContent("maxNumOfSyncFileRetry", config.getMaxNumOfSyncFileRetry());         

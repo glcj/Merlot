@@ -114,8 +114,14 @@
             <version>0.0.1-SNAPSHOT</version>
             <type>xml</type>
             <classifier>features</classifier>
-        </dependency>
 
+        </dependency>
+        <dependency>
+            <groupId>org.apache.iotdb</groupId>
+            <artifactId>tsfile</artifactId>
+            <version>0.10.0</version>
+            <classifier>jar-with-dependencies</classifier>
+        </dependency>
     </dependencies>
 
     <build>

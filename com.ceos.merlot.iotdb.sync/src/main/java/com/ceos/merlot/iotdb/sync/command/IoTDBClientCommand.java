@@ -5,7 +5,7 @@
  */
 package com.ceos.merlot.iotdb.sync.command;
 
-import org.apache.iotdb.client.Client;
+import org.apache.iotdb.cli.Cli;
 import org.apache.karaf.shell.api.action.Action;
 import org.apache.karaf.shell.api.action.Command;
 import org.apache.karaf.shell.api.action.Option;
@@ -48,7 +48,7 @@ public class IoTDBClientCommand  implements Action {
     public Object execute() throws Exception {
         if ((host != null) && (port != null) && (user != null) && (pass != null)) {
             String args[] = {"-h",host,"-p",port,"-u",user,"-pw",pass};
-            Client.main(args);
+            Cli.main(args);
         }
         return null;
     }

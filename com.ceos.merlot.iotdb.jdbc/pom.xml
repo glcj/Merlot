@@ -47,6 +47,7 @@ Evaluate a PR for the IoTDB project.</description>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Export-Package>com.ceos.merlot.iotdb.jdbc*;version=${project.version}</Export-Package>
+                        <Karaf-Commands>com.ceos.merlot.iotdb.jdbc.command*</Karaf-Commands>   
                         <Import-Package>*</Import-Package>
                     </instructions>
                 </configuration>
@@ -60,14 +61,29 @@ Evaluate a PR for the IoTDB project.</description>
                     <maxmem>256M</maxmem>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>src/main/cfg/org.ops4j.datasource-iotdb_local.cfg</file>
+                                    <type>cfg</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>             
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>org.apache.iotdb</groupId>
-            <artifactId>iotdb-jdbc</artifactId>
-            <version>0.9.3</version>
-        </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
@@ -81,17 +97,27 @@ Evaluate a PR for the IoTDB project.</description>
         <dependency>
             <groupId>org.ops4j.pax.jdbc</groupId>
             <artifactId>pax-jdbc</artifactId>
-            <version>1.4.2</version>
+            <version>1.4.5</version>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.jdbc</groupId>
             <artifactId>pax-jdbc-common</artifactId>
-            <version>1.4.2</version>
+            <version>1.4.5</version>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.logging</groupId>
             <artifactId>pax-logging-api</artifactId>
             <version>1.11.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.shell</groupId>
+            <artifactId>org.apache.karaf.shell.core</artifactId>
+            <version>4.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.iotdb</groupId>
+            <artifactId>iotdb-jdbc</artifactId>
+            <version>0.10.0</version>
         </dependency>
     </dependencies>
 </project>

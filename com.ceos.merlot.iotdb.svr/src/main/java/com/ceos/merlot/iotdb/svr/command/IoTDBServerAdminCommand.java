@@ -106,7 +106,8 @@ public class IoTDBServerAdminCommand implements Action {
 
         //wal dir
         table.addRow().addContent("wal_dir", confIoTDB.getWalFolder()); //=data\\wal
-
+        
+        /*
         table.addRow().addContent("tsfile_storage_fs", confIoTDB.getTsFileStorageFs()); //=LOCAL
         table.addRow().addContent("core_site_path", confIoTDB.getCoreSitePath()); //=/etc/hadoop/conf/core-site.xml
         table.addRow().addContent("hdfs_site_path", confIoTDB.getHdfsSitePath()); //=/etc/hadoop/conf/hdfs-site.xml
@@ -119,10 +120,13 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("hdfs_use_kerberos", confIoTDB.isUseKerberos()); //=false
         table.addRow().addContent("kerberos_keytab_file_path", confIoTDB.getKerberosKeytabFilePath()); //=/path
         table.addRow().addContent("kerberos_principal", confIoTDB.getKerberosPrincipal()); //=your principal
-
+        */
+        
         //Memory Control Configuration
         table.addRow().addContent("write_read_free_memory_proportion", "***"); //=6:3:1
+        /*
         table.addRow().addContent("fetch_size", confIoTDB.getFetchSize()); //=10000
+        */
         table.addRow().addContent("wal_buffer_size", confIoTDB.getWalBufferSize()); //=16777216
         table.addRow().addContent("time_zone", confIoTDB.getZoneID()); //=+08:00
         table.addRow().addContent("tsfile_size_threshold", confIoTDB.getTsFileSizeThreshold()); //=536870912
@@ -173,7 +177,9 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("watermark_module_opened", confIoTDB.isEnableWatermark()); //=false
         table.addRow().addContent("watermark_secret_key", confIoTDB.getWatermarkSecretKey()); //=IoTDB*2019@Beijing
         table.addRow().addContent("watermark_bit_string", confIoTDB.getWatermarkBitString()); //=100101110100
+        /*
         table.addRow().addContent("watermark_method", confIoTDB.getWatermarkMethod()); //=GroupBasedLSBMethod(embed_row_cycle=2,embed_lsb_num=5)
+        */
 
         //Configurations for creating schema automatically
         table.addRow().addContent("enable_auto_create_schema", confIoTDB.isAutoCreateSchemaEnabled()); //=true

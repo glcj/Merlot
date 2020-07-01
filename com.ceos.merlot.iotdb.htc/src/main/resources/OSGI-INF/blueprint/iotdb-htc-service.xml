@@ -20,24 +20,24 @@
     <reference  id="EventAdminService" interface="org.osgi.service.event.EventAdmin"
           availability="mandatory" />
     
-    <bean id="IoTDBCollector" class="com.ceos.merlot.iotdb.htc.impl.IoTDBCollectorImpl"
+    <bean id="IoTDBCollector" class="com.ceos.merlot.iotdb.decanter.impl.IoTDBCollectorImpl"
         init-method="init" destroy-method="destroy">
         <argument ref="EventAdminService" />
     </bean>
     
-    <bean id="IoTDBAppender" class="com.ceos.merlot.iotdb.htc.impl.IoTDBAppenderImpl"
+    <bean id="IoTDBAppender" class="com.ceos.merlot.iotdb.decanter.impl.IoTDBAppenderImpl"
         init-method="init" destroy-method="destroy">
         <!-- <argument ref="EventAdminService" /> -->
     </bean>
     
-    <bean id="IoTDBAlert" class="com.ceos.merlot.iotdb.htc.impl.IoTDBAlertImpl"
+    <bean id="IoTDBAlert" class="com.ceos.merlot.iotdb.decanter.impl.IoTDBAlertImpl"
         init-method="init" destroy-method="destroy">
         <!-- <argument ref="EventAdminService" /> -->
     </bean>               
 
     <service ref="IoTDBCollector" auto-export="interfaces">
     	<service-properties> 
-            <entry key="service.pid" value="com.ceos.merlot.iotdb.htc"/>  
+            <entry key="service.pid" value="com.ceos.merlot.iotdb.decanter"/>  
             <entry key="scheduler.name" value="IoTDbCollector"/>  
             <entry key="scheduler.period" value="5000"/>
             <!-- <entry key="scheduler.times" value="USHORT"/> -->

@@ -129,11 +129,9 @@ public class BasicDriverImpl implements BasicDriver {
         ResponseDisruptor = new Disruptor<DriverEvent>(BasicDriverEvent.FACTORY, 1024, DaemonThreadFactory.INSTANCE,
                     ProducerType.SINGLE, new BlockingWaitStrategy());       
         
-
         RequestRingBuffer = RequestDisruptor.getRingBuffer();
         ResponseRingBuffer = ResponseDisruptor.getRingBuffer();          
-        
-        
+                
         RequestDisruptor.handleEventsWith(new EventHandler<DriverEvent>() {
             @Override
             public void onEvent(DriverEvent rxevent, long sequence, boolean endOfBatch) throws Exception {
