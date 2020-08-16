@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<property-edits xmlns="http://karaf.apache.org/tools/property-edits/1.0.0">
+    <edits>
+        <edit>
+            <file>custom.properties</file>
+            <operation>put</operation>
+            <key>merlot.iotdb.tsfile</key>
+            <value>org.apache.iotdb.tsfile;version="0.10.0"</value>
+        </edit>
+        <edit>
+            <file>custom.properties</file>
+            <operation>extend</operation>
+            <key>merlot.iotdb.tsfile</key>
+            <value>org.apache.iotdb.tsfile.read.expression.impl;version="0.10.0"</value>
+        </edit>
+        <edit>
+            <file>custom.properties</file>
+            <operation>extend</operation>
+            <key>merlot.iotdb.tsfile</key>
+            <value>org.apache.iotdb.tsfile.read.expression.impl.SingleSeriesExpression;version="0.10.0"</value>
+        </edit> 
+        <edit>
+            <file>config.properties</file>
+            <operation>extend</operation>
+            <key>org.osgi.framework.system.packages</key>
+            <value>${merlot.iotdb.tsfile}</value>
+        </edit>         
+                       
+    </edits>
+</property-edits>

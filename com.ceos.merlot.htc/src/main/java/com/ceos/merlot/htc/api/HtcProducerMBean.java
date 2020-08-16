@@ -19,9 +19,9 @@ public interface HtcProducerMBean {
     
     public void destroy();
 
-    public boolean isStarted();    
-    
-    public void addTag(String tag, String hyst, String scan);
+    public boolean isStarted(); 
+         
+    public void addTag(String tag, String ds, String hyst, String scan);
     
     public void delTag(String tag);
     
@@ -29,8 +29,11 @@ public interface HtcProducerMBean {
     
     public void setServiceRegistration(ServiceRegistration<HtcProducerMBean> registration); 
     
+    public ServiceRegistration<HtcProducerMBean>  getServiceRegistration();     
+    
     public void setHtcProducer(HtcProducer producer);
     
     public String getConfigPid();
+     
     
 }

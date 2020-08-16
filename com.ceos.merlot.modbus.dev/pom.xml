@@ -64,14 +64,10 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>
-                            com.ceos.merlot.modbus.dev*;version=${project.version}
-                        </Export-Package>
+                        <Export-Package>com.ceos.merlot.modbus.dev*;version=${project.version}</Export-Package>
+                        <Import-Package>*</Import-Package>                        
                         <Karaf-Commands>com.ceos.merlot.modbus.dev.command*</Karaf-Commands>
-                        <Import-Package>
-                            *
-                        </Import-Package>
-
+                        <!--
                         <Private-Package>  
                         	com.ceos.merlot.modbus.dev.command,
                         	org.apache.karaf.util                       
@@ -79,9 +75,20 @@
                        <DynamicImport-Package>
                        		*
                        </DynamicImport-Package>
+                                   -->
                     </instructions>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <maxmem>256M</maxmem>
+                </configuration>
+            </plugin>      
+            <!--
             <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-install-plugin</artifactId>
@@ -102,6 +109,7 @@
                     </execution>
             </executions>
             </plugin>   
+            -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

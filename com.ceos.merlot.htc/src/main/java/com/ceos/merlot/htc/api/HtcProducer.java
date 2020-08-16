@@ -24,9 +24,13 @@ public interface HtcProducer extends BundleActivator{
     
     public boolean isStarted();    
     
-    public void addTag(String tag, String hyst, String scan);
+    public void addTag(String tag, String ds, String hyst, String scan);
     
     public void delTag(String tag);
+    
+    public void setServiceRegistration(ServiceRegistration<HtcProducer> registration); 
+
+    public ServiceRegistration<HtcProducer> getServiceRegistration();     
     
     public void setConfigPid(String confipid);
     

@@ -8,20 +8,15 @@ package com.ceos.merlot.htc.impl;
 import com.ceos.merlot.htc.api.HtcEvent;
 import com.ceos.merlot.htc.api.HtcProducer;
 import com.ceos.merlot.htc.api.HtcService;
-import com.ceos.merlot.scheduler.api.Job;
-import com.ceos.merlot.scheduler.api.JobContext;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import org.epics.gpclient.GPClient;
 import org.epics.gpclient.PVEvent;
 import org.epics.gpclient.PVReader;
-import org.epics.gpclient.PVReaderConfiguration;
 import org.epics.gpclient.PVReaderListener;
 import org.epics.vtype.VType;
-import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
@@ -55,24 +50,28 @@ public class HtcProducerImpl implements HtcProducer, PVReaderListener<VType>{
     
     @Override
     public void init() {
-        System.out.println("Producer Init...");
+        System.out.println("Init...");
     }
 
     @Override
     public void destroy() {
-        System.out.println("Producer Destroy...");        
+        System.out.println("Destroy...");        
         items.forEach((key,item) ->{
             item.pvr.close();
         });  
+        try {
+            registration.unregister();
+        } catch (Exception ex) {
+            
+        }        
     }
 
     @Override
-    public void start() {
-        System.out.println("Producer Start...");        
+    public void start() {  
         pvritems.clear();        
         items.forEach((key,item) ->{
             if (item.pvr == null){
-                item.pvr = GPClient.read("pva://"+key)
+                item.pvr = GPClient.read(item.ds+"://"+key)
                         .addReadListener(this)
                         .maxRate(Duration.ofMillis(item.scan_rate))
                         .start();
@@ -83,10 +82,9 @@ public class HtcProducerImpl implements HtcProducer, PVReaderListener<VType>{
         });
         started = true;
     }
-
+    //TODO Hacer algo
     @Override
-    public void stop() {
-        System.out.println("Producer Stop...");        
+    public void stop() {  
         items.forEach((key,item) ->{
             item.pvr.setPaused(true);
         });     
@@ -107,7 +105,11 @@ public class HtcProducerImpl implements HtcProducer, PVReaderListener<VType>{
             if (htcevent != null){
                 htcevent.setTag(pvritems.get(reader).tag);
                 htcevent.setPvReader(reader);
+                htcevent.setValue(reader.getValue());
                 htc.putEvent(htcevent);
+            } else {
+                LOGGER.info("Stopping because the consumer does not respond.");
+                started = false;
             }
         } else {
             LOGGER.info(pve.toString());
@@ -115,15 +117,16 @@ public class HtcProducerImpl implements HtcProducer, PVReaderListener<VType>{
     }
 
     @Override
-    public void addTag(String tag, String hyst, String scan) {
+    public void addTag(String tag, String ds, String hyst, String scan) {
         Item item = new Item();
         try {
             item.tag = tag;
+            item.ds = ds;
             item.hyst = Double.parseDouble(hyst);
             item.scan_rate = Integer.parseInt(scan);
             //100 ms minimum sampling time.
             if (item.scan_rate < 100){ item.scan_rate = 100; };
-            
+            item.pvr = null;
             items.put(tag, item);
             
         } catch (Exception ex){
@@ -136,9 +139,16 @@ public class HtcProducerImpl implements HtcProducer, PVReaderListener<VType>{
         items.remove(tag);
     }
 
-    
-    
-    
+    @Override
+    public void setServiceRegistration(ServiceRegistration<HtcProducer> registration) {
+        this.registration = registration;
+    }
+
+    @Override
+    public ServiceRegistration<HtcProducer> getServiceRegistration() {
+        return this.registration;
+    }
+       
     @Override
     public void start(BundleContext context) throws Exception {
         Hashtable props = new Hashtable<String, String>();
@@ -168,10 +178,11 @@ public class HtcProducerImpl implements HtcProducer, PVReaderListener<VType>{
     }
    
     private class Item {
-        public String tag;
-        public PVReader<VType> pvr;
+        public String tag;        
+        public String ds;
         public Double hyst;
         public int scan_rate;
+        public PVReader<VType> pvr;        
     }
     
 }

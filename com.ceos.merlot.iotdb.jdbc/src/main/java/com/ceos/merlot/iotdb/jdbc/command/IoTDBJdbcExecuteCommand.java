@@ -23,6 +23,9 @@ import org.apache.karaf.shell.api.action.lifecycle.Service;
 import org.apache.karaf.shell.support.table.Row;
 import org.apache.karaf.shell.support.table.ShellTable;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
+import org.osgi.framework.ServiceReference;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -31,6 +34,9 @@ import org.osgi.framework.BundleContext;
 @Command(scope = "iotdb", name = "execute", description = "Command for test.")
 @Service
 public class IoTDBJdbcExecuteCommand  implements Action {
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(IoTDBJdbcQueryCommand.class);    
+    private String filter_ds =  "(&(" + Constants.OBJECTCLASS + "=" + DataSource.class.getName() + ")" +
+                        "(osgi.jndi.service.name=*))"; 
     
     @Reference
     BundleContext bundleContext;
@@ -38,16 +44,25 @@ public class IoTDBJdbcExecuteCommand  implements Action {
     @Reference(filter = "(osgi.jndi.service.name=iotdb)")
     DataSource default_iotdb;
     
-    @Argument(index = 0, name = "ds", description = "The device unit identifier.", required = false, multiValued = false)
-    String ds;
+    @Argument(index = 0, name = "ds", description = "Name of DataSource service (default = iotdb).", required = false, multiValued = false)
+    String ds = null;
   
     @Option(name = "-s", aliases = "--sentence", description = "Instruction to execute.", required = true, multiValued = false)
     String request = null;  
     
     
     @Override
-    public Object execute() throws Exception {
-        executeSentence(default_iotdb, request);
+    public Object execute() throws Exception {        
+        if ((ds == null) && (default_iotdb != null)){      
+            System.out.println("DataSource: iotdb");
+            executeSentence(default_iotdb, request);
+        } else {
+            System.out.println("DataSource: " + ds);
+            DataSource dsource = getDataSource(ds);
+            if (dsource != null){
+                executeSentence(default_iotdb, request);                    
+            }
+        }
         return null;
     }
     
@@ -64,7 +79,21 @@ public class IoTDBJdbcExecuteCommand  implements Action {
         }
     }
     
-
+    private DataSource getDataSource(String ds){
+        DataSource datasource = null;
+        try {
+            String filter = filter_ds.replace("*", ds);
+            ServiceReference[] references = bundleContext.getAllServiceReferences((String) null, filter);
+            if (references ==null) return datasource;
+            datasource = (DataSource) bundleContext.getService(references[0]);
+        } catch (Exception ex) {
+            LOGGER.info(ex.getMessage());
+        } 
+        
+        return datasource;
+    }    
+    
+    
     private static void outputResult(ResultSet resultSet) throws SQLException {
         if (resultSet != null) {
           ShellTable table = new ShellTable();

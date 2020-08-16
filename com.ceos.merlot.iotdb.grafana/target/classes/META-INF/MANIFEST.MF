@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1596049697633
+Build-Jdk: 11.0.4
+Built-By: cgarcia
+Bundle-Blueprint: OSGI-INF/blueprint/iotdb-grafana-service.xml
+Bundle-Description: Grafana to IoTDB connector. Based on Simple JSON Dat
+ asource.https://github.com/grafana/simple-json-datasource
+Bundle-ManifestVersion: 2
+Bundle-Name: Merlot :: iotdb :: Grafana IoTDB connector
+Bundle-SymbolicName: com.ceos.merlot.iotdb.grafana
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.ceos.merlot.iotdb.grafana.api;version="0.0.1.SNAPSHO
+ T",com.ceos.merlot.iotdb.grafana.core;version="0.0.1.SNAPSHOT";uses:="j
+ avax.servlet,javax.servlet.http,org.osgi.service.cm",com.ceos.merlot.io
+ tdb.grafana.impl;version="0.0.1.SNAPSHOT"
+Export-Service: javax.servlet.Servlet;alias=/iotdb/annotations;servlet-n
+ ame=Grafana annotations service;osgi.service.blueprint.compname=IoTDBGr
+ afanaAnnotationsServlet,javax.servlet.Servlet;alias=/iotdb/tag-keys;ser
+ vlet-name=Grafana tag-keys service;osgi.service.blueprint.compname=IoTD
+ BGrafanaTagKeysServlet,javax.servlet.Servlet;alias=/iotdb/search;servle
+ t-name=Grafana search service;osgi.service.blueprint.compname=IoTDBGraf
+ anaSearchServlet,javax.servlet.Servlet;alias=/iotdb/query;servlet-name=
+ Grafana query service;osgi.service.blueprint.compname=IoTDBGrafanaQuery
+ Servlet,javax.servlet.Servlet;alias=/iotdb;servlet-name=Grafana ack ser
+ vice;osgi.service.blueprint.compname=IoTDBGrafanaAckServlet,javax.servl
+ et.Servlet;alias=/iotdb/tag-values;servlet-name=Grafana tag-values serv
+ ice;osgi.service.blueprint.compname=IoTDBGrafanaTagValuesServlet
+Import-Package: javax.servlet;version="[3.1,4)",javax.servlet.http;versi
+ on="[3.1,4)",org.osgi.service.blueprint;version="[1.0.0,2.0.0)",org.osg
+ i.service.cm;version="[1.5,2)",org.slf4j;version="[1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-4.2.0.201903051501

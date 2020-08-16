@@ -17,25 +17,74 @@
 -->
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="eager">
 
-        
-    <bean id="HtcService" 
-          class="com.ceos.merlot.htc.impl.HtcServiceImpl"
+    <reference id="S88Model"
+        interface="com.ceos.merlot.model.api.Model"
+        availability="mandatory"
+        timeout="30000"/>    
+    
+    <reference id="configRepository"
+        interface="org.apache.karaf.config.core.ConfigRepository"
+        availability="mandatory"
+        timeout="30000"/>
+    
+    <bean id="HtcTsFileService" 
+          class="com.ceos.merlot.htc.impl.HtcTsFileServiceImpl"
           scope="singleton"
-          init-method="init" destroy-method="destroy"/>
+          init-method="init" destroy-method="destroy">
+          <argument ref="S88Model" /> 
+    </bean>    
+
+    <bean id="HtcService" 
+          class="com.ceos.merlot.htc.impl.HtcServerServiceImpl"
+          scope="singleton"
+          init-method="init" destroy-method="destroy">
+            <argument ref="blueprintBundleContext" />
+            <argument ref="configRepository" /> 
+            <argument ref="HtcTsFileService" /> 
+            <argument ref="S88Model" />                         
+    </bean> 
+    
+    <bean id="HtcTsFileServiceMBean" 
+          class="com.ceos.merlot.htc.impl.HtcServiceMBeanImpl"
+          scope="singleton"
+          init-method="init" destroy-method="destroy">
+          <property name="htcService" ref="HtcTsFileService"/>
+    </bean>      
+    
+    <bean id="HtcServiceMBean" 
+          class="com.ceos.merlot.htc.impl.HtcServiceMBeanImpl"
+          scope="singleton"
+          init-method="init" destroy-method="destroy">
+          <property name="htcService" ref="HtcService"/>
+    </bean>        
     
     <bean id="HtcManagedService" 
             class="com.ceos.merlot.htc.core.HtcManagedService" 
             scope="singleton"
             destroy-method="destroy">
-            <argument ref="blueprintBundleContext" />
+            <argument ref="blueprintBundleContext" />       
             <argument ref="HtcService" />
     </bean>      
     
-    <service ref="HtcService" interface="com.ceos.merlot.htc.api.HtcService"/>
+    <service ref="HtcTsFileService" interface="com.ceos.merlot.htc.api.HtcService"/>       
     
+    <service ref="HtcService" interface="com.ceos.merlot.htc.api.HtcService"/>
+        
     <service ref="HtcManagedService" auto-export="interfaces">
     	<service-properties>
             <entry key="service.pid" value="com.ceos.merlot.htc.group"/>  
+        </service-properties>
+    </service>  
+    
+    <service ref="HtcTsFileServiceMBean" interface="com.ceos.merlot.htc.api.HtcServiceMBean">     
+    	<service-properties>
+            <entry key="jmx.objectname" value="com.ceos.merlot:type=htc,name=com.ceos.htc.service,id=tsfile"/>  
+        </service-properties>
+    </service>        
+    
+    <service ref="HtcServiceMBean" interface="com.ceos.merlot.htc.api.HtcServiceMBean">
+    	<service-properties>
+            <entry key="jmx.objectname" value="com.ceos.merlot:type=htc,name=com.ceos.htc.service,id=iotdb"/>  
         </service-properties>
     </service>        
 

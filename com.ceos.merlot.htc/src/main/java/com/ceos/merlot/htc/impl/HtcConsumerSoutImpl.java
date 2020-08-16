@@ -39,7 +39,7 @@ public class HtcConsumerSoutImpl implements HtcConsumer {
     public void onEvent(Object event, long sequence, boolean endOfBatch) throws Exception {
         //if (!started) return;
         HtcEvent myEvent = (HtcEvent) event;
-        System.out.println("Event: " + event + " : " + myEvent.getTag() + " : " + myEvent.getPvReader().getValue());
+        System.out.println("Event: " + event + " : " + myEvent.getTag() + " : " + myEvent.getValue());
         myEvent.setPvReader(null);
     }
     

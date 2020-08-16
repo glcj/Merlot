@@ -183,9 +183,7 @@ public class DBCollectorImpl implements DBCollector, PVListener {
             }
         } else if (cb.getPlcWriteResponse() != null){
             LOGGER.info("Write ready...");
-        }
-
-                
+        }                
     }
     
     @Override

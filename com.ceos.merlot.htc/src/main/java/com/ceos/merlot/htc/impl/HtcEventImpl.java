@@ -21,6 +21,7 @@ public class HtcEventImpl implements HtcEvent {
     
     private String tag;
     private PVReader<VType> pvr;
+    private VType value;
     
     public static final EventFactory<HtcEvent> FACTORY = new EventFactory<HtcEvent>() {
         @Override
@@ -69,6 +70,18 @@ public class HtcEventImpl implements HtcEvent {
     public void setPvReader(PVReader<VType> pvr) {
         this.pvr = pvr;
     }
+
+    @Override
+    public VType getValue() {
+        return this.value;
+    }
+
+    @Override
+    public void setValue(VType value) {
+        this.value = value;
+    }
+    
+    
     
     
     

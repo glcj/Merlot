@@ -55,8 +55,8 @@ public class HtcProducerMBeanImpl extends StandardMBean implements HtcProducerMB
     }
 
     @Override
-    public void addTag(String tag, String hyst, String scan) {
-        producer.addTag(tag, hyst, scan);
+    public void addTag(String tag, String ds, String hyst, String scan) {
+        producer.addTag(tag, ds, hyst, scan);
     }
 
     @Override
@@ -73,6 +73,11 @@ public class HtcProducerMBeanImpl extends StandardMBean implements HtcProducerMB
         this.registration = registration;
     }
 
+    @Override
+    public ServiceRegistration<HtcProducerMBean> getServiceRegistration() {
+        return this.registration;
+    }
+        
     public void setHtcProducer(HtcProducer producer){
         this.producer = producer;
     }
@@ -81,7 +86,5 @@ public class HtcProducerMBeanImpl extends StandardMBean implements HtcProducerMB
     public String getConfigPid() {
         return producer.getConfigPid();
     }
-    
-    
-    
+       
 }

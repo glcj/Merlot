@@ -25,6 +25,12 @@ public interface HtcService {
     
     public void putEvent(HtcEvent event);
     
+    public void setMaxWaitTime(long seconds);
+    
+    public long getMaxWaitTime();
+    
+    public long getSamplesWaiting();    
+    
     public long getRequestQueueSize();
     
     public long getRequestQueueItems();            

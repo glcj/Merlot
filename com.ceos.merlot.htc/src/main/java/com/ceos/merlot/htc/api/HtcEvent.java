@@ -25,7 +25,9 @@ public interface HtcEvent {
     
     public PVReader<VType> getPvReader();
     public void setPvReader(PVReader<VType> pvr);
-    
+
+    public VType getValue();
+    public void setValue(VType value);
     
     
     

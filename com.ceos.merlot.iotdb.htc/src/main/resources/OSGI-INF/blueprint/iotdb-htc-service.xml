@@ -40,7 +40,7 @@
             <entry key="service.pid" value="com.ceos.merlot.iotdb.decanter"/>  
             <entry key="scheduler.name" value="IoTDbCollector"/>  
             <entry key="scheduler.period" value="5000"/>
-            <!-- <entry key="scheduler.times" value="USHORT"/> -->
+            <!-- <entry key="scheduler.times" value="5"/> -->
             <entry key="scheduler.immediate" value="true"/>
             <entry key="scheduler.concurrent" value="false"/>                                                                                 
      	</service-properties>  

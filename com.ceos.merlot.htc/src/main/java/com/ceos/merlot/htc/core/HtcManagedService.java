@@ -10,18 +10,21 @@ import com.ceos.merlot.htc.api.HtcProducerMBean;
 import com.ceos.merlot.htc.api.HtcService;
 import com.ceos.merlot.htc.impl.HtcProducerImpl;
 import com.ceos.merlot.htc.impl.HtcProducerMBeanImpl;
+import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.karaf.config.core.ConfigRepository;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedServiceFactory;
 import org.slf4j.Logger;
@@ -37,13 +40,18 @@ public class HtcManagedService implements ManagedServiceFactory {
     private static Pattern FILE_PATTERN = Pattern.compile("-(?<groupname>\\w+).cfg$");
     private String filter_service =  "(&(" + Constants.OBJECTCLASS + "=" + HtcProducer.class.getName() + ")" +
                         "(htc.group=*))";
+    private String filter_service_conf =  "(&(" + Constants.OBJECTCLASS + "=" + HtcProducer.class.getName() + ")" +
+                        "(config.pid=*))";        
     private String filter_mbservice =  "(&(" + Constants.OBJECTCLASS + "=" + HtcProducerMBean.class.getName() + ")" +
-                        "(jmx.objectname=*))";    
+                        "(jmx.objectname=*))"; 
+    private String filter_mbservice_conf =  "(&(" + Constants.OBJECTCLASS + "=" + HtcProducerMBean.class.getName() + ")" +
+                        "(config.pid=*))";     
     
     private final BundleContext bundleContext;
     private final HtcService htc;
 
-    public HtcManagedService(BundleContext bundleContext, HtcService htc) {
+    public HtcManagedService(BundleContext bundleContext, 
+            HtcService htc) {
         this.bundleContext = bundleContext;
         this.htc = htc;
     }
@@ -88,38 +96,69 @@ public class HtcManagedService implements ManagedServiceFactory {
                     String configs = props.get(key).toString();
                     String[] config = configs.split(",");
                     if (config.length >= 2){
-                        htcProducer.addTag((String) key, config[0], config[1]);
+                        htcProducer.addTag((String) key, config[0], config[1], config[2]);
                     }
                 }
-                htcProducer.start(bundleContext);
+                //TODO: Estandarizar a setServiceRegistration. Usar como patron.
+                //TODO: Agregar config.pid
+                Hashtable service_props = new Hashtable<String, String>();
+                service_props.put("htc.group", strGroup);
+                service_props.put("config.pid", pid); 
+                ServiceRegistration servicereg = bundleContext.registerService(new String[]{HtcProducer.class.getName()}, htcProducer, service_props);                
+                htcProducer.setServiceRegistration(servicereg);
                 
+                //TODO: Agregar config.pid
                 Hashtable mbean_props = new Hashtable();
                 String strProp  = "com.ceos.merlot:type=htc,name=com.ceos.htc.group,id="+strGroup;
-                mbean_props.put("jmx.objectname", strProp); 
+                mbean_props.put("jmx.objectname", strProp);
+                mbean_props.put("config.pid", pid); 
                 
                 String mbGroupFilter = filter_mbservice.replace("*", strProp);
 
                 ServiceReference[] mbreferences = bundleContext.getServiceReferences((String) null, mbGroupFilter);
                 if (mbreferences == null){
-                    System.out.println("Crea un nuevo MBean");
                     HtcProducerMBean htcmbean = new HtcProducerMBeanImpl(bundleContext,htcProducer); 
-                    ServiceRegistration servicereg = bundleContext.registerService(new String[]{HtcProducerMBean.class.getName()}, htcmbean, mbean_props);
-                    htcmbean.setServiceRegistration(servicereg);
+                    ServiceRegistration mbeanreg = bundleContext.registerService(new String[]{HtcProducerMBean.class.getName()}, htcmbean, mbean_props);
+                    htcmbean.setServiceRegistration(mbeanreg);
                 } else {
-                    System.out.println("Asigno el productor");
                     HtcProducerMBean htcmbean = (HtcProducerMBean) bundleContext.getService(mbreferences[0]);
                     htcmbean.setHtcProducer(htcProducer);
-                }
-                
+                }                
             }
         } catch (Exception ex) {
             LOGGER.info(ex.getMessage());
         }
     }
 
+    //TODO: Ubicar los servicios con (config.pid=pid) y deregistrarlos.
     @Override
     public void deleted(String pid) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            
+            String mbGroupFilter = filter_mbservice_conf.replace("*", pid);
+            ServiceReference[] references = bundleContext.getServiceReferences((String) null, mbGroupFilter );
+            if (references != null){
+                for (ServiceReference reference:references){
+                    HtcProducerMBean mbean = (HtcProducerMBean) bundleContext.getService(reference);
+                    mbean.getServiceRegistration().unregister();
+                }
+            }               
+            
+            String htcGroupFilter = filter_service_conf.replace("*", pid);
+            references = bundleContext.getServiceReferences((String) null, htcGroupFilter);
+            if (references != null){
+                for (ServiceReference reference:references){
+                    HtcProducer producer = (HtcProducer) bundleContext.getService(reference);
+                    producer.stop();
+                    producer.getServiceRegistration().unregister();
+                }
+            }                     
+            
+        } catch (Exception ex) {
+            System.out.println("Si pasa por aca ya fue borrado el grupo...: " + pid);
+            LOGGER.info(ex.getMessage());
+        } 
+
     }
     
     public void destroy() {

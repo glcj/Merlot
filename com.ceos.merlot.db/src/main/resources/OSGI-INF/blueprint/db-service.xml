@@ -36,11 +36,19 @@
     
     <bean id="DBChannelProviderFactoryBean" class="com.ceos.merlot.db.core.DbChannelProviderFactory"/>
     
-    <bean id="DBBean" factory-ref="DBFactoryBean" factory-method="getMaster" scope="singleton"/>
+    <bean id="DBBean" 
+          factory-ref="DBFactoryBean" 
+          factory-method="getMaster" 
+          scope="singleton"/>
       
-    <bean id="DBChannelProvider" factory-ref="DBChannelProviderFactoryBean" factory-method="getChannelProviderLocal" scope="singleton"/>
+    <bean id="DBChannelProvider" 
+          factory-ref="DBChannelProviderFactoryBean" 
+          factory-method="getChannelProviderLocal" 
+          scope="singleton"/>
     
-    <bean id="DBControl" class="com.ceos.merlot.db.impl.DBControlImpl" scope="singleton">
+    <bean id="DBControl" 
+          class="com.ceos.merlot.db.impl.DBControlImpl" 
+          scope="singleton">
         <property name="bundleContext" ref="blueprintBundleContext"/>
     </bean>
 
@@ -50,100 +58,143 @@
         <argument ref="blueprintBundleContext" />
         <argument ref="DBBean" />
         <argument ref="DBControl" />
-    </bean>  
+    </bean>
+    
+    <bean id="DBRPCReferenceListener" 
+          class="com.ceos.merlot.db.impl.DBRPCReferenceListenerImpl" 
+          scope="singleton">
+        <argument ref="blueprintBundleContext"/>        
+        <argument ref="DBBean"/>        
+    </bean>
 
+    <reference-list id="refRPCService" 
+                    interface="org.epics.pvaccess.server.rpc.RPCService"
+                    availability="optional">
+       <reference-listener ref="DBRPCReferenceListener"
+               bind-method="bind" unbind-method="unbind">     
+       </reference-listener>
+    </reference-list>    
+    
     <service ref="DBRecordsManagedService" auto-export="interfaces">
     	<service-properties>
             <entry key="service.pid" value="com.ceos.merlot.db.records"/>
             <entry key="scheduler.name" value="DBRecordsManagedService"/>  
             <entry key="scheduler.period" value="5000"/>
-            <!-- <entry key="scheduler.times" value="USHORT"/> -->
+            <!-- <entry key="scheduler.times" value="5"/> -->
             <entry key="scheduler.immediate" value="true"/>
             <entry key="scheduler.concurrent" value="false"/>                               
      	</service-properties>        
     </service>   
 
-    <service id="DBBooleanFactory"  ref="beanDBBooleanFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBBooleanFactory"  
+             ref="beanDBBooleanFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="BOOL"/>
         </service-properties>
     </service>   
     
-    <service id="DBByteFactory"     ref="beanDBByteFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBByteFactory"     
+             ref="beanDBByteFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="BYTE"/>            
         </service-properties>
     </service>
     
-    <service id="DBDoubleFactory"   ref="beanDBDoubleFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBDoubleFactory"   
+             ref="beanDBDoubleFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="DOUBLE"/>
         </service-properties>
     </service>
     
-    <service id="DBFloatFactory"    ref="beanDBFloatFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBFloatFactory"   
+             ref="beanDBFloatFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="FLOAT"/>
         </service-properties>
     </service>
         
-    <service id="DBIntFactory"      ref="beanDBIntFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBIntFactory"      
+             ref="beanDBIntFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="INT"/>            
         </service-properties>
     </service>
     
-    <service id="DBLongFactory"     ref="beanDBLongFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBLongFactory"     
+             ref="beanDBLongFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="LONG"/>            
         </service-properties>
     </service>
     
-    <service id="DBShortFactory"    ref="beanDBShortFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBShortFactory"    
+             ref="beanDBShortFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="SHORT"/>            
         </service-properties>
     </service>
     
-    <service id="DBStringFactory"   ref="beanDBStringFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBStringFactory"   
+             ref="beanDBStringFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="STRING"/>            
         </service-properties>
     </service>
     
-    <service id="DBUByteFactory"    ref="beanDBUByteFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBUByteFactory"    
+             ref="beanDBUByteFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="UBYTE"/>            
         </service-properties>
     </service>
     
-    <service id="DBUIntFactory"     ref="beanDBUIntFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBUIntFactory"     
+             ref="beanDBUIntFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="UINT"/>            
         </service-properties>
     </service>
     
-    <service id="DBULongFactory"    ref="beanDBULongFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBULongFactory"    
+             ref="beanDBULongFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="ULONG"/>            
         </service-properties>
     </service>
     
-    <service id="DBUShortFactory"   ref="beanDBUShortFactory" interface="com.ceos.merlot.db.api.DBRecordFactory">
+    <service id="DBUShortFactory"   
+             ref="beanDBUShortFactory" 
+             interface="com.ceos.merlot.db.api.DBRecordFactory">
         <service-properties>
             <entry key="db.record.type" value="USHORT"/>            
         </service-properties>
     </service>    
          
-    <service id="MasterDB" ref="DBBean" interface="org.epics.pvdatabase.PVDatabase"/>
+    <service id="MasterDB" 
+             ref="DBBean" 
+             interface="org.epics.pvdatabase.PVDatabase"/>
     
-    <service id="MasterDBChannelProvider" ref="DBChannelProvider" interface="org.epics.pvaccess.client.ChannelProvider"/>
+    <service id="MasterDBChannelProvider" 
+             ref="DBChannelProvider" 
+             interface="org.epics.pvaccess.client.ChannelProvider"/>
     
     <service id="MasterDBControl" ref="DBControl" auto-export="interfaces">
         <service-properties>
             <entry key="scheduler.name" value="MasterDBControl"/>  
             <entry key="scheduler.period" value="1000"/>
-            <!-- <entry key="scheduler.times" value="USHORT"/> -->
+            <!-- <entry key="scheduler.times" value="5"/> -->
             <entry key="scheduler.immediate" value="true"/>
             <entry key="scheduler.concurrent" value="false"/>                      
         </service-properties>

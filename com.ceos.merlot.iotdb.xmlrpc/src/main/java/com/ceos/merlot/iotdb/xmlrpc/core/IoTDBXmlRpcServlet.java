@@ -35,6 +35,7 @@ public class IoTDBXmlRpcServlet extends HttpServlet  {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String strResp  = null;
+
         try {
             resp.setStatus(200);
             String key = req.getParameter("key");
@@ -47,8 +48,8 @@ public class IoTDBXmlRpcServlet extends HttpServlet  {
                 xmlRequest = "<?xml version " + req.getParameter("<?xml version");                
             } else //CSS Request
                 if ("text/xml".equalsIgnoreCase(documentType)) {
-                byte bytes[] = req.getInputStream().readAllBytes();
-                xmlRequest = new String(bytes, StandardCharsets.UTF_8);
+                //byte[] bytes = req.getInputStream().readAllBytes();
+                //xmlRequest = new String(bytes, StandardCharsets.UTF_8);
             } else {
                 
             }

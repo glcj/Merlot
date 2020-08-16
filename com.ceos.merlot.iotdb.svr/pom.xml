@@ -47,7 +47,10 @@
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Export-Package>com.ceos.merlot.iotdb.svr*;version=${project.version}</Export-Package>
                         <Karaf-Commands>com.ceos.merlot.iotdb.svr.command*</Karaf-Commands>                           
-                        <Import-Package>*</Import-Package>
+                        <Import-Package>org.apache.iotdb.rpc*,
+                            org.apache.iotdb.tsfile.file*,
+                            *
+                        </Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
@@ -107,6 +110,11 @@
         <dependency>
             <groupId>org.apache.iotdb</groupId>
             <artifactId>iotdb-server</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.iotdb</groupId>
+            <artifactId>tsfile</artifactId>
             <version>0.10.0</version>
         </dependency>
     </dependencies>

@@ -73,13 +73,6 @@
     <dependencies>      
         <dependency>
             <groupId>org.apache.karaf.features</groupId>
-            <!-- <artifactId>framework</artifactId> -->
-            <artifactId>static</artifactId>     
-            <version>4.2.8</version>
-            <type>kar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.karaf.features</groupId>
             <artifactId>framework</artifactId>
             <version>4.2.8</version>
             <type>kar</type>
@@ -114,14 +107,9 @@
             <version>0.0.1-SNAPSHOT</version>
             <type>xml</type>
             <classifier>features</classifier>
+            <scope>runtime</scope>
+        </dependency>
 
-        </dependency>
-        <dependency>
-            <groupId>org.apache.iotdb</groupId>
-            <artifactId>tsfile</artifactId>
-            <version>0.10.0</version>
-            <classifier>jar-with-dependencies</classifier>
-        </dependency>
     </dependencies>
 
     <build>
@@ -168,6 +156,9 @@
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
                 <configuration>
+                    <libraries>
+                        <library>mvn:org.apache.iotdb/tsfile/0.10.0;type:=boot</library>
+                    </libraries>
                     <installedBundles>
                         <!--
                         <installedBundle>mvn:com.ceos.merlot.features/com.ceos.merlot.features/0.0.1-SNAPSHOT</installedBundle>
@@ -175,35 +166,50 @@
                     </installedBundles>
                     <installedFeatures>
                         <feature>wrapper</feature>
+                        <feature>com.ceos.merlot.features</feature>
+                        <feature>config_libs</feature>
+                        <feature>config_scheduler</feature>
+                        <feature>config_epics_core</feature>
+                        <feature>config_epics_gpclient</feature>
+                        <feature>config_model</feature>
+                        <feature>config_devices</feature>
+                        <feature>config_modbus_devices</feature>
+                        <feature>config_modbus_server</feature>
+                        <feature>config_modbus_sim</feature>
+                        <feature>config_plc4x_base</feature>     
+                        <feature>config_plc4x_modbus</feature>
+                        <feature>config_plc4x_s7</feature>
+                        <feature>config_pvadb</feature>   
+                        <feature>config_tsfile</feature>  
+                        <feature>config_iotdb_server</feature>
+                        <feature>config_iotdb_sync</feature>
+                        <feature>config_iotdb_jdbc</feature>
+                        <feature>config_htc</feature>                                      
                     </installedFeatures>
+                    
                     <blacklistedFeatures>
+                        <feature>jetty</feature>
                         <feature>httplite</feature>
                         <feature>felix-httplite</feature>
                         <feature>felix-http</feature>
                         <feature>scheduler</feature>
-                    </blacklistedFeatures>
+                    </blacklistedFeatures> 
                     <!-- <startupFeatures/> -->
                     
                     <bootFeatures>
                         <!-- standard distribution -->
-                        <!-- <feature>standard</feature> -->
-                        <feature>minimal</feature>                        
+                        <feature>standard</feature>
+                        <feature>com.ceos.merlot.features</feature>                        
                         <feature>jndi</feature>
                         <feature>pax-jdbc</feature>
                         <feature>pax-jdbc-config</feature>
                         <feature>pax-jdbc-h2</feature>
-                        <feature>jdbc</feature>
- 
-                        <feature>com.ceos.merlot.features</feature>
+                        <feature>jdbc</feature>                       
                         <!-- minimal distribution -->
-
+                        <!--<feature>minimal</feature>-->
                     </bootFeatures>
-                    <javase>1.8</javase>
-                    
-                    <framework>static</framework>
-                    <useReferenceUrls>true</useReferenceUrls>
-                    <environment>static</environment>                    
-                    
+                  
+                    <javase>1.8</javase>                    
                 </configuration>
             </plugin>
         </plugins>

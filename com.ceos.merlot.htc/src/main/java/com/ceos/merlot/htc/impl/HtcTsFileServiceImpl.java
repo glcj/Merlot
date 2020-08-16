@@ -5,6 +5,7 @@
  */
 package com.ceos.merlot.htc.impl;
 
+import com.ceos.merlot.htc.api.HtcConsumer;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
@@ -16,14 +17,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.ceos.merlot.htc.api.HtcEvent;
 import com.ceos.merlot.htc.api.HtcService;
+import com.ceos.merlot.model.api.Model;
+import java.time.Instant;
+import org.epics.vtype.VNumber;
 
 /**
  *
  * @author cgarcia
  */
-public class HtcServiceImpl implements HtcService {
+public class HtcTsFileServiceImpl implements HtcService, HtcConsumer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HtcServiceImpl.class);   
+    private static final Logger LOGGER = LoggerFactory.getLogger(HtcTsFileServiceImpl.class);
+    private final Model s88model;
+    //
     
     // Executor that will be used to construct new threads for consumers
     protected Executor RequestExecutor;
@@ -37,42 +43,46 @@ public class HtcServiceImpl implements HtcService {
     // Specify the size of the ring buffer, must be power of 2.
     private int bufferSize = 1024;  
     private boolean started;
-    
+    private long starttime = 0;
+    private long elapsedtime = 0;
+    private long waittime = 60; //Default every 300 seconds
+    private boolean push = false;    
+
+    public HtcTsFileServiceImpl(Model s88model) {
+        this.s88model = s88model;
+    }
     
     @Override
     public void init() {
-        System.out.println("Disruptor Inicio...");
         RequestExecutor  = Executors.newCachedThreadPool();
         
         // Construct the Disruptor
-        RequestDisruptor = new Disruptor<HtcEvent>(HtcEventImpl.FACTORY, 1024, DaemonThreadFactory.INSTANCE,
+        RequestDisruptor = new Disruptor<HtcEvent>(HtcEventImpl.FACTORY, 2048, DaemonThreadFactory.INSTANCE,
                     ProducerType.MULTI, new BlockingWaitStrategy());        
 
-        RequestRingBuffer = RequestDisruptor.getRingBuffer();    
+        RequestRingBuffer = RequestDisruptor.getRingBuffer();   
+        
+        RequestDisruptor.handleEventsWith(new HtcConsumerSoutImpl());          
+        RequestDisruptor.start();    
         
         start();
     }
 
     @Override
-    public void destroy() {
-        System.out.println("Disruptor Destruyo...");        
+    public void destroy() {  
         stop();
         RequestDisruptor.shutdown();
     }
 
     @Override
     public void start() {
-        if (!started){
-            System.out.println("Disruptor Arrancando el servicio...");            
-            RequestDisruptor.handleEventsWith(new HtcConsumerSoutImpl());          
-            RequestDisruptor.start();
+        if (!started){           
         };
         started = true;
     }
 
     @Override
-    public void stop() {
-        System.out.println("Disruptor Parando el servicio...");        
+    public void stop() {           
         //RequestDisruptor.halt();
         started = false;
     }
@@ -98,6 +108,32 @@ public class HtcServiceImpl implements HtcService {
     }
     
     @Override
+    public void onEvent(Object event, long sequence, boolean endOfBatch) throws Exception {
+        elapsedtime = (Instant.now().getEpochSecond() - starttime); 
+        push = (elapsedtime > waittime);        
+        HtcEvent myEvent = (HtcEvent) event;
+        VNumber vnumber = (VNumber) myEvent.getPvReader().getValue();        
+        System.out.println("HtcTsFileServiceImpl Event : " + event + " : " + myEvent.getTag() + " :... " + myEvent.getValue());
+        myEvent.setTag(null);
+        myEvent.setPvReader(null);
+    }    
+    
+    @Override
+    public void setMaxWaitTime(long seconds) {
+        this.waittime = seconds;
+    }
+
+    @Override
+    public long getMaxWaitTime() {
+        return this.waittime;
+    }    
+    
+    @Override
+    public long getSamplesWaiting() {
+        return 0L;
+    };       
+    
+    @Override
     public long getRequestQueueSize() {
         return RequestRingBuffer.getBufferSize();
     }
@@ -106,6 +142,8 @@ public class HtcServiceImpl implements HtcService {
     public long getRequestQueueItems() {
         return (RequestRingBuffer.getBufferSize() - RequestRingBuffer.remainingCapacity());
     }    
+
+
     
     
     

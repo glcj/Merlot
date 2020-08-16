@@ -1,0 +1,10 @@
+com\ceos\merlot\pva\impl\MerlotPvaClientImpl.class
+com\ceos\merlot\pva\command\MerlotPVListCommand.class
+com\ceos\merlot\pva\command\MerlotPVGetCommand.class
+com\ceos\merlot\pva\command\MerlotPVListCommand$ServerEntry.class
+com\ceos\merlot\pva\command\MerlotPVPutCommand.class
+com\ceos\merlot\pva\api\MerlotPvaClient.class
+com\ceos\merlot\pva\api\MerlotPvaServer.class
+com\ceos\merlot\pva\core\MerlotRPCClientImpl.class
+com\ceos\merlot\pva\impl\MerlotPvaServerImpl.class
+com\ceos\merlot\pva\command\MerlotPVInfoCommand.class

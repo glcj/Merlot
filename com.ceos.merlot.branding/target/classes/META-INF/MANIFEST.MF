@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1596049661930
+Build-Jdk: 11.0.4
+Built-By: cgarcia
+Bundle-Description: com.ceos.merlot.branding OSGi bundle project.
+Bundle-ManifestVersion: 2
+Bundle-Name: Merlot :: branding :: Merlot branding
+Bundle-SymbolicName: com.ceos.merlot.branding
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.apache.karaf.branding;version="0.0.1.SNAPSHOT"
+Spring-Context: *;publish-context:=false
+Tool: Bnd-4.2.0.201903051501

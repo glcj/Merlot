@@ -5,3 +5,8 @@
 /com.ceos.merlot.modbus.sim/target/
 /com.ceos.merlot.htc/target/
 /com.ceos.merlot.model/target/
+/com.ceos.merlot.iotdb.jdbc/target/
+/com.ceos.merlot.features/target/
+/com.ceos.merlot/target/
+/com.ceos.merlot.iotdb.svr/target/
+/com.ceos.merlot.iotdb.sync/target/

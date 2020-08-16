@@ -29,6 +29,7 @@ import java.net.NoRouteToHostException;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.DatagramChannel;
@@ -233,13 +234,13 @@ public class MerlotPVListCommand implements Action {
                 {
                         datagramChannel.socket().receive(dp);
                         responseFrom = dp.getSocketAddress();
-                        receiveBuffer.position(dp.getLength());
+                        ((Buffer) receiveBuffer).position(dp.getLength());
                 }
                 catch (SocketTimeoutException ste) {
                         break;
                 }
 
-                receiveBuffer.flip();
+                ((Buffer) receiveBuffer).flip();
                 processSearchResponse((InetSocketAddress)responseFrom, receiveBuffer);
         }
 
@@ -262,7 +263,9 @@ public class MerlotPVListCommand implements Action {
                 try
                 {
                         // prepare buffer
-                        buffer.flip();
+                        //buffer.flip();
+                    
+                        ((Buffer) buffer).flip();
                         channel.send(buffer, sendAddresses[i]);
                 }
                 catch (NoRouteToHostException nrthe)
@@ -314,74 +317,75 @@ public class MerlotPVListCommand implements Action {
 
     }    
     
-	private final void processSearchResponse(InetSocketAddress responseFrom, ByteBuffer socketBuffer) throws IOException
-	{
-		// magic code
-		final byte magicCode = socketBuffer.get();
+    private final void processSearchResponse(InetSocketAddress responseFrom, ByteBuffer socketBuffer) throws IOException
+    {
+            // magic code
+            final byte magicCode = socketBuffer.get();
 
-		// version
-		byte version = socketBuffer.get(); 
-		
-		// flags
-		byte flags = socketBuffer.get();
-		if ((flags & 0x80) == 0x80)
-			socketBuffer.order(ByteOrder.BIG_ENDIAN);
-		else
-			socketBuffer.order(ByteOrder.LITTLE_ENDIAN);
-		
-		// command
-		byte command = socketBuffer.get();
-		if (command != 0x04) 
-			return;
-		
-		// read payload size
-		int payloadSize = socketBuffer.getInt();
-		if (payloadSize < (12+4+16+2))
-			return;
-		
-		// check magic code
-		if (magicCode != PVAConstants.PVA_MAGIC)
-			return;
-		
-		// 12-byte GUID
-		byte[] guid = new byte[12]; 
-		socketBuffer.get(guid);
+            // version
+            byte version = socketBuffer.get(); 
 
-		/*int searchSequenceId = */socketBuffer.getInt();
+            // flags
+            byte flags = socketBuffer.get();
+            if ((flags & 0x80) == 0x80)
+                    socketBuffer.order(ByteOrder.BIG_ENDIAN);
+            else
+                    socketBuffer.order(ByteOrder.LITTLE_ENDIAN);
 
-		// 128-bit IPv6 address
-		byte[] byteAddress = new byte[16]; 
-		socketBuffer.get(byteAddress);
-	
-		final int port = socketBuffer.getShort() & 0xFFFF;
-		
-		// NOTE: Java knows how to compare IPv4/IPv6 :)
-		
-		InetAddress addr;
-		try {
-			addr = InetAddress.getByAddress(byteAddress);
-		} catch (UnknownHostException e) {
-			return;
-		}
+            // command
+            byte command = socketBuffer.get();
+            if (command != 0x04) 
+                    return;
 
-		// accept given address if explicitly specified by sender
-		if (!addr.isAnyLocalAddress())
-			responseFrom = new InetSocketAddress(addr, port);
-		else
-			responseFrom = new InetSocketAddress(responseFrom.getAddress(), port);
-		
-		final String protocol = SerializeHelper.deserializeString(socketBuffer);
-		
-		/*boolean found = */socketBuffer.get(); // != 0;
+            // read payload size
+            int payloadSize = socketBuffer.getInt();
+            if (payloadSize < (12+4+16+2))
+                    return;
 
-		GUID g = new GUID(guid);
-                System.out.println("GUID: " + g);
-		ServerEntry se = serverMap.get(g);
-		if (se != null)
-			se.addAddress(responseFrom);
-		else
-			serverMap.put(g, new ServerEntry(g, protocol, responseFrom, version));
-	}
+            // check magic code
+            if (magicCode != PVAConstants.PVA_MAGIC)
+                    return;
+
+            // 12-byte GUID
+            byte[] guid = new byte[12]; 
+            socketBuffer.get(guid);
+
+            /*int searchSequenceId = */socketBuffer.getInt();
+
+            // 128-bit IPv6 address
+            byte[] byteAddress = new byte[16]; 
+            socketBuffer.get(byteAddress);
+
+            final int port = socketBuffer.getShort() & 0xFFFF;
+
+            // NOTE: Java knows how to compare IPv4/IPv6 :)
+
+            InetAddress addr;
+            try {
+                    addr = InetAddress.getByAddress(byteAddress);
+            } catch (UnknownHostException e) {
+                    return;
+            }
+
+            // accept given address if explicitly specified by sender
+            System.out.println("Dirección: " + responseFrom.getAddress());
+            if (!addr.isAnyLocalAddress())
+                    responseFrom = new InetSocketAddress(addr, port);
+            else
+                    responseFrom = new InetSocketAddress(responseFrom.getAddress(), port);
+
+            final String protocol = SerializeHelper.deserializeString(socketBuffer);
+
+            /*boolean found = */socketBuffer.get(); // != 0;
+
+            GUID g = new GUID(guid);
+            //System.out.println("GUID: " + g);
+            ServerEntry se = serverMap.get(g);
+            if (se != null)
+                    se.addAddress(responseFrom);
+            else
+                    serverMap.put(g, new ServerEntry(g, protocol, responseFrom, version));
+    }
    
     
 }
