@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1596049661930
-Build-Jdk: 11.0.4
+Bnd-LastModified: 1614094939024
+Build-Jdk: 11.0.10
 Built-By: cgarcia
 Bundle-Description: com.ceos.merlot.branding OSGi bundle project.
 Bundle-ManifestVersion: 2

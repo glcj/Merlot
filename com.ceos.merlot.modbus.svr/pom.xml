@@ -118,11 +118,18 @@
     		<artifactId>slf4j-api</artifactId>
     		<version>1.7.25</version>
     	</dependency>
+        <!--
     	<dependency>
     		<groupId>com.ceos.merlot</groupId>
     		<artifactId>com.ceos.merlot.modbus</artifactId>
     		<version>0.0.1-SNAPSHOT</version>
     	</dependency>
+         -->
+    	<dependency>
+    		<groupId>com.ceos.merlot.modbus.dev</groupId>
+    		<artifactId>com.ceos.merlot.modbus.dev</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    	</dependency>         
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>

@@ -85,7 +85,7 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("rpc_max_concurrent_client_num", confIoTDB.getRpcMaxConcurrentClientNum()); //=65535
 
         //Dynamic Parameter Adapter Configuration
-        table.addRow().addContent("enable_parameter_adapter", confIoTDB.isEnableParameterAdapter()); //=true
+        //table.addRow().addContent("enable_parameter_adapter", confIoTDB.isEnableParameterAdapter()); //=true
 
         //Write Ahead Log Configuration
         table.addRow().addContent("enable_wal", confIoTDB.isEnableWal()); //=true
@@ -97,7 +97,7 @@ public class IoTDBServerAdminCommand implements Action {
 
         //Directory Configuration
         //data dirs
-        table.addRow().addContent("base_dir", confIoTDB.getBaseDir()); //=data
+        //table.addRow().addContent("base_dir", confIoTDB.getBaseDir()); //=data
 
         table.addRow().addContent("data_dirs", String.join(",",confIoTDB.getDataDirs())); //=data\\data
 
@@ -105,7 +105,7 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("multi_dir_strategy", confIoTDB.getMultiDirStrategyClassName()); //=MaxDiskUsableSpaceFirstStrategy
 
         //wal dir
-        table.addRow().addContent("wal_dir", confIoTDB.getWalFolder()); //=data\\wal
+        //table.addRow().addContent("wal_dir", confIoTDB.getWalFolder()); //=data\\wal
         
         /*
         table.addRow().addContent("tsfile_storage_fs", confIoTDB.getTsFileStorageFs()); //=LOCAL
@@ -128,7 +128,7 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("fetch_size", confIoTDB.getFetchSize()); //=10000
         */
         table.addRow().addContent("wal_buffer_size", confIoTDB.getWalBufferSize()); //=16777216
-        table.addRow().addContent("time_zone", confIoTDB.getZoneID()); //=+08:00
+        //table.addRow().addContent("time_zone", confIoTDB.getZoneID()); //=+08:00
         table.addRow().addContent("tsfile_size_threshold", confIoTDB.getTsFileSizeThreshold()); //=536870912
         table.addRow().addContent("memtable_size_threshold", confIoTDB.getMemtableSizeThreshold()); //=134217728
         table.addRow().addContent("concurrent_flush_thread", confIoTDB.getConcurrentFlushThread()); //=0
@@ -146,7 +146,7 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("continue_merge_after_reboot", confIoTDB.isContinueMergeAfterReboot()); //=false
         table.addRow().addContent("merge_interval_sec", confIoTDB.getMergeIntervalSec()); //=3600
         table.addRow().addContent("force_full_merge", confIoTDB.isForceFullMerge()); //=false
-        table.addRow().addContent("chunk_merge_point_threshold", confIoTDB.getChunkMergePointThreshold()); //=20480
+        //table.addRow().addContent("chunk_merge_point_threshold", confIoTDB.getChunkMergePointThreshold()); //=20480
 
         //Metadata Cache Configuration
         table.addRow().addContent("meta_data_cache_enable", confIoTDB.isMetaDataCacheEnable()); //=true

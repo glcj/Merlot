@@ -129,12 +129,12 @@ under the License.
   
     <feature name='config_epics_gpclient' description='${project.name}' version='${project.version}'>
         <feature>config_epics_core</feature>
-        <bundle>wrap:mvn:org.epics/gpclient-sim/1.0.5-SNAPSHOT/$Export-Package=*;version=&quot;1.0.5-SNAPSHOT&quot;,!*</bundle>
-        <bundle>wrap:mvn:org.epics/gpclient-loc/1.0.5-SNAPSHOT/$Export-Package=*;version=&quot;1.0.5-SNAPSHOT&quot;,!*</bundle>
-        <bundle>wrap:mvn:org.epics/gpclient-pva/1.0.5-SNAPSHOT/$Export-Package=*;version=&quot;1.0.5-SNAPSHOT&quot;,!*</bundle>
-        <bundle>wrap:mvn:org.epics/gpclient-ca/1.0.5-SNAPSHOT/$Export-Package=*;version=&quot;1.0.5-SNAPSHOT&quot;,!*</bundle>
-        <bundle>wrap:mvn:org.epics/vtype/1.0.4-SNAPSHOT/$Export-Package=*;version=&quot;1.0.4-SNAPSHOT&quot;,!*</bundle>
-        <bundle>wrap:mvn:org.epics/gpclient-core/1.0.5-SNAPSHOT/$Export-Package=*;version=&quot;1.0.5-SNAPSHOT&quot;,!*</bundle>          
+        <bundle>wrap:mvn:org.epics/gpclient-sim/1.0.5/$Export-Package=*;version=&quot;1.0.5&quot;,!*</bundle>
+        <bundle>wrap:mvn:org.epics/gpclient-loc/1.0.5/$Export-Package=*;version=&quot;1.0.5&quot;,!*</bundle>
+        <bundle>wrap:mvn:org.epics/gpclient-pva/1.0.5/$Export-Package=*;version=&quot;1.0.5&quot;,!*</bundle>
+        <bundle>wrap:mvn:org.epics/gpclient-ca/1.0.5/$Export-Package=*;version=&quot;1.0.5&quot;,!*</bundle>
+        <bundle>wrap:mvn:org.epics/vtype/1.0.4/$Export-Package=*;version=&quot;1.0.4&quot;,!*</bundle>
+        <bundle>wrap:mvn:org.epics/gpclient-core/1.0.5/$Export-Package=*;version=&quot;1.0.5&quot;,!*</bundle>          
     </feature> 
      
     <feature name='config_model' description='${project.name}' version='${project.version}'>
