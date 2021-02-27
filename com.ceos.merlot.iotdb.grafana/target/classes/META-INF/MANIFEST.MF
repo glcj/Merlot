@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1614094895120
-Build-Jdk: 11.0.10
+Bnd-LastModified: 1614440849400
+Build-Jdk: 11.0.9.1
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/iotdb-grafana-service.xml
 Bundle-Description: Grafana to IoTDB connector. Based on Simple JSON Dat
@@ -14,18 +14,18 @@ Export-Package: com.ceos.merlot.iotdb.grafana.api;version="0.0.1.SNAPSHO
  T",com.ceos.merlot.iotdb.grafana.core;version="0.0.1.SNAPSHOT";uses:="j
  avax.servlet,javax.servlet.http,org.osgi.service.cm",com.ceos.merlot.io
  tdb.grafana.impl;version="0.0.1.SNAPSHOT"
-Export-Service: javax.servlet.Servlet;alias=/iotdb/annotations;servlet-n
- ame=Grafana annotations service;osgi.service.blueprint.compname=IoTDBGr
- afanaAnnotationsServlet,javax.servlet.Servlet;alias=/iotdb;servlet-name
- =Grafana ack service;osgi.service.blueprint.compname=IoTDBGrafanaAckSer
- vlet,javax.servlet.Servlet;alias=/iotdb/query;servlet-name=Grafana quer
- y service;osgi.service.blueprint.compname=IoTDBGrafanaQueryServlet,java
- x.servlet.Servlet;alias=/iotdb/tag-keys;servlet-name=Grafana tag-keys s
- ervice;osgi.service.blueprint.compname=IoTDBGrafanaTagKeysServlet,javax
- .servlet.Servlet;alias=/iotdb/tag-values;servlet-name=Grafana tag-value
- s service;osgi.service.blueprint.compname=IoTDBGrafanaTagValuesServlet,
- javax.servlet.Servlet;alias=/iotdb/search;servlet-name=Grafana search s
- ervice;osgi.service.blueprint.compname=IoTDBGrafanaSearchServlet
+Export-Service: javax.servlet.Servlet;alias=/iotdb/tag-values;servlet-na
+ me=Grafana tag-values service;osgi.service.blueprint.compname=IoTDBGraf
+ anaTagValuesServlet,javax.servlet.Servlet;alias=/iotdb/search;servlet-n
+ ame=Grafana search service;osgi.service.blueprint.compname=IoTDBGrafana
+ SearchServlet,javax.servlet.Servlet;alias=/iotdb/query;servlet-name=Gra
+ fana query service;osgi.service.blueprint.compname=IoTDBGrafanaQuerySer
+ vlet,javax.servlet.Servlet;alias=/iotdb/tag-keys;servlet-name=Grafana t
+ ag-keys service;osgi.service.blueprint.compname=IoTDBGrafanaTagKeysServ
+ let,javax.servlet.Servlet;alias=/iotdb/annotations;servlet-name=Grafana
+  annotations service;osgi.service.blueprint.compname=IoTDBGrafanaAnnota
+ tionsServlet,javax.servlet.Servlet;alias=/iotdb;servlet-name=Grafana ac
+ k service;osgi.service.blueprint.compname=IoTDBGrafanaAckServlet
 Import-Package: javax.servlet;version="[3.1,4)",javax.servlet.http;versi
  on="[3.1,4)",org.osgi.service.blueprint;version="[1.0.0,2.0.0)",org.osg
  i.service.cm;version="[1.5,2)",org.slf4j;version="[1.7,2)"

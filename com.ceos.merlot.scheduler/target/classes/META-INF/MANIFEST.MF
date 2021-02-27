@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1614094551078
-Build-Jdk: 11.0.10
+Bnd-LastModified: 1614440827886
+Build-Jdk: 11.0.9.1
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/scheduler-service.xml
 Bundle-Description: com.ceos.merlot.scheduler OSGi blueprint bundle proj
@@ -24,9 +24,9 @@ Export-Package: com.ceos.merlot.scheduler.api;version="0.0.1.SNAPSHOT";u
  notation,org.osgi.framework,org.osgi.service.cm",com.ceos.merlot.schedu
  ler.impl;version="0.0.1.SNAPSHOT";uses:="com.ceos.merlot.scheduler.api,
  org.osgi.framework"
-Export-Service: com.ceos.merlot.scheduler.api.Scheduler;osgi.service.blu
- eprint.compname=QuartzSchedulerBean,com.ceos.merlot.scheduler.core.Whit
- eboardHandler;osgi.service.blueprint.compname=WhiteBoardSchedulerBean
+Export-Service: com.ceos.merlot.scheduler.core.WhiteboardHandler;osgi.se
+ rvice.blueprint.compname=WhiteBoardSchedulerBean,com.ceos.merlot.schedu
+ ler.api.Scheduler;osgi.service.blueprint.compname=QuartzSchedulerBean
 Import-Package: com.mchange.v2.c3p0;resolution:=optional,oracle.sql;reso
  lution:=optional,org.quartz.management;resolution:=optional;version="[2
  .3,3)",javax.transaction;resolution:=optional,javax.servlet;resolution:
