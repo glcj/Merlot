@@ -87,37 +87,37 @@ Evaluate a PR for the IoTDB project.</description>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <version>6.0.0</version>
+            <version>${osgi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.cmpn</artifactId>
-            <version>6.0.0</version>
+            <version>${osgi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.jdbc</groupId>
             <artifactId>pax-jdbc</artifactId>
-            <version>1.4.5</version>
+            <version>${pax.jdbc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.jdbc</groupId>
             <artifactId>pax-jdbc-common</artifactId>
-            <version>1.4.5</version>
+            <version>${pax.jdbc.common.version}</version>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.logging</groupId>
             <artifactId>pax-logging-api</artifactId>
-            <version>1.11.2</version>
+            <version>${pax.logging.api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.iotdb</groupId>
             <artifactId>iotdb-jdbc</artifactId>
-            <version>0.10.0</version>
+            <version>${apache.iotdb.version}</version>
         </dependency>
     </dependencies>
 </project>

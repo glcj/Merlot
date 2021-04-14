@@ -84,35 +84,70 @@ or generating noise in a range.</description>
         </plugins>
     </build>
     <dependencies>
+    	<dependency>
+    		<groupId>org.apache.karaf</groupId>
+    		<artifactId>org.apache.karaf.util</artifactId>
+    		<version>${apache.karaf.version}</version>
+    	</dependency>        
+    	<dependency>
+    		<groupId>org.apache.karaf.shell</groupId>
+    		<artifactId>org.apache.karaf.shell.core</artifactId>
+    		<version>${apache.karaf.version}</version>
+    	</dependency>        
         <dependency>
             <groupId>com.fathzer</groupId>
             <artifactId>javaluator</artifactId>
-            <version>3.0.3</version>
+            <version>${javaluator.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ceos.merlot.modbus.dev</groupId>
             <artifactId>com.ceos.merlot.modbus.dev</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>org.osgi.compendium</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>org.osgi.core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.ceos.merlot.scheduler</groupId>
             <artifactId>com.ceos.merlot.scheduler</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>org.osgi.core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-buffer</artifactId>
-            <version>4.1.50.Final</version>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvdata</artifactId>
-            <version>6.1.1</version>
+            <version>${epics.pvdata.version}</version>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <version>${osgi.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.osgi</groupId>
             <artifactId>osgi.cmpn</artifactId>
-            <version>6.0.0</version>
+            <version>${osgi.version}</version>
         </dependency>
     </dependencies>
 </project>

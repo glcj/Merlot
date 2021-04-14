@@ -138,37 +138,38 @@
     	<dependency>
     		<groupId>org.apache.karaf</groupId>
     		<artifactId>org.apache.karaf.util</artifactId>
-    		<version>4.1.2</version>
+    		<version>${apache.karaf.version}</version>
     	</dependency>
     	<dependency>
     		<groupId>org.apache.karaf.shell</groupId>
     		<artifactId>org.apache.karaf.shell.core</artifactId>
-    		<version>4.1.2</version>
+    		<version>${apache.karaf.version}</version>
     	</dependency>
     	<dependency>
     		<groupId>commons-io</groupId>
     		<artifactId>commons-io</artifactId>
-    		<version>2.4</version>
+    		<version>${apache.commons.io.version}</version>
     	</dependency>
     	<dependency>
     		<groupId>org.osgi</groupId>
     		<artifactId>org.osgi.core</artifactId>
-    		<version>6.0.0</version>
+    		<version>${osgi.version}</version>
     	</dependency>
     	<dependency>
     		<groupId>org.osgi</groupId>
     		<artifactId>org.osgi.compendium</artifactId>
-    		<version>4.3.0</version>
+    		<version>${osgi.compendium.version}</version>
+    	  <type>jar</type>
     	</dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.42.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvdata</artifactId>
-            <version>6.1.5</version>
+            <version>${epics.pvdata.version}</version>
         </dependency>
     </dependencies>
 </project>

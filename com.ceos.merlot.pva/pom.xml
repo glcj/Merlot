@@ -21,10 +21,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <artifactId>Merlot</artifactId>
-    <groupId>com.ceos.merlot</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+        <artifactId>Merlot</artifactId>
+        <groupId>com.ceos.merlot</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
     <groupId>com.ceos.merlot.pva</groupId>
     <artifactId>com.ceos.merlot.pva</artifactId>
@@ -64,24 +64,29 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
-            <version>4.2.7</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvaclient</artifactId>
-            <version>4.3.2</version>
+            <version>${epics.pvaclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvaccess</artifactId>
-            <version>5.1.2</version>
+            <version>${epics.pvaccess.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvdatabase</artifactId>
-            <version>4.3.1</version>
+            <version>${epics.pvdatabase.version}</version>
         </dependency>
     </dependencies>
 </project>

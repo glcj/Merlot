@@ -12,19 +12,19 @@ and open the template in the editor.
             <file>custom.properties</file>
             <operation>put</operation>
             <key>merlot.iotdb.tsfile</key>
-            <value>org.apache.iotdb.tsfile;version="0.10.0"</value>
+            <value>org.apache.iotdb.tsfile;version="0.11.2"</value>
         </edit>
         <edit>
             <file>custom.properties</file>
             <operation>extend</operation>
             <key>merlot.iotdb.tsfile</key>
-            <value>org.apache.iotdb.tsfile.read.expression.impl;version="0.10.0"</value>
+            <value>org.apache.iotdb.tsfile.read.expression.impl;version="0.11.2"</value>
         </edit>
         <edit>
             <file>custom.properties</file>
             <operation>extend</operation>
             <key>merlot.iotdb.tsfile</key>
-            <value>org.apache.iotdb.tsfile.read.expression.impl.SingleSeriesExpression;version="0.10.0"</value>
+            <value>org.apache.iotdb.tsfile.read.expression.impl.SingleSeriesExpression;version="0.11.2"</value>
         </edit> 
         <edit>
             <file>config.properties</file>

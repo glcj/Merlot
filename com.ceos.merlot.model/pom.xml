@@ -84,44 +84,45 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
-        </dependency>
-        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
-            <version>6.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.karaf.config</groupId>
-            <artifactId>org.apache.karaf.config.core</artifactId>
-            <version>4.2.8</version>
-        </dependency>
+            <version>${osgi.version}</version>
+        </dependency>       
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.cmpn</artifactId>
-            <version>6.0.0</version>
+            <version>${osgi.version}</version>
+        </dependency>         
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.karaf.config</groupId>
+            <artifactId>org.apache.karaf.config.core</artifactId>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.commands</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvaccess</artifactId>
-            <version>5.1.6</version>
+            <version>${epics.pvaccess.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvdatabase</artifactId>
-            <version>4.3.1</version>
+            <version>${epics.pvdatabase.version}</version>
         </dependency>
     </dependencies>
 </project>

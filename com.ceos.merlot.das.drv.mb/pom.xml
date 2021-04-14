@@ -21,10 +21,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <artifactId>Merlot</artifactId>
-    <groupId>com.ceos.merlot</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+        <artifactId>Merlot</artifactId>
+        <groupId>com.ceos.merlot</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
     <groupId>com.ceos.merlot.das.drv.mb</groupId>
     <artifactId>com.ceos.merlot.das.drv.mb</artifactId>
@@ -64,6 +64,11 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>        
+        <dependency>
             <groupId>com.ceos.merlot.das.api</groupId>
             <artifactId>com.ceos.merlot.das.api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
@@ -72,37 +77,70 @@
             <groupId>com.ceos.merlot.das.drv.basic</groupId>
             <artifactId>com.ceos.merlot.das.drv.basic</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-lang3</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+    	<dependency>
+    		<groupId>org.osgi</groupId>
+    		<artifactId>org.osgi.core</artifactId>
+    		<version>${osgi.version}</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.osgi</groupId>
+    		<artifactId>org.osgi.compendium</artifactId>
+    		<version>${osgi.compendium.version}</version>
+                 <scope>provided</scope>
+    	</dependency>        
         <dependency>
             <groupId>org.apache.plc4x</groupId>
             <artifactId>plc4j-api</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${apache.plc4x.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.plc4x</groupId>
             <artifactId>plc4j-protocol-modbus</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${apache.plc4x.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
                     <artifactId>netty-resolver</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-lang3</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.plc4x</groupId>
             <artifactId>plc4j-protocol-driver-base</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${apache.plc4x.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-lang3</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvdata</artifactId>
-            <version>6.1.3</version>
+            <version>${epics.pvdata.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.42.Final</version>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>

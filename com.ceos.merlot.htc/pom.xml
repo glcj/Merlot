@@ -21,10 +21,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <artifactId>Merlot</artifactId>
-    <groupId>com.ceos.merlot</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+        <artifactId>Merlot</artifactId>
+        <groupId>com.ceos.merlot</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
     <groupId>com.ceos.merlot.htc</groupId>
     <artifactId>com.ceos.merlot.htc</artifactId>
@@ -113,69 +113,119 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>${osgi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.cmpn</artifactId>
+            <version>${osgi.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
-            <version>3.4.2</version>
+            <version>${disruptor.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
+            <version>${slf4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.config</groupId>
+            <artifactId>org.apache.karaf.config.core</artifactId>
+            <version>${apache.karaf.version}</version>
+        </dependency> 
         <dependency>
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
-            <version>4.2.8</version>
-        </dependency>
+            <version>${apache.karaf.version}</version>
+        </dependency>               
+
         <dependency>
             <groupId>com.ceos.merlot.scheduler</groupId>
             <artifactId>com.ceos.merlot.scheduler</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>jakarta.xml.bind</groupId>
+                    <artifactId>jakarta.xml.bind-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>org.osgi.core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>osgi.cmpn</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.quartz-scheduler</groupId>
+                    <artifactId>quartz</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.ceos.merlot.model</groupId>
+            <artifactId>com.ceos.merlot.model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>osgi.cmpn</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>        
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvaccess</artifactId>
-            <version>5.1.5</version>
+            <version>${epics.pvaccess.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvdata</artifactId>
-            <version>6.1.5</version>
+            <version>${epics.pvdata.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-util</artifactId>
-            <version>1.0.3</version>
+            <version>${epics.util.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
+            <artifactId>vtype</artifactId>
+            <version>${epics.vtype.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.epics</groupId>
             <artifactId>gpclient-ca</artifactId>
-            <version>1.0.5</version>
+            <version>${gpclient.ca.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>gpclient-core</artifactId>
-            <version>1.0.5</version>
+            <version>${gpclient.core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>gpclient-loc</artifactId>
-            <version>1.0.5</version>
+            <version>${gpclient.loc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>gpclient-pva</artifactId>
-            <version>1.0.5</version>
+            <version>${gpclient.pva.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>gpclient-sim</artifactId>
-            <version>1.0.5</version>
+            <version>${gpclient.sim.version}</version>
         </dependency>
         <dependency>
             <groupId>org.epics</groupId>
             <artifactId>epics-pvaclient</artifactId>
-            <version>4.3.2</version>
+            <version>${epics.pvaclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.iotdb</groupId>
@@ -183,20 +233,7 @@
             <version>0.10.0</version>
             <classifier>jar-with-dependencies</classifier>
         </dependency>
-        <dependency>
-            <groupId>org.apache.karaf.config</groupId>
-            <artifactId>org.apache.karaf.config.core</artifactId>
-            <version>4.2.8</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ceos.merlot.model</groupId>
-            <artifactId>com.ceos.merlot.model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.epics</groupId>
-            <artifactId>vtype</artifactId>
-            <version>1.0.4</version>
-        </dependency>
+
+
     </dependencies>
 </project>

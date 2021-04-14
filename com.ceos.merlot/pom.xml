@@ -74,20 +74,20 @@
         <dependency>
             <groupId>org.apache.karaf.features</groupId>
             <artifactId>framework</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
             <type>kar</type>
         </dependency>        
         <dependency>
             <groupId>org.apache.karaf.features</groupId>
             <artifactId>standard</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
             <classifier>features</classifier>
             <type>xml</type>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf.features</groupId>
             <artifactId>spring</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
             <classifier>features</classifier>
             <type>xml</type>
             <scope>runtime</scope>
@@ -95,7 +95,7 @@
         <dependency>
             <groupId>org.apache.karaf.features</groupId>
             <artifactId>enterprise</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
             <classifier>features</classifier>
             <type>xml</type>
             <scope>runtime</scope>
@@ -133,7 +133,7 @@
                 <plugin>
                     <groupId>org.apache.karaf.tooling</groupId>
                     <artifactId>karaf-maven-plugin</artifactId>
-                    <version>4.2.8</version>
+                    <version>${apache.karaf.version}</version>
                     <extensions>true</extensions>
                 </plugin>
             </plugins>
@@ -157,13 +157,19 @@
                 <artifactId>karaf-maven-plugin</artifactId>
                 <configuration>
                     <libraries>
-                        <library>mvn:org.apache.iotdb/tsfile/0.10.0;type:=boot</library>
+                        <library>mvn:org.apache.iotdb/tsfile/${apache.iotdb.version};type:=boot</library>
+                        <library>mvn:com.ceos.merlot.branding/com.ceos.merlot.branding/${project.version};type:=boot</library>
                     </libraries>
                     <installedBundles>
                         <!--
                         <installedBundle>mvn:com.ceos.merlot.features/com.ceos.merlot.features/0.0.1-SNAPSHOT</installedBundle>
                         -->
                     </installedBundles>
+                    
+                    <startupBundles>
+                       <!-- <bundle>mvn:com.ceos.merlot.branding/com.ceos.merlot.branding/${project.version}</bundle> -->
+                    </startupBundles>                    
+                    
                     <installedFeatures>
                         <feature>wrapper</feature>
                         <feature>com.ceos.merlot.features</feature>
@@ -188,6 +194,7 @@
                     </installedFeatures>
                     
                     <blacklistedFeatures>
+                        <feature>framework-security</feature>
                         <feature>jetty</feature>
                         <feature>httplite</feature>
                         <feature>felix-httplite</feature>
@@ -198,13 +205,16 @@
                     
                     <bootFeatures>
                         <!-- standard distribution -->
-                        <feature>standard</feature>
                         <feature>com.ceos.merlot.features</feature>                        
+                        <feature>standard</feature>
                         <feature>jndi</feature>
                         <feature>pax-jdbc</feature>
                         <feature>pax-jdbc-config</feature>
                         <feature>pax-jdbc-h2</feature>
-                        <feature>jdbc</feature>                       
+                        <feature>jdbc</feature>  
+                        <feature>config_modbus_devices</feature>
+                        <feature>config_modbus_server</feature>
+                        <feature>config_modbus_sim</feature>                                          
                         <!-- minimal distribution -->
                         <!--<feature>minimal</feature>-->
                     </bootFeatures>

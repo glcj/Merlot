@@ -21,20 +21,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <artifactId>Merlot</artifactId>
-    <groupId>com.ceos.merlot</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+        <artifactId>Merlot</artifactId>
+        <groupId>com.ceos.merlot</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
     <groupId>com.ceos.merlot.features</groupId>
     <artifactId>com.ceos.merlot.features</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>feature</packaging>
     
-    <properties>
-        <karaf.version>4.2.8</karaf.version>
-    </properties>    
-
+  
     <repositories>
         <repository>
             <id>sonatype-nexus</id>
@@ -52,7 +49,7 @@
                 <plugin>
                     <groupId>org.apache.karaf.tooling</groupId>
                     <artifactId>karaf-maven-plugin</artifactId>
-                    <version>4.2.8</version>
+                    <version>${apache.karaf.version}</version>
                     <extensions>true</extensions>
                 </plugin>
             </plugins>
@@ -112,13 +109,13 @@
     <dependency>
         <groupId>org.apache.karaf.features</groupId>
         <artifactId>framework</artifactId>
-        <version>4.2.8</version>
+        <version>${apache.karaf.version}</version>
         <type>kar</type>
     </dependency>
     <dependency>
         <groupId>org.apache.karaf.features</groupId>
         <artifactId>framework</artifactId>
-        <version>4.2.8</version>
+        <version>${apache.karaf.version}</version>
         <classifier>features</classifier>
         <type>xml</type>
         <scope>runtime</scope>
@@ -126,7 +123,7 @@
     <dependency>
         <groupId>org.apache.karaf.features</groupId>
         <artifactId>standard</artifactId>
-        <version>4.2.8</version>
+        <version>${apache.karaf.version}</version>
         <classifier>features</classifier>
         <type>xml</type>
     </dependency>
@@ -134,7 +131,7 @@
     <dependency>
         <groupId>org.apache.karaf.decanter</groupId>
         <artifactId>apache-karaf-decanter</artifactId>
-        <version>4.2.8</version>
+        <version>${apache.karaf.version}</version>
         <classifier>features</classifier>
         <type>xml</type>
         <scope>runtime</scope>
@@ -143,13 +140,18 @@
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>1.7.27</version>
+        <version>${slf4j.version}</version>
         <scope>provided</scope>
     </dependency>
         <dependency>
             <groupId>org.apache.iotdb</groupId>
             <artifactId>tsfile</artifactId>
-            <version>0.10.0</version>
+            <version>${apache.iotdb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework.security</artifactId>
+            <version>2.6.1</version>
         </dependency>
     </dependencies>
 </project>

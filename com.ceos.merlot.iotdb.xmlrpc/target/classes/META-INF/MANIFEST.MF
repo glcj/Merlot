@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1614440850291
-Build-Jdk: 11.0.9.1
+Bnd-LastModified: 1617507059929
+Build-Jdk: 11.0.10
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/xmlrpc-iotdb-service.xml
-Bundle-ClassPath: .,javax.servlet-api-3.1.0.jar,org.apache.karaf.util-4.
- 2.8.jar,org.apache.felix.utils-1.11.2.jar,slf4j-api-1.7.29.jar,org.apac
- he.karaf.jaas.boot-4.2.8.jar,org.apache.karaf.jdbc.core-4.2.8.jar,xmlrp
+Bundle-ClassPath: .,javax.servlet-api-4.0.1.jar,org.apache.karaf.util-4.
+ 3.1.jar,org.apache.felix.utils-1.11.8.jar,slf4j-api-1.7.29.jar,org.apac
+ he.karaf.jaas.boot-4.3.1.jar,org.apache.karaf.jdbc.core-4.3.1.jar,xmlrp
  c-helma-1.0.jar
 Bundle-Description: XML-RPC connector for IoTDB Archiver
 Bundle-ManifestVersion: 2
@@ -15,14 +15,14 @@ Bundle-Version: 0.0.1.SNAPSHOT
 Created-By: Apache Maven Bundle Plugin
 Embed-Dependency: !epics-core,!javax.servlet;scope=compile|runtime
 Embed-Transitive: true
-Embedded-Artifacts: javax.servlet-api-3.1.0.jar;g="javax.servlet";a="jav
- ax.servlet-api";v="3.1.0",org.apache.karaf.util-4.2.8.jar;g="org.apache
- .karaf";a="org.apache.karaf.util";v="4.2.8",org.apache.felix.utils-1.11
- .2.jar;g="org.apache.felix";a="org.apache.felix.utils";v="1.11.2",slf4j
+Embedded-Artifacts: javax.servlet-api-4.0.1.jar;g="javax.servlet";a="jav
+ ax.servlet-api";v="4.0.1",org.apache.karaf.util-4.3.1.jar;g="org.apache
+ .karaf";a="org.apache.karaf.util";v="4.3.1",org.apache.felix.utils-1.11
+ .8.jar;g="org.apache.felix";a="org.apache.felix.utils";v="1.11.8",slf4j
  -api-1.7.29.jar;g="org.slf4j";a="slf4j-api";v="1.7.29",org.apache.karaf
- .jaas.boot-4.2.8.jar;g="org.apache.karaf.jaas";a="org.apache.karaf.jaas
- .boot";v="4.2.8",org.apache.karaf.jdbc.core-4.2.8.jar;g="org.apache.kar
- af.jdbc";a="org.apache.karaf.jdbc.core";v="4.2.8",xmlrpc-helma-1.0.jar;
+ .jaas.boot-4.3.1.jar;g="org.apache.karaf.jaas";a="org.apache.karaf.jaas
+ .boot";v="4.3.1",org.apache.karaf.jdbc.core-4.3.1.jar;g="org.apache.kar
+ af.jdbc";a="org.apache.karaf.jdbc.core";v="4.3.1",xmlrpc-helma-1.0.jar;
  g="xmlrpc";a="xmlrpc-helma";v="1.0"
 Export-Package: com.ceos.merlot.iotdb.xmlrpc.api;version="0.0.1.SNAPSHOT
  ",com.ceos.merlot.iotdb.xmlrpc.core;version="0.0.1.SNAPSHOT";uses:="com
@@ -30,10 +30,10 @@ Export-Package: com.ceos.merlot.iotdb.xmlrpc.api;version="0.0.1.SNAPSHOT
  s.merlot.iotdb.xmlrpc.impl;version="0.0.1.SNAPSHOT";uses:="com.ceos.mer
  lot.iotdb.xmlrpc.api,javax.sql",helma.xmlrpc;version="0.0.1.SNAPSHOT";u
  ses:="javax.servlet,javax.servlet.http,org.xml.sax",helma.xmlrpc.secure
- ;version="0.0.1.SNAPSHOT";uses:="helma.xmlrpc",javax.servlet;version="3
- .1.0";uses:="javax.servlet.annotation,javax.servlet.descriptor",javax.s
- ervlet.annotation;version="3.1.0";uses:="javax.servlet",javax.servlet.d
- escriptor;version="3.1.0",javax.servlet.http;version="3.1.0";uses:="jav
+ ;version="0.0.1.SNAPSHOT";uses:="helma.xmlrpc",javax.servlet;version="4
+ .0.0";uses:="javax.servlet.annotation,javax.servlet.descriptor",javax.s
+ ervlet.annotation;version="4.0.0";uses:="javax.servlet",javax.servlet.d
+ escriptor;version="4.0.0",javax.servlet.http;version="4.0.0";uses:="jav
  ax.servlet",org.apache.felix.utils.collections;version="0.0.1.SNAPSHOT"
  ,org.apache.felix.utils.extender;version="0.0.1.SNAPSHOT";uses:="org.os
  gi.framework,org.osgi.util.tracker",org.apache.felix.utils.filter;versi
@@ -48,10 +48,10 @@ Export-Package: com.ceos.merlot.iotdb.xmlrpc.api;version="0.0.1.SNAPSHOT
  rg.osgi.resource",org.apache.felix.utils.service;version="0.0.1.SNAPSHO
  T";uses:="org.osgi.framework,org.osgi.service.cm",org.apache.felix.util
  s.version;version="0.0.1.SNAPSHOT";uses:="org.osgi.framework",org.apach
- e.karaf.jaas.boot;version="4.2.8";uses:="javax.security.auth,javax.secu
+ e.karaf.jaas.boot;version="4.3.0";uses:="javax.security.auth,javax.secu
  rity.auth.callback,javax.security.auth.login,javax.security.auth.spi,or
- g.osgi.framework",org.apache.karaf.jaas.boot.principal;version="4.2.8";
- uses:="javax.security.auth",org.apache.karaf.jdbc;version="4.2.8";uses:
+ g.osgi.framework",org.apache.karaf.jaas.boot.principal;version="4.3.0";
+ uses:="javax.security.auth",org.apache.karaf.jdbc;version="4.3.0";uses:
  ="javax.management,javax.management.openmbean",org.apache.karaf.jdbc.co
  mmand;version="0.0.1.SNAPSHOT";uses:="org.apache.karaf.jdbc,org.apache.
  karaf.jdbc.command.parsing,org.apache.karaf.shell.api.action,org.apache
@@ -101,10 +101,10 @@ Import-Package: com.ceos.merlot.iotdb.xmlrpc.api;resolution:=optional;ve
  l;resolution:=optional,javax.security.auth;resolution:=optional,javax.s
  ecurity.auth.callback;resolution:=optional,javax.security.auth.login;re
  solution:=optional,javax.security.auth.spi;resolution:=optional,javax.s
- ervlet;resolution:=optional;version="[3.1,4)",javax.servlet.annotation;
- resolution:=optional;version="[3.1,4)",javax.servlet.descriptor;resolut
- ion:=optional;version="[3.1,4)",javax.servlet.http;resolution:=optional
- ;version="[3.1,4)",javax.sql;resolution:=optional,javax.xml.namespace;r
+ ervlet;resolution:=optional;version="[4.0,5)",javax.servlet.annotation;
+ resolution:=optional;version="[4.0,5)",javax.servlet.descriptor;resolut
+ ion:=optional;version="[4.0,5)",javax.servlet.http;resolution:=optional
+ ;version="[4.0,5)",javax.sql;resolution:=optional,javax.xml.namespace;r
  esolution:=optional,javax.xml.parsers;resolution:=optional,javax.xml.st
  ream;resolution:=optional,javax.xml.stream.events;resolution:=optional,
  javax.xml.transform;resolution:=optional,org.apache.felix.utils.collect
@@ -113,8 +113,8 @@ Import-Package: com.ceos.merlot.iotdb.xmlrpc.api;resolution:=optional;ve
  es;resolution:=optional;version="[0.0,1)",org.apache.felix.utils.resour
  ce;resolution:=optional;version="[0.0,1)",org.apache.felix.utils.versio
  n;resolution:=optional;version="[0.0,1)",org.apache.karaf.jaas.boot.pri
- ncipal;resolution:=optional;version="[4.2,5)",org.apache.karaf.jdbc;res
- olution:=optional;version="[4.2,5)",org.apache.karaf.jdbc.command;resol
+ ncipal;resolution:=optional;version="[4.3,5)",org.apache.karaf.jdbc;res
+ olution:=optional;version="[4.3,5)",org.apache.karaf.jdbc.command;resol
  ution:=optional;version="[0.0,1)",org.apache.karaf.jdbc.command.complet
  ers;resolution:=optional;version="[0.0,1)",org.apache.karaf.jdbc.comman
  d.parsing;resolution:=optional;version="[0.0,1)",org.apache.karaf.jdbc.

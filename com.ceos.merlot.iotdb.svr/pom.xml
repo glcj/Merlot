@@ -21,10 +21,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <artifactId>Merlot</artifactId>
-    <groupId>com.ceos.merlot</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+        <artifactId>Merlot</artifactId>
+        <groupId>com.ceos.merlot</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
     <groupId>com.ceos.merlot.iotdb.svr</groupId>
     <artifactId>com.ceos.merlot.iotdb.svr</artifactId>
@@ -89,33 +89,33 @@
     <dependencies>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>osgi.cmpn</artifactId>
-            <version>6.0.0</version>
-        </dependency>
+            <artifactId>org.osgi.core</artifactId>
+            <version>${osgi.version}</version>
+        </dependency>        
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>6.0.0</version>
+            <artifactId>osgi.cmpn</artifactId>
+            <version>${osgi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf</groupId>
             <artifactId>org.apache.karaf.main</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.iotdb</groupId>
             <artifactId>iotdb-server</artifactId>
-            <version>0.11.2</version>
+            <version>${apache.iotdb.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.iotdb</groupId>
             <artifactId>tsfile</artifactId>
-            <version>0.11.2</version>
+            <version>${apache.iotdb.version}</version>
         </dependency>
     </dependencies>
 </project>

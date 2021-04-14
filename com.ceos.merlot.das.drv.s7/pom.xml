@@ -20,6 +20,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <artifactId>Merlot</artifactId>
+        <groupId>com.ceos.merlot</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+
     <groupId>com.ceos.merlot.das.drv.s7</groupId>
     <artifactId>com.ceos.merlot.das.drv.s7</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -60,9 +67,24 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons.lang3.version}</version>
+        </dependency>        
+    	<dependency>
+    		<groupId>org.osgi</groupId>
+    		<artifactId>org.osgi.core</artifactId>
+    		<version>${osgi.version}</version>
+    	</dependency>        
+        <dependency>
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
-            <version>4.2.7</version>
+            <version>${apache.karaf.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.sshd</groupId>
@@ -79,11 +101,22 @@
             <groupId>com.ceos.merlot.das.drv.basic</groupId>
             <artifactId>com.ceos.merlot.das.drv.basic</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.epics</groupId>
+                    <artifactId>epics-pvdata</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.ceos.merlot.scheduler</groupId>
+            <artifactId>com.ceos.merlot.scheduler</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>        
         <dependency>
             <groupId>org.apache.plc4x</groupId>
             <artifactId>plc4j-driver-s7</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${apache.plc4x.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
@@ -107,20 +140,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.ceos.merlot.scheduler</groupId>
-            <artifactId>com.ceos.merlot.scheduler</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.plc4x</groupId>
             <artifactId>plc4j-api</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${apache.plc4x.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.42.Final</version>
+            <version>${netty.version}</version>
         </dependency>
     </dependencies>
 </project>

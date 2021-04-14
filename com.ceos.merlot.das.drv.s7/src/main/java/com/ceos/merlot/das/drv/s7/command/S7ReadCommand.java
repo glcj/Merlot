@@ -84,6 +84,10 @@ public class S7ReadCommand implements Action, DriverCallback  {
         
     }
 
+    /**
+     *
+     * @param cb
+     */
     @Override
     public void execute(DriverEvent cb) {
         try {
@@ -146,5 +150,6 @@ public class S7ReadCommand implements Action, DriverCallback  {
             System.out.println("S7ReadCommand: " + ex);
         }
     }
+ 
     
 }

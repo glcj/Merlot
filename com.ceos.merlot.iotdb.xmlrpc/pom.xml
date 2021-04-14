@@ -82,17 +82,17 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${servlet.api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf</groupId>
             <artifactId>org.apache.karaf.util</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.karaf.jdbc</groupId>
             <artifactId>org.apache.karaf.jdbc.core</artifactId>
-            <version>4.2.8</version>
+            <version>${apache.karaf.version}</version>
         </dependency>
         <dependency>
             <groupId>xmlrpc</groupId>
