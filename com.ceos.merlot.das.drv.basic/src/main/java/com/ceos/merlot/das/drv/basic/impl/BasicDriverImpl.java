@@ -22,6 +22,7 @@ package com.ceos.merlot.das.drv.basic.impl;
 import com.ceos.merlot.api.Device;
 import com.ceos.merlot.api.DriverEvent;
 import com.ceos.merlot.core.Merlot;
+import com.ceos.merlot.core.Merlot.STATE;
 import com.ceos.merlot.das.drv.basic.api.BasicDevice;
 import com.ceos.merlot.das.drv.basic.api.BasicDriver;
 import com.ceos.merlot.das.drv.basic.api.BasicOptimizer;
@@ -40,7 +41,7 @@ import org.apache.plc4x.java.api.PlcConnection;
 import org.apache.plc4x.java.api.messages.PlcReadRequest;
 import org.apache.plc4x.java.api.messages.PlcRequest;
 import org.apache.plc4x.java.api.messages.PlcResponse;
-import org.apache.plc4x.java.spi.PlcDriver;
+import org.apache.plc4x.java.api.PlcDriver;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
@@ -52,7 +53,10 @@ public class BasicDriverImpl implements BasicDriver {
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicDriverImpl.class);
 	
     static final String BASIC_DEVICE_CATEGORY = "basic";
-    static final String BASIC_DRIVER_ID = "com.ceos.basic";	
+    static final String BASIC_DRIVER_ID = "com.ceos.basic";
+    
+    //State of the driver
+    protected STATE state = STATE.STOPPED;
         
     // Executor that will be used to construct new threads for consumers
     protected Executor RequestExecutor;
@@ -230,22 +234,158 @@ public class BasicDriverImpl implements BasicDriver {
         RequestDisruptor.shutdown();
         ResponseDisruptor.shutdown();        
     }
+    
+    
+    @Override
+    public void reset() {
+        if ((state != STATE.STOPPED) &&  (state != STATE.COMPLETE)) return;
+        state = STATE.RESETTING;        
+    }
 
     @Override
     public void start() {
+        if (state != STATE.IDLE) return;
         try {
             if(stats_RunningTime.isSuspended()) stats_RunningTime.resume();
             if(!stats_StoppedTime.isSuspended()) stats_StoppedTime.suspend();
         } catch (Exception ex) {
             LOGGER.info(ex.toString());
         }
+        state = STATE.STARTING;
     }
 
     @Override
     public void stop() {
         //TODO Evaluate drainAndHalt()
         if(!stats_RunningTime.isSuspended()) stats_RunningTime.suspend();
-        if(stats_StoppedTime.isSuspended()) stats_StoppedTime.resume();        
+        if(stats_StoppedTime.isSuspended()) stats_StoppedTime.resume();         
+        state = STATE.STOPPING;
+    }
+
+    @Override
+    public void abort() {
+        state = STATE.ABORTING;
+    }
+    
+    @Override
+    public void clear() {
+        if (state != STATE.ABORTED) return;
+        state = STATE.ABORTING;
+    }    
+
+    @Override
+    public void hold() {
+        if (state != STATE.EXECUTE) return;
+        state = STATE.HOLDING;        
+    }
+
+    @Override
+    public void unhold() {
+        if (state != STATE.UNHOLDING) return;
+        state = STATE.EXECUTE;         
+    }
+
+    @Override
+    public void suspend() {
+        if (state != STATE.EXECUTE) return;
+        state = STATE.SUSPENDING; 
+    }
+
+    @Override
+    public void unsuspend() {
+        if (state != STATE.SUSPENDED) return;
+        state = STATE.UNSUSPENDING; 
+    }
+
+    @Override
+    public void onStopped() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onResetting() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onIdle() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onStarting() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onExecute() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onCompleting() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onComplete() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onHolding() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onHeld() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onUnholding() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onSuspending() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onSuspended() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onUnsuspending() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onAborting() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onAborted() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onClearing() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onStopping() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    @Override
+    public STATE getState() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -379,9 +519,6 @@ public class BasicDriverImpl implements BasicDriver {
     public long getResponseQueueItems() {
         return (ResponseRingBuffer.getBufferSize() - ResponseRingBuffer.remainingCapacity());
     }
- 
-    
-    
-    
+             
 
 }

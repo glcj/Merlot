@@ -25,7 +25,7 @@ import com.ceos.merlot.das.drv.mb.api.MbDevice;
 import com.ceos.merlot.das.drv.mb.api.MbDriver;
 import com.ceos.merlot.scheduler.api.Job;
 import java.util.Hashtable;
-import org.apache.plc4x.java.spi.PlcDriver;
+import org.apache.plc4x.java.api.PlcDriver;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.device.Constants;

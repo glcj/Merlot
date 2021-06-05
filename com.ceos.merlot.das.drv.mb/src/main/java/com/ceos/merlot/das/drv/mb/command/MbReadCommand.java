@@ -41,14 +41,14 @@ import org.apache.karaf.shell.support.table.ShellTable;
 import org.apache.plc4x.java.api.messages.PlcReadRequest;
 import org.apache.plc4x.java.api.messages.PlcReadResponse;
 import org.apache.plc4x.java.api.model.PlcField;
-import org.apache.plc4x.java.modbus.model.CoilModbusField;
-import org.apache.plc4x.java.modbus.model.ModbusField;
-import org.apache.plc4x.java.modbus.model.ReadHoldingRegistersModbusField;
-import org.apache.plc4x.java.modbus.model.ReadInputRegistersModbusField;
-import org.apache.plc4x.java.modbus.model.RegisterModbusField;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.device.Device;
+import org.apache.plc4x.java.modbus.field.ModbusFieldCoil;
+import org.apache.plc4x.java.modbus.field.ModbusField;
+import org.apache.plc4x.java.modbus.field.ModbusFieldHoldingRegister;
+import org.apache.plc4x.java.modbus.field.ModbusFieldInputRegister;
+import org.apache.plc4x.java.modbus.field.ModbusExtendedRegister;
 
 /**
  *
@@ -70,13 +70,13 @@ public class MbReadCommand implements Action, DriverCallback  {
     @Option(name = "-t", aliases = "--tabular", description = "Show the data like tabular data..", required = false, multiValued = false)
     boolean tabular = false;    
 
-    @Argument(index = 0, name = "serial", description = "S7 device serial.", required = true, multiValued = false)
+    @Argument(index = 0, name = "serial", description = "Device serial.", required = true, multiValued = false)
     String serial;  
     
     @Argument(index = 1, name = "ref", description = "User reference value.", required = true, multiValued = false)
     String userRef;    
 
-    @Argument(index = 2, name = "field", description = "S7 field to read.", required = true, multiValued = false)
+    @Argument(index = 2, name = "field", description = "Field to read.", required = true, multiValued = false)
     String userField;        
     
     
@@ -165,9 +165,8 @@ public class MbReadCommand implements Action, DriverCallback  {
         int ini = mbField.getAddress();
         int end = 0;        
 
-        if (mbField instanceof CoilModbusField) ini+= 10000;
-        end = ini + mbField.getQuantity();          
-        
+        if (mbField instanceof ModbusFieldCoil) ini+= 10000;
+        end = ini + mbField.getNumberOfElements();
         ShellTable table = new ShellTable();
         table.column("Register");
         table.column("Boolean value");   
@@ -190,10 +189,10 @@ public class MbReadCommand implements Action, DriverCallback  {
         int ini = mbField.getAddress();
         int end = 0;        
         ByteBuf byteBuf = Unpooled.wrappedBuffer(backend);
-        if (mbField instanceof RegisterModbusField) ini+= 40000;
-        if (mbField instanceof ReadInputRegistersModbusField) ini+=30000;        
-        if (mbField instanceof ReadHoldingRegistersModbusField) ini+=40000;
-        end = ini + mbField.getQuantity(); 
+        if (mbField instanceof ModbusExtendedRegister) ini+= 40000;
+        if (mbField instanceof ModbusFieldInputRegister) ini+=30000;        
+        if (mbField instanceof ModbusFieldHoldingRegister) ini+=40000;
+        end = ini + mbField.getNumberOfElements();
         
         ShellTable table = new ShellTable();
         table.column("Register");

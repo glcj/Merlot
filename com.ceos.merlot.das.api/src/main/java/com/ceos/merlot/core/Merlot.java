@@ -24,6 +24,58 @@ import java.util.Map;
 
 public class Merlot {
    
+   
+    public enum STATE {
+        
+        STOPPED(0x0000,"TEXTO"),
+        RESETTING(0x0002,"TEXTO"),
+        IDLE(0x0004,"TEXTO"),
+        STARTING(0x0006,"TEXTO"),
+        EXECUTE(0x0008,"TEXTO"),
+        COMPLETING(0x000A,"TEXTO"),
+        COMPLETE(0x000C,"TEXTO"),
+        ABORTING(0x000E,"TEXTO"),
+        ABORTED(0x0010,"TEXTO"),
+        CLEARING(0x0012,"TEXTO"),
+        STOPPING(0x0014,"TEXTO"),
+        HOLDING(0x0016,"TEXTO"),
+        HELD(0x0018,"TEXTO"),
+        UNHOLDING(0x001A,"TEXTO"),
+        SUSPENDING(0x001C,"TEXTO"),
+        SUSPENDED(0x001E,"TEXTO"),
+        UNSUSPENDING(0x0020,"TEXTO");
+        
+        private static final Map<Integer, STATE> map;
+        
+        static {
+            map = new HashMap<>();
+            for (STATE state : STATE.values()) {
+                map.put(state.code, state);
+            }
+        }; 
+        
+        private final String description;
+        private final int code;    
+        
+        STATE(int code, String description){
+            this.description = description;
+            this.code = code;
+        }   
+        
+        public String getDescription(){
+            return description;
+        }    
+
+        public int getCode() {
+            return code;
+        } 
+        
+        public static STATE  valueOf(int code) {
+            return map.get(code);
+        }           
+        
+    }    
+    
     
     public enum STATUS {
         M_OK(0x6000,"TEXTO"),
@@ -300,6 +352,7 @@ public class Merlot {
             return map.get(code);
         }                  
     }
+    
     public static final int M_INITIATE_CNF                      = 0x4000;
     public static final int M_READ_CNF                          = 0x4001;
     public static final int M_WRITE_CNF                         = 0x4002;

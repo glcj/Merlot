@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1617507059929
-Build-Jdk: 11.0.10
+Bnd-LastModified: 1622855074687
+Build-Jdk: 11.0.11
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/xmlrpc-iotdb-service.xml
 Bundle-ClassPath: .,javax.servlet-api-4.0.1.jar,org.apache.karaf.util-4.
@@ -48,10 +48,10 @@ Export-Package: com.ceos.merlot.iotdb.xmlrpc.api;version="0.0.1.SNAPSHOT
  rg.osgi.resource",org.apache.felix.utils.service;version="0.0.1.SNAPSHO
  T";uses:="org.osgi.framework,org.osgi.service.cm",org.apache.felix.util
  s.version;version="0.0.1.SNAPSHOT";uses:="org.osgi.framework",org.apach
- e.karaf.jaas.boot;version="4.3.0";uses:="javax.security.auth,javax.secu
+ e.karaf.jaas.boot;version="4.3.1";uses:="javax.security.auth,javax.secu
  rity.auth.callback,javax.security.auth.login,javax.security.auth.spi,or
- g.osgi.framework",org.apache.karaf.jaas.boot.principal;version="4.3.0";
- uses:="javax.security.auth",org.apache.karaf.jdbc;version="4.3.0";uses:
+ g.osgi.framework",org.apache.karaf.jaas.boot.principal;version="4.3.1";
+ uses:="javax.security.auth",org.apache.karaf.jdbc;version="4.3.1";uses:
  ="javax.management,javax.management.openmbean",org.apache.karaf.jdbc.co
  mmand;version="0.0.1.SNAPSHOT";uses:="org.apache.karaf.jdbc,org.apache.
  karaf.jdbc.command.parsing,org.apache.karaf.shell.api.action,org.apache

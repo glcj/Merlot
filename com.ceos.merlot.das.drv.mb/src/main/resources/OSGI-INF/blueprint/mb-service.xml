@@ -18,7 +18,7 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="eager">
 
     <reference id="servicePLC4XModbus"
-        interface="org.apache.plc4x.java.spi.PlcDriver"
+        interface="org.apache.plc4x.java.api.PlcDriver"
         filter="(component.name=org.apache.plc4x.java.modbus.ModbusPlcDriver)"
         timeout="15000"
         availability="mandatory">

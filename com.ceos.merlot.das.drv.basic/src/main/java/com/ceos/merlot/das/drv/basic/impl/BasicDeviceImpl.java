@@ -30,8 +30,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import org.apache.plc4x.java.api.PlcConnection;
 import org.apache.plc4x.java.api.messages.PlcReadRequest;
+import org.apache.plc4x.java.api.messages.PlcSubscriptionEvent;
 import org.apache.plc4x.java.api.messages.PlcWriteRequest;
 import org.epics.pvdata.pv.ScalarType;
 import static org.epics.pvdata.pv.ScalarType.pvBoolean;
@@ -167,7 +169,28 @@ public class BasicDeviceImpl implements BasicDevice, DriverCallback  {
         }        
 
     }
+    
+    @Override
+    public void SubscriptionRequest(String... events) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
+    @Override
+    public void UnsubscriptionRequest(String... events) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }   
+
+    @Override
+    public void ConsumerRegister(String event, Consumer<PlcSubscriptionEvent> consumer) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void ConsumerUnRegister(String event) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+ 
     @Override
     public void setUrl(String url) {
         this.url = url;
@@ -177,8 +200,5 @@ public class BasicDeviceImpl implements BasicDevice, DriverCallback  {
     public String getUrl() {
         return url;
     }
-
-
-	
 
 }

@@ -23,12 +23,13 @@ import com.ceos.merlot.das.drv.s7.api.S7Device;
 import com.ceos.merlot.das.drv.s7.api.S7Driver;
 import com.ceos.merlot.scheduler.api.Job;
 import java.util.Hashtable;
-import org.apache.plc4x.java.spi.PlcDriver;
+import org.apache.plc4x.java.api.PlcDriver;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.device.Constants;
 import org.osgi.service.device.Device;
 import org.osgi.service.device.Driver;
+import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,11 +40,13 @@ import org.slf4j.LoggerFactory;
 public class S7ReferringDriverImpl  implements Driver {
     private static final Logger LOGGER = LoggerFactory.getLogger(S7ReferringDriverImpl.class);
     private static final String COM_CEOS_S7_DEVICE_CATEGORY = "com.ceos.s7";
-    private BundleContext bc;    
+    private BundleContext bc;  
+    final EventAdmin eventAdmin;
     private PlcDriver plcdriver = null;
 
-    public S7ReferringDriverImpl (BundleContext bc) {
+    public S7ReferringDriverImpl (BundleContext bc, EventAdmin eventAdmin) {
         this.bc = bc;
+        this.eventAdmin = eventAdmin;
     }    
     
     

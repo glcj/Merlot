@@ -20,6 +20,7 @@ under the License.
 package com.ceos.merlot.api;
 
 import com.ceos.merlot.core.Merlot;
+import com.ceos.merlot.core.Merlot.STATE;
 import java.time.LocalDateTime;
 
 
@@ -29,9 +30,39 @@ public interface Driver extends org.osgi.service.device.Driver {
 
     public void destroy() throws Exception;
 
-    public void start();
-
-    public void stop();	
+    
+    public void reset();  
+    public void start();   
+    public void stop();
+    public void abort();
+    public void clear();    
+    public void hold();  
+    public void unhold();
+    public void suspend();
+    public void unsuspend();
+    
+    public void onStopped();
+    public void onResetting();
+    public void onIdle();
+    public void onStarting();
+    public void onExecute();
+    public void onCompleting();
+    public void onComplete();
+    public void onHolding();
+    public void onHeld();
+    public void onUnholding();
+    public void onSuspending();
+    public void onSuspended();
+    public void onUnsuspending();
+    public void onAborting();
+    public void onAborted();
+    public void onClearing();
+    public void onStopping();
+    
+    
+    
+    
+    public STATE getState();
         
     public void setUrl(String url);
     

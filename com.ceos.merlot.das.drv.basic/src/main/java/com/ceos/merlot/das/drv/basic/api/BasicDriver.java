@@ -22,7 +22,7 @@ package com.ceos.merlot.das.drv.basic.api;
 import com.ceos.merlot.api.Driver;
 import java.time.LocalDateTime;
 import org.apache.plc4x.java.api.PlcConnection;
-import org.apache.plc4x.java.spi.PlcDriver;
+import org.apache.plc4x.java.api.PlcDriver;
 import org.osgi.framework.BundleContext;
 
 public interface BasicDriver extends Driver {

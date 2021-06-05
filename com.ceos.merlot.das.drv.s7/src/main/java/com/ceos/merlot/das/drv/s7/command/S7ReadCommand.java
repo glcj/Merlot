@@ -33,7 +33,7 @@ import org.apache.karaf.shell.api.console.Session;
 import org.apache.karaf.shell.api.console.SessionFactory;
 import org.apache.plc4x.java.api.messages.PlcReadRequest;
 import org.apache.plc4x.java.api.messages.PlcReadResponse;
-import org.apache.plc4x.java.s7.model.S7Field;
+import org.apache.plc4x.java.s7.readwrite.field.S7Field;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.device.Device;
@@ -131,11 +131,13 @@ public class S7ReadCommand implements Action, DriverCallback  {
             case DATE:
                 System.out.println("DATE: " + response.getAllDates(userRef) + "\r\n");                 
                 break;
+            /*
             case S5TIME:
-                System.out.println("S5TIME: " + response.getAllDuration(userRef) + "\r\n"); 
+                //System.out.println("S5TIME: " + response.getAllDuration(userRef) + "\r\n"); 
                 break;
+            */
             case TIME:
-                System.out.println("TIME: " + response.getAllDuration(userRef) + "\r\n");  
+                //System.out.println("TIME: " + response.getAllDuration(userRef) + "\r\n");  
                 break;
             case TOD:
             case TIME_OF_DAY:

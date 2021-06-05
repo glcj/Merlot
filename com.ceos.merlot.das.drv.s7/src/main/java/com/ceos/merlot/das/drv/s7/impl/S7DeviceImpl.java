@@ -26,7 +26,14 @@ import com.ceos.merlot.das.drv.basic.impl.BasicDeviceImpl;
 import com.ceos.merlot.das.drv.s7.api.S7Device;
 import com.ceos.merlot.das.drv.s7.api.S7Driver;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
+import java.util.logging.Level;
+import org.apache.plc4x.java.api.messages.PlcReadRequest;
 import org.apache.plc4x.java.api.messages.PlcReadResponse;
+import org.apache.plc4x.java.api.messages.PlcSubscriptionEvent;
+import org.apache.plc4x.java.api.messages.PlcSubscriptionRequest;
+import org.apache.plc4x.java.api.messages.PlcSubscriptionResponse;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +46,10 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(S7DeviceImpl.class);    
     public static final String S7_DEVICE_CATEGORY = "com.ceos.s7";
+    
+    private PlcSubscriptionRequest.Builder plcsubscription = null;
+    private PlcSubscriptionRequest sub = null;
+    private PlcSubscriptionResponse subresponse = null;
     
     private S7Driver devDriver = null;
     
@@ -98,7 +109,39 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
         super.WriteRequest(scalar,id,values, cb);
     }
 
-    //TODO Descargar la información devuelta en la consola
+    @Override
+    public void SubscriptionRequest(String... events) {
+        plcsubscription = devDriver.getPlcConnection().subscriptionRequestBuilder();
+        if ((plcsubscription != null) && (events.length > 0)) {
+            for (String event:events) {
+                plcsubscription.addEventField(event, event.toUpperCase());
+            }
+            sub = plcsubscription.build();
+            try {
+                subresponse = sub.execute().get();
+            } catch (Exception ex) {
+                LOGGER.info(ex.toString());
+            } 
+        };            
+    }
+        
+    @Override
+    public void UnsubscriptionRequest(String... events) {
+        super.UnsubscriptionRequest(events);
+    }
+
+    @Override
+    public void ConsumerRegister(String event, Consumer<PlcSubscriptionEvent> consumer) {
+        subresponse.getSubscriptionHandle(event).register(consumer);
+    }    
+    
+    @Override
+    public void ConsumerUnRegister(String event) {
+        super.ConsumerUnRegister(event); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    //TODO Descargar la informaciï¿½n devuelta en la consola
     @Override
     public void execute(DriverEvent cb) {
         super.execute(cb);

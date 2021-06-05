@@ -58,7 +58,7 @@ public class S7DriverImpl extends BasicDriverImpl implements S7Driver, Job{
     
     @Override
     public void init() throws Exception {
-        
+
         RequestExecutor  = Executors.newCachedThreadPool();
         ResponseExecutor = Executors.newCachedThreadPool();
 
@@ -163,7 +163,7 @@ public class S7DriverImpl extends BasicDriverImpl implements S7Driver, Job{
                 if (plcDriver != null){
                     LOGGER.info("PlcDriver name: {}",plcDriver.getProtocolName());
                     LOGGER.info("PlcDriver code: {}",plcDriver.getProtocolCode());
-                    plcConn = plcDriver.connect(url);
+                    plcConn = plcDriver.getConnection(url);
                     plcConn.connect();
                 } else {
                     LOGGER.info("Driver nativo == null...");                    
@@ -208,7 +208,7 @@ public class S7DriverImpl extends BasicDriverImpl implements S7Driver, Job{
     public void execute(JobContext context) {
         if (started && !connected ) {
             try{
-                plcConn = plcDriver.connect(url);
+                plcConn = plcDriver.getConnection(url);
                 connected = plcConn.isConnected();
                 if (!connected){
                     LOGGER.info("Native driver don't connect to ({}).",url);

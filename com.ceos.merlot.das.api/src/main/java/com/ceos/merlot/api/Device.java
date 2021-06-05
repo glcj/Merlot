@@ -20,6 +20,8 @@ under the License.
 package com.ceos.merlot.api;
 
 import java.util.List;
+import java.util.function.Consumer;
+import org.apache.plc4x.java.api.messages.PlcSubscriptionEvent;
 
 public interface Device extends org.osgi.service.device.Device {
 	
@@ -42,5 +44,13 @@ public interface Device extends org.osgi.service.device.Device {
         public void ReadRequest(String index, String id, DriverCallback cb);
         
         public void WriteRequest(String scalar, String id, List<String> values, DriverCallback cb);
+        
+        public void SubscriptionRequest(String... events);
+        
+        public void UnsubscriptionRequest(String... events);
+        
+        public void ConsumerRegister(String event, Consumer<PlcSubscriptionEvent> consumer);
+        
+        public void ConsumerUnRegister(String event);
 	
 }
