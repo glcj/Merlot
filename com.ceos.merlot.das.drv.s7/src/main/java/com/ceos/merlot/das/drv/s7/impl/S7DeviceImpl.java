@@ -27,14 +27,26 @@ import com.ceos.merlot.das.drv.s7.api.S7Device;
 import com.ceos.merlot.das.drv.s7.api.S7Driver;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.plc4x.java.api.messages.PlcReadRequest;
 import org.apache.plc4x.java.api.messages.PlcReadResponse;
 import org.apache.plc4x.java.api.messages.PlcSubscriptionEvent;
 import org.apache.plc4x.java.api.messages.PlcSubscriptionRequest;
 import org.apache.plc4x.java.api.messages.PlcSubscriptionResponse;
+import org.apache.plc4x.java.api.model.PlcSubscriptionHandle;
+import org.apache.plc4x.java.s7.events.S7AlarmEvent;
+import org.apache.plc4x.java.s7.events.S7ModeEvent;
+import org.apache.plc4x.java.s7.events.S7SysEvent;
+import org.apache.plc4x.java.s7.events.S7UserEvent;
 import org.osgi.framework.BundleContext;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,15 +58,45 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(S7DeviceImpl.class);    
     public static final String S7_DEVICE_CATEGORY = "com.ceos.s7";
+    private static final Pattern EVENT_PATTERN =
+            Pattern.compile("(?<substr>subscription\\=)|(?<mode>MODE)|(?<sys>SYS)|(?<usr>USR)|(?<alm>ALM)");
+        
+    private static final String SUBSCRIPTION_TYPE = "substr";
+    private static final String EVENT_MODE_TYPE = "mode";
+    private static final String EVENT_SYSTEM_TYPE = "sys";
+    private static final String EVENT_USER_TYPE = "usr";
+    private static final String EVENT_ALARM_TYPE = "alm";
     
+    
+    private Matcher matcher;
     private PlcSubscriptionRequest.Builder plcsubscription = null;
     private PlcSubscriptionRequest sub = null;
     private PlcSubscriptionResponse subresponse = null;
-    
+        
     private S7Driver devDriver = null;
     
-    public S7DeviceImpl(BundleContext bc) {
+    protected final EventAdmin eventAdmin;
+    
+    Consumer<PlcSubscriptionEvent> eventConsumer = new Consumer<PlcSubscriptionEvent>() {
+        @Override
+        public void accept(PlcSubscriptionEvent event) {
+            Event msgEvent = null;
+            if (event instanceof S7ModeEvent)
+            msgEvent = new Event("decanter/process/s7/MODE", ((S7ModeEvent) event).getMap());
+            if (event instanceof S7SysEvent)
+            msgEvent = new Event("decanter/process/s7/SYS", ((S7SysEvent) event).getMap());  
+            if (event instanceof S7UserEvent)
+            msgEvent = new Event("decanter/process/s7/USER", ((S7UserEvent) event).getMap());              
+            if (event instanceof S7UserEvent)
+            msgEvent = new Event("decanter/process/s7/ALARM", ((S7AlarmEvent) event).getMap());            
+            eventAdmin.sendEvent(msgEvent);
+        }
+    };
+    
+     
+    public S7DeviceImpl(BundleContext bc, EventAdmin eventAdmin) {
         super(bc);
+        this.eventAdmin = eventAdmin;
     }
 
     @Override
@@ -70,10 +112,12 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     @Override
     public void start() {     
         LOGGER.info("Starting S7Device ("+url+")");
+        matcher = EVENT_PATTERN.matcher(url);
         if (devDriver != null){
             devDriver.setUrl(url);
             devDriver.start();
-            autostart = false;
+            autostart = false;   
+            doSubscription();
         } else {
             LOGGER.info("S7Device the S7Driver is null.");
             autostart = true;
@@ -151,6 +195,33 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
                 System.out.println("\r\nS7DeviceImpl FieldName: " + fieldname);
             });
         };
-    }    
+    }
+
+    private void doSubscription() {
+        if (matcher.group(SUBSCRIPTION_TYPE) != null) {
+            if (matcher.group(EVENT_MODE_TYPE) != null) {
+                plcsubscription.addEventField("MODE", "MODE");               
+            }
+            if (matcher.group(EVENT_SYSTEM_TYPE) != null) {
+                plcsubscription.addEventField("SYS", "SYS");
+            }
+            if (matcher.group(EVENT_USER_TYPE)  != null) {
+                plcsubscription.addEventField("USR", "USR");                    
+            }
+            if (matcher.group(EVENT_ALARM_TYPE) != null) {
+                plcsubscription.addEventField("ALM", "ALM");                      
+            }
+            
+            sub = plcsubscription.build();
+            try {
+                subresponse = sub.execute().get();
+                subresponse.getSubscriptionHandles().forEach( h -> h.register(eventConsumer));                
+            } catch (Exception ex) {
+                LOGGER.error(ex.toString());
+            }
+            
+            
+        }
+    }
     
 }

@@ -33,6 +33,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.device.Constants;
 import org.osgi.service.device.Device;
+import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,10 @@ public class S7DeviceAdminCommand implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(S7DeviceAdminCommand.class);  
     
     @Reference
-    BundleContext bc;       
+    BundleContext bc; 
+    
+    @Reference
+    EventAdmin eventAdmin;
     
     @Option(name = "-n", aliases = "--new", description = "New S7 device instance.", required = false, multiValued = false)
     boolean newdevice = false;
@@ -93,7 +97,7 @@ public class S7DeviceAdminCommand implements Action {
             properties.put(Constants.DEVICE_DESCRIPTION, description);
             properties.put(Constants.DEVICE_SERIAL, serial);
             
-            S7Device s7device = new S7DeviceImpl(bc);
+            S7Device s7device = new S7DeviceImpl(bc, eventAdmin);
             s7device.setUrl(url);
             bc.registerService(Device.class.getName(), s7device, properties);             
         } else if (start) {

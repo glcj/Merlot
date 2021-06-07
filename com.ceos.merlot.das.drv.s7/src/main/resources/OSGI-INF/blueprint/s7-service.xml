@@ -37,6 +37,11 @@
         <argument ref="blueprintBundleContext"/>
         <argument ref="serviceEventAdmin"/>
     </bean>
+    
+    <bean id="S7EventProcessor" class="com.ceos.merlot.das.drv.s7.impl.S7EventProcessorImpl" scope="singleton">
+        <argument ref="blueprintBundleContext"/>
+        <argument ref="serviceEventAdmin"/>
+    </bean>    
 
     <service ref="S7DriverReferring" interface="org.osgi.service.device.Driver">
         <service-properties>
@@ -48,6 +53,12 @@
         <service-properties>
             <entry key="device.factory" value="s7"/>
         </service-properties>
-    </service>    
+    </service>   
+    
+    <service ref="S7EventProcessor" interface="org.osgi.service.event.EventHandler">
+        <service-properties>
+            <entry key="event.topics" value="decanter/process/s7/*"/>
+        </service-properties>
+    </service>        
 
 </blueprint>

@@ -45,7 +45,7 @@ public class BasicDeviceImpl implements BasicDevice, DriverCallback  {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicDeviceImpl.class);
     
-    private final BundleContext bc;
+    protected final BundleContext bc;
     protected boolean autostart = false;
     protected Driver driver = null;
     protected String url = null;

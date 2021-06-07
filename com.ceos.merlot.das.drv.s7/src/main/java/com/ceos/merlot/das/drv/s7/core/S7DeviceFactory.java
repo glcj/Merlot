@@ -28,6 +28,7 @@ import java.util.Hashtable;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.device.Constants;
 import org.osgi.service.device.Device;
+import org.osgi.service.event.EventAdmin;
 
 /**
  *
@@ -36,9 +37,11 @@ import org.osgi.service.device.Device;
 public class S7DeviceFactory implements BasicDeviceFactory {
 
     private BundleContext bundleContext;
+    private final EventAdmin eventAdmin;
 
-    public S7DeviceFactory(BundleContext bundleContext) {
+    public S7DeviceFactory(BundleContext bundleContext, EventAdmin eventAdmin) {
         this.bundleContext = bundleContext;
+        this.eventAdmin = eventAdmin;
     }
             
     @Override
@@ -49,7 +52,7 @@ public class S7DeviceFactory implements BasicDeviceFactory {
         properties.put(Constants.DEVICE_SERIAL, serial);
             
         try{
-            S7Device s7device = new S7DeviceImpl(bundleContext);
+            S7Device s7device = new S7DeviceImpl(bundleContext, eventAdmin);
             s7device.setUrl(url);
             bundleContext.registerService(Device.class.getName(), s7device, properties); 
             return s7device;
