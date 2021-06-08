@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1622855069697
-Build-Jdk: 11.0.11
+Bnd-LastModified: 1623183815756
+Build-Jdk: 11.0.9.1
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/iotdb-pbraw-service.xml
 Bundle-Description: com.ceos.merlot.iotdb.pbraw OSGi blueprint bundle pr
@@ -13,11 +13,11 @@ Created-By: Apache Maven Bundle Plugin
 Export-Package: com.ceos.merlot.iotdb.pbraw.api;version="0.0.1.SNAPSHOT"
  ,com.ceos.merlot.iotdb.pbraw.core;version="0.0.1.SNAPSHOT";uses:="javax
  .servlet,javax.servlet.http,org.apache.karaf.jdbc"
-Export-Service: javax.servlet.Servlet;alias=/iotdb/retrieval/data/getDat
- a.raw;servlet-name=IoTDB historical data for EPICS.;osgi.service.bluepr
- int.compname=IoTDBPbrawGetDataServlet,javax.servlet.Servlet;alias=/iotd
- b/retrieval/bpl/searchForPVsRegex;servlet-name=IoTDB historical data fo
- r EPICS.;osgi.service.blueprint.compname=IoTDBPbrawRetrievalServlet
+Export-Service: javax.servlet.Servlet;alias=/iotdb/retrieval/bpl/searchF
+ orPVsRegex;servlet-name=IoTDB historical data for EPICS.;osgi.service.b
+ lueprint.compname=IoTDBPbrawRetrievalServlet,javax.servlet.Servlet;alia
+ s=/iotdb/retrieval/data/getData.raw;servlet-name=IoTDB historical data 
+ for EPICS.;osgi.service.blueprint.compname=IoTDBPbrawGetDataServlet
 Import-Package: javax.servlet;version="[4.0,5)",javax.servlet.http;versi
  on="[4.0,5)",org.apache.karaf.jdbc;version="[4.3,5)",org.osgi.service.b
  lueprint;version="[1.0.0,2.0.0)"

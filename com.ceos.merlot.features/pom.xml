@@ -30,7 +30,10 @@
     <artifactId>com.ceos.merlot.features</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>feature</packaging>
-    
+  
+    <properties>
+
+    </properties>  
   
     <repositories>
         <repository>

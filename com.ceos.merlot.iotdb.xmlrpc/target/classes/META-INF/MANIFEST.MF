@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1622855074687
-Build-Jdk: 11.0.11
+Bnd-LastModified: 1623183816086
+Build-Jdk: 11.0.9.1
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/xmlrpc-iotdb-service.xml
 Bundle-ClassPath: .,javax.servlet-api-4.0.1.jar,org.apache.karaf.util-4.
@@ -25,67 +25,67 @@ Embedded-Artifacts: javax.servlet-api-4.0.1.jar;g="javax.servlet";a="jav
  af.jdbc";a="org.apache.karaf.jdbc.core";v="4.3.1",xmlrpc-helma-1.0.jar;
  g="xmlrpc";a="xmlrpc-helma";v="1.0"
 Export-Package: com.ceos.merlot.iotdb.xmlrpc.api;version="0.0.1.SNAPSHOT
- ",com.ceos.merlot.iotdb.xmlrpc.core;version="0.0.1.SNAPSHOT";uses:="com
- .ceos.merlot.iotdb.xmlrpc.api,javax.servlet,javax.servlet.http",com.ceo
- s.merlot.iotdb.xmlrpc.impl;version="0.0.1.SNAPSHOT";uses:="com.ceos.mer
- lot.iotdb.xmlrpc.api,javax.sql",helma.xmlrpc;version="0.0.1.SNAPSHOT";u
- ses:="javax.servlet,javax.servlet.http,org.xml.sax",helma.xmlrpc.secure
- ;version="0.0.1.SNAPSHOT";uses:="helma.xmlrpc",javax.servlet;version="4
+ ",com.ceos.merlot.iotdb.xmlrpc.core;uses:="com.ceos.merlot.iotdb.xmlrpc
+ .api,javax.servlet,javax.servlet.http";version="0.0.1.SNAPSHOT",com.ceo
+ s.merlot.iotdb.xmlrpc.impl;uses:="com.ceos.merlot.iotdb.xmlrpc.api,java
+ x.sql";version="0.0.1.SNAPSHOT",helma.xmlrpc;uses:="javax.servlet,javax
+ .servlet.http,org.xml.sax";version="0.0.1.SNAPSHOT",helma.xmlrpc.secure
+ ;uses:="helma.xmlrpc";version="0.0.1.SNAPSHOT",javax.servlet;version="4
  .0.0";uses:="javax.servlet.annotation,javax.servlet.descriptor",javax.s
  ervlet.annotation;version="4.0.0";uses:="javax.servlet",javax.servlet.d
  escriptor;version="4.0.0",javax.servlet.http;version="4.0.0";uses:="jav
  ax.servlet",org.apache.felix.utils.collections;version="0.0.1.SNAPSHOT"
- ,org.apache.felix.utils.extender;version="0.0.1.SNAPSHOT";uses:="org.os
- gi.framework,org.osgi.util.tracker",org.apache.felix.utils.filter;versi
- on="0.0.1.SNAPSHOT";uses:="org.osgi.framework",org.apache.felix.utils.j
- son;version="0.0.1.SNAPSHOT",org.apache.felix.utils.log;version="0.0.1.
- SNAPSHOT";uses:="org.osgi.framework",org.apache.felix.utils.manifest;ve
- rsion="0.0.1.SNAPSHOT",org.apache.felix.utils.properties;version="0.0.1
- .SNAPSHOT";uses:="org.osgi.framework",org.apache.felix.utils.repository
- ;version="0.0.1.SNAPSHOT";uses:="javax.xml.stream,org.apache.felix.util
- s.resource,org.osgi.resource,org.osgi.service.repository",org.apache.fe
- lix.utils.resource;version="0.0.1.SNAPSHOT";uses:="org.osgi.framework,o
- rg.osgi.resource",org.apache.felix.utils.service;version="0.0.1.SNAPSHO
- T";uses:="org.osgi.framework,org.osgi.service.cm",org.apache.felix.util
- s.version;version="0.0.1.SNAPSHOT";uses:="org.osgi.framework",org.apach
+ ,org.apache.felix.utils.extender;uses:="org.osgi.framework,org.osgi.uti
+ l.tracker";version="0.0.1.SNAPSHOT",org.apache.felix.utils.filter;uses:
+ ="org.osgi.framework";version="0.0.1.SNAPSHOT",org.apache.felix.utils.j
+ son;version="0.0.1.SNAPSHOT",org.apache.felix.utils.log;uses:="org.osgi
+ .framework";version="0.0.1.SNAPSHOT",org.apache.felix.utils.manifest;ve
+ rsion="0.0.1.SNAPSHOT",org.apache.felix.utils.properties;uses:="org.osg
+ i.framework";version="0.0.1.SNAPSHOT",org.apache.felix.utils.repository
+ ;uses:="javax.xml.stream,org.apache.felix.utils.resource,org.osgi.resou
+ rce,org.osgi.service.repository";version="0.0.1.SNAPSHOT",org.apache.fe
+ lix.utils.resource;uses:="org.osgi.framework,org.osgi.resource";version
+ ="0.0.1.SNAPSHOT",org.apache.felix.utils.service;uses:="org.osgi.framew
+ ork,org.osgi.service.cm";version="0.0.1.SNAPSHOT",org.apache.felix.util
+ s.version;uses:="org.osgi.framework";version="0.0.1.SNAPSHOT",org.apach
  e.karaf.jaas.boot;version="4.3.1";uses:="javax.security.auth,javax.secu
  rity.auth.callback,javax.security.auth.login,javax.security.auth.spi,or
  g.osgi.framework",org.apache.karaf.jaas.boot.principal;version="4.3.1";
  uses:="javax.security.auth",org.apache.karaf.jdbc;version="4.3.1";uses:
  ="javax.management,javax.management.openmbean",org.apache.karaf.jdbc.co
- mmand;version="0.0.1.SNAPSHOT";uses:="org.apache.karaf.jdbc,org.apache.
- karaf.jdbc.command.parsing,org.apache.karaf.shell.api.action,org.apache
- .karaf.shell.api.action.lifecycle",org.apache.karaf.jdbc.command.comple
- ters;version="0.0.1.SNAPSHOT";uses:="org.apache.karaf.jdbc,org.apache.k
- araf.shell.api.action.lifecycle,org.apache.karaf.shell.api.console",org
- .apache.karaf.jdbc.command.ds;version="0.0.1.SNAPSHOT";uses:="org.apach
- e.karaf.jdbc,org.apache.karaf.jdbc.command,org.apache.karaf.shell.api.a
- ction,org.apache.karaf.shell.api.action.lifecycle,org.apache.karaf.shel
- l.api.console",org.apache.karaf.jdbc.command.parsing;version="0.0.1.SNA
- PSHOT";uses:="org.apache.karaf.shell.api.action.lifecycle,org.apache.ka
- raf.shell.api.console",org.apache.karaf.jdbc.internal;version="0.0.1.SN
- APSHOT";uses:="javax.management,javax.management.openmbean,javax.sql,or
- g.apache.karaf.jdbc,org.osgi.framework,org.osgi.service.cm",org.apache.
- karaf.jdbc.internal.osgi;version="0.0.1.SNAPSHOT";uses:="org.apache.kar
- af.jdbc,org.apache.karaf.util.tracker,org.apache.karaf.util.tracker.ann
- otation,org.osgi.service.cm",org.apache.karaf.jpm;version="0.0.1.SNAPSH
- OT",org.apache.karaf.jpm.impl;version="0.0.1.SNAPSHOT";uses:="org.apach
- e.karaf.jpm",org.apache.karaf.jpm.impl.unix;version="0.0.1.SNAPSHOT",or
+ mmand;uses:="org.apache.karaf.jdbc,org.apache.karaf.jdbc.command.parsin
+ g,org.apache.karaf.shell.api.action,org.apache.karaf.shell.api.action.l
+ ifecycle";version="0.0.1.SNAPSHOT",org.apache.karaf.jdbc.command.comple
+ ters;uses:="org.apache.karaf.jdbc,org.apache.karaf.shell.api.action.lif
+ ecycle,org.apache.karaf.shell.api.console";version="0.0.1.SNAPSHOT",org
+ .apache.karaf.jdbc.command.ds;uses:="org.apache.karaf.jdbc,org.apache.k
+ araf.jdbc.command,org.apache.karaf.shell.api.action,org.apache.karaf.sh
+ ell.api.action.lifecycle,org.apache.karaf.shell.api.console";version="0
+ .0.1.SNAPSHOT",org.apache.karaf.jdbc.command.parsing;uses:="org.apache.
+ karaf.shell.api.action.lifecycle,org.apache.karaf.shell.api.console";ve
+ rsion="0.0.1.SNAPSHOT",org.apache.karaf.jdbc.internal;uses:="javax.mana
+ gement,javax.management.openmbean,javax.sql,org.apache.karaf.jdbc,org.o
+ sgi.framework,org.osgi.service.cm";version="0.0.1.SNAPSHOT",org.apache.
+ karaf.jdbc.internal.osgi;uses:="org.apache.karaf.jdbc,org.apache.karaf.
+ util.tracker,org.apache.karaf.util.tracker.annotation,org.osgi.service.
+ cm";version="0.0.1.SNAPSHOT",org.apache.karaf.jpm;version="0.0.1.SNAPSH
+ OT",org.apache.karaf.jpm.impl;uses:="org.apache.karaf.jpm";version="0.0
+ .1.SNAPSHOT",org.apache.karaf.jpm.impl.unix;version="0.0.1.SNAPSHOT",or
  g.apache.karaf.jpm.impl.windows;version="0.0.1.SNAPSHOT",org.apache.kar
- af.util;version="0.0.1.SNAPSHOT";uses:="javax.xml.parsers,javax.xml.tra
- nsform,org.w3c.dom,org.xml.sax",org.apache.karaf.util.bundles;version="
+ af.util;uses:="javax.xml.parsers,javax.xml.transform,org.w3c.dom,org.xm
+ l.sax";version="0.0.1.SNAPSHOT",org.apache.karaf.util.bundles;version="
  0.0.1.SNAPSHOT",org.apache.karaf.util.collections;version="0.0.1.SNAPSH
- OT",org.apache.karaf.util.config;version="0.0.1.SNAPSHOT";uses:="org.ap
- ache.felix.utils.properties",org.apache.karaf.util.filesstream;version=
- "0.0.1.SNAPSHOT",org.apache.karaf.util.jaas;version="0.0.1.SNAPSHOT";us
- es:="javax.security.auth",org.apache.karaf.util.json;version="0.0.1.SNA
- PSHOT",org.apache.karaf.util.locks;version="0.0.1.SNAPSHOT";uses:="org.
- apache.felix.utils.properties",org.apache.karaf.util.maven;version="0.0
+ OT",org.apache.karaf.util.config;uses:="org.apache.felix.utils.properti
+ es";version="0.0.1.SNAPSHOT",org.apache.karaf.util.filesstream;version=
+ "0.0.1.SNAPSHOT",org.apache.karaf.util.jaas;uses:="javax.security.auth"
+ ;version="0.0.1.SNAPSHOT",org.apache.karaf.util.json;version="0.0.1.SNA
+ PSHOT",org.apache.karaf.util.locks;uses:="org.apache.felix.utils.proper
+ ties";version="0.0.1.SNAPSHOT",org.apache.karaf.util.maven;version="0.0
  .1.SNAPSHOT",org.apache.karaf.util.process;version="0.0.1.SNAPSHOT",org
- .apache.karaf.util.tracker;version="0.0.1.SNAPSHOT";uses:="org.osgi.fra
- mework,org.slf4j",org.apache.karaf.util.tracker.annotation;version="0.0
- .1.SNAPSHOT",org.apache.karaf.util.xml;version="0.0.1.SNAPSHOT";uses:="
- javax.xml.namespace,javax.xml.stream,javax.xml.stream.events",org.slf4j
+ .apache.karaf.util.tracker;uses:="org.osgi.framework,org.slf4j";version
+ ="0.0.1.SNAPSHOT",org.apache.karaf.util.tracker.annotation;version="0.0
+ .1.SNAPSHOT",org.apache.karaf.util.xml;uses:="javax.xml.namespace,javax
+ .xml.stream,javax.xml.stream.events";version="0.0.1.SNAPSHOT",org.slf4j
  ;version="1.7.29";uses:="org.slf4j.spi",org.slf4j.event;version="1.7.29
  ";uses:="org.slf4j,org.slf4j.helpers",org.slf4j.helpers;version="1.7.29
  ";uses:="org.slf4j,org.slf4j.event,org.slf4j.spi",org.slf4j.spi;version
@@ -93,51 +93,47 @@ Export-Package: com.ceos.merlot.iotdb.xmlrpc.api;version="0.0.1.SNAPSHOT
 Export-Service: javax.servlet.Servlet;alias=/iotdb/xmlrpc;servlet-name=I
  oTDB historical data for EPICS. XML-RPC Connector;osgi.service.blueprin
  t.compname=XMLRPCBean
-Import-Package: com.ceos.merlot.iotdb.xmlrpc.api;resolution:=optional;ve
- rsion="[0.0,1)",com.sun.net.ssl;resolution:=optional,com.sun.net.ssl.in
- ternal.ssl;resolution:=optional,helma.xmlrpc;resolution:=optional;versi
- on="[0.0,1)",javax.management;resolution:=optional,javax.management.ope
- nmbean;resolution:=optional,javax.net;resolution:=optional,javax.net.ss
- l;resolution:=optional,javax.security.auth;resolution:=optional,javax.s
- ecurity.auth.callback;resolution:=optional,javax.security.auth.login;re
- solution:=optional,javax.security.auth.spi;resolution:=optional,javax.s
- ervlet;resolution:=optional;version="[4.0,5)",javax.servlet.annotation;
- resolution:=optional;version="[4.0,5)",javax.servlet.descriptor;resolut
- ion:=optional;version="[4.0,5)",javax.servlet.http;resolution:=optional
- ;version="[4.0,5)",javax.sql;resolution:=optional,javax.xml.namespace;r
- esolution:=optional,javax.xml.parsers;resolution:=optional,javax.xml.st
- ream;resolution:=optional,javax.xml.stream.events;resolution:=optional,
- javax.xml.transform;resolution:=optional,org.apache.felix.utils.collect
- ions;resolution:=optional;version="[0.0,1)",org.apache.felix.utils.json
- ;resolution:=optional;version="[0.0,1)",org.apache.felix.utils.properti
- es;resolution:=optional;version="[0.0,1)",org.apache.felix.utils.resour
- ce;resolution:=optional;version="[0.0,1)",org.apache.felix.utils.versio
- n;resolution:=optional;version="[0.0,1)",org.apache.karaf.jaas.boot.pri
- ncipal;resolution:=optional;version="[4.3,5)",org.apache.karaf.jdbc;res
- olution:=optional;version="[4.3,5)",org.apache.karaf.jdbc.command;resol
- ution:=optional;version="[0.0,1)",org.apache.karaf.jdbc.command.complet
- ers;resolution:=optional;version="[0.0,1)",org.apache.karaf.jdbc.comman
- d.parsing;resolution:=optional;version="[0.0,1)",org.apache.karaf.jdbc.
- internal;resolution:=optional;version="[0.0,1)",org.apache.karaf.jpm;re
- solution:=optional;version="[0.0,1)",org.apache.karaf.shell.api.action;
- resolution:=optional,org.apache.karaf.shell.api.action.lifecycle;resolu
- tion:=optional,org.apache.karaf.shell.api.console;resolution:=optional,
- org.apache.karaf.shell.support.completers;resolution:=optional,org.apac
- he.karaf.shell.support.parsing;resolution:=optional,org.apache.karaf.sh
- ell.support.table;resolution:=optional,org.apache.karaf.util.tracker;re
- solution:=optional;version="[0.0,1)",org.apache.karaf.util.tracker.anno
- tation;resolution:=optional;version="[0.0,1)",org.osgi.framework;resolu
- tion:=optional,org.osgi.resource;resolution:=optional,org.osgi.service.
- blueprint;version="[1.0.0,2.0.0)";resolution:=optional,org.osgi.service
- .cm;resolution:=optional,org.osgi.service.jdbc;resolution:=optional,org
- .osgi.service.log;resolution:=optional,org.osgi.service.repository;reso
- lution:=optional,org.osgi.util.tracker;resolution:=optional,org.slf4j;r
- esolution:=optional;version="[1.7,2)",org.slf4j.event;resolution:=optio
- nal;version="[1.7,2)",org.slf4j.helpers;resolution:=optional;version="[
- 1.7,2)",org.slf4j.impl;resolution:=optional,org.slf4j.spi;resolution:=o
- ptional;version="[1.7,2)",org.w3c.dom;resolution:=optional,org.xml.sax;
- resolution:=optional
-Import-Service: org.apache.karaf.jdbc.JdbcService;multiple:=false,javax.
- sql.DataSource;multiple:=false
+Import-Package: com.ceos.merlot.iotdb.xmlrpc.api;resolution:=optional,co
+ m.sun.net.ssl;resolution:=optional,com.sun.net.ssl.internal.ssl;resolut
+ ion:=optional,helma.xmlrpc;resolution:=optional,javax.management;resolu
+ tion:=optional,javax.management.openmbean;resolution:=optional,javax.ne
+ t;resolution:=optional,javax.net.ssl;resolution:=optional,javax.securit
+ y.auth;resolution:=optional,javax.security.auth.callback;resolution:=op
+ tional,javax.security.auth.login;resolution:=optional,javax.security.au
+ th.spi;resolution:=optional,javax.servlet;resolution:=optional;version=
+ "[4.0,5)",javax.servlet.annotation;resolution:=optional;version="[4.0,5
+ )",javax.servlet.descriptor;resolution:=optional;version="[4.0,5)",java
+ x.servlet.http;resolution:=optional;version="[4.0,5)",javax.sql;resolut
+ ion:=optional,javax.xml.namespace;resolution:=optional,javax.xml.parser
+ s;resolution:=optional,javax.xml.stream;resolution:=optional,javax.xml.
+ stream.events;resolution:=optional,javax.xml.transform;resolution:=opti
+ onal,org.apache.felix.utils.collections;resolution:=optional,org.apache
+ .felix.utils.json;resolution:=optional,org.apache.felix.utils.propertie
+ s;resolution:=optional,org.apache.felix.utils.resource;resolution:=opti
+ onal,org.apache.felix.utils.version;resolution:=optional,org.apache.kar
+ af.jaas.boot.principal;resolution:=optional;version="[4.3,5)",org.apach
+ e.karaf.jdbc;resolution:=optional;version="[4.3,5)",org.apache.karaf.jd
+ bc.command;resolution:=optional,org.apache.karaf.jdbc.command.completer
+ s;resolution:=optional,org.apache.karaf.jdbc.command.parsing;resolution
+ :=optional,org.apache.karaf.jdbc.internal;resolution:=optional,org.apac
+ he.karaf.jpm;resolution:=optional,org.apache.karaf.shell.api.action;res
+ olution:=optional,org.apache.karaf.shell.api.action.lifecycle;resolutio
+ n:=optional,org.apache.karaf.shell.api.console;resolution:=optional,org
+ .apache.karaf.shell.support.completers;resolution:=optional,org.apache.
+ karaf.shell.support.parsing;resolution:=optional,org.apache.karaf.shell
+ .support.table;resolution:=optional,org.apache.karaf.util.tracker;resol
+ ution:=optional,org.apache.karaf.util.tracker.annotation;resolution:=op
+ tional,org.osgi.framework;resolution:=optional,org.osgi.resource;resolu
+ tion:=optional,org.osgi.service.blueprint;version="[1.0.0,2.0.0)";resol
+ ution:=optional,org.osgi.service.cm;resolution:=optional,org.osgi.servi
+ ce.jdbc;resolution:=optional,org.osgi.service.log;resolution:=optional,
+ org.osgi.service.repository;resolution:=optional,org.osgi.util.tracker;
+ resolution:=optional,org.slf4j;resolution:=optional;version="[1.7,2)",o
+ rg.slf4j.event;resolution:=optional;version="[1.7,2)",org.slf4j.helpers
+ ;resolution:=optional;version="[1.7,2)",org.slf4j.impl;resolution:=opti
+ onal,org.slf4j.spi;resolution:=optional;version="[1.7,2)",org.w3c.dom;r
+ esolution:=optional,org.xml.sax;resolution:=optional
+Import-Service: javax.sql.DataSource;multiple:=false,org.apache.karaf.jd
+ bc.JdbcService;multiple:=false
 Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
 Tool: Bnd-4.2.0.201903051501

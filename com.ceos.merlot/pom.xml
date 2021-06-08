@@ -214,7 +214,7 @@
                         <feature>jdbc</feature>  
                         <feature>config_modbus_devices</feature>
                         <feature>config_modbus_server</feature>
-                        <feature>config_modbus_sim</feature>                                          
+                        <feature>config_modbus_sim</feature>                                                               
                         <!-- minimal distribution -->
                         <!--<feature>minimal</feature>-->
                     </bootFeatures>

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1622855214775
-Build-Jdk: 11.0.11
+Bnd-LastModified: 1623183812804
+Build-Jdk: 11.0.9.1
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/pva-service.xml
 Bundle-Description: com.ceos.merlot.pva OSGi blueprint bundle project.
@@ -17,11 +17,11 @@ Export-Package: com.ceos.merlot.pva.api;version="0.0.1.SNAPSHOT";uses:="
  ient,org.epics.pvaccess.client.rpc,org.epics.pvaccess.server.rpc,org.ep
  ics.pvdata.pv",com.ceos.merlot.pva.impl;version="0.0.1.SNAPSHOT";uses:=
  "com.ceos.merlot.pva.api,org.epics.pvaClient,org.epics.pvaccess.client"
-Export-Service: com.ceos.merlot.pva.api.MerlotPvaClient;osgi.service.blu
- eprint.compname=MerlotPvaClient,org.epics.pvaccess.client.impl.remote.C
- lientContextImpl;osgi.service.blueprint.compname=ClientContextImpl,com.
- ceos.merlot.pva.api.MerlotPvaServer;osgi.service.blueprint.compname=Pva
- ServerBean
+Export-Service: com.ceos.merlot.pva.api.MerlotPvaServer;osgi.service.blu
+ eprint.compname=PvaServerBean,com.ceos.merlot.pva.api.MerlotPvaClient;o
+ sgi.service.blueprint.compname=MerlotPvaClient,org.epics.pvaccess.clien
+ t.impl.remote.ClientContextImpl;osgi.service.blueprint.compname=ClientC
+ ontextImpl
 Import-Package: com.ceos.merlot.pva.api;version="[0.0,1)",com.ceos.merlo
  t.pva.core;version="[0.0,1)",org.apache.karaf.shell.api.action;version=
  "[4.3,5)",org.apache.karaf.shell.api.action.lifecycle;version="[4.3,5)"

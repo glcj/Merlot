@@ -57,7 +57,7 @@ under the License.
         <bundle>mvn:org.apache.commons/commons-collections4/${apache.commons.collections4.version}</bundle>
         <bundle>mvn:org.apache.commons/commons-text/${apache.commons.text.version}</bundle>
         <bundle>mvn:org.apache.commons/commons-lang3/${apache.commons.lang3.version}</bundle>
-  
+        <bundle>mvn:commons-beanutils/commons-beanutils/1.9.4</bundle>
         
         <bundle>mvn:com.google.protobuf/protobuf-java/${google.protobuf.java.version}</bundle>
              
@@ -89,6 +89,12 @@ under the License.
               
         <bundle>wrap:mvn:com.zaxxer/HikariCP/${hikaricp.version}/$Export-Package=*;version=&quot;${hikaricp.version}&quot;,!*</bundle> 
         <bundle>mvn:com.google.guava/guava/${google.guava.version}</bundle>  
+        
+        <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle>         
+        <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle> 
+        <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle>  
+        <bundle>mvn:com.github.jinahya/bit-io/${bit.io.version}</bundle>   
+        <bundle>mvn:io.vavr/vavr/${io.vavr.version}</bundle>       
         <!--                                               
         <bundle>wrap:mvn:org.apache.aries.blueprint/org.apache.aries.blueprint/1.1.0/$Export-Package=*;version=&quot;1.1.0&quot;,!*</bundle>                       
         <bundle>wrap:mvn:org.apache.aries.proxy/org.apache.aries.proxy.api/1.1.1/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle>                       
@@ -170,16 +176,16 @@ under the License.
     
     <feature name='config_plc4x_base' description='${project.name}' version='${project.version}'>
         <feature>config_libs</feature>             
-        <bundle>mvn:com.fazecast/jSerialComm/${jserialcomm.version}</bundle>
-        <bundle>mvn:com.github.jinahya/bit-io/${bit.io.version}</bundle>        
-        
-        <bundle>mvn:org.apache.plc4x/plc4j-api/${apache.plc4x.version>}</bundle>        
-        <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-on-tcp/${apache.plc4x.version>}</bundle>
-        <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-tp/${apache.plc4x.version>}</bundle>
-        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base/${apache.plc4x.version>}</bundle>
-        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base-serial/${apache.plc4x.version>}</bundle>
-        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base-tcp/${apache.plc4x.version>}</bundle>  
-        <bundle>mvn:org.apache.plc4x/plc4j-utils-driver-base-java/${apache.plc4x.version>}</bundle>                   
+        <bundle>mvn:com.fazecast/jSerialComm/${jserialcomm.version}</bundle>       
+        <bundle>mvn:org.apache.plc4x/plc4j-api/${apache.plc4x.version}</bundle> 
+        <bundle>mvn:org.apache.plc4x/plc4j-spi/${apache.plc4x.version}</bundle>     
+        <!--   
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-on-tcp/${apache.plc4x.version}</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-tp/${apache.plc4x.version}</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base/${apache.plc4x.version}</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base-serial/${apache.plc4x.version}</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-driver-base-tcp/${apache.plc4x.version}</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-utils-driver-base-java/${apache.plc4x.version}</bundle>   -->                 
     </feature>              
       
     <feature name='config_devices' description='${project.name}' version='${project.version}'>
@@ -195,21 +201,23 @@ under the License.
     </feature>        
       
     <feature name='config_plc4x_modbus' description='${project.name}' version='${project.version}'>
-        <feature>config_plc4x_base</feature>
         <feature>config_devices</feature>
+        <!--
         <bundle>wrap:mvn:com.digitalpetri.modbus/modbus-core/1.2.0/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle> 
         <bundle>wrap:mvn:com.digitalpetri.modbus/modbus-codec/1.2.0/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle>  
         <bundle>wrap:mvn:com.digitalpetri.modbus/modbus-master-tcp/1.2.0/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle>  
 
-        <bundle>mvn:org.apache.plc4x/plc4j-protocol-modbus/${apache.plc4x.version>}</bundle>
-        <bundle>mvn:org.apache.plc4x/plc4j-driver-modbus/${apache.plc4x.version>}</bundle>              
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-modbus/${apache.plc4x.version}</bundle>
+        -->
+        <bundle>mvn:org.apache.plc4x/plc4j-driver-modbus/${apache.plc4x.version}</bundle>              
     </feature>  
     
     <feature name='config_plc4x_s7' description='${project.name}' version='${project.version}'>
-        <feature>config_plc4x_base</feature>   
-        <feature>config_devices</feature>             
-        <bundle>mvn:org.apache.plc4x/plc4j-protocol-s7/${apache.plc4x.version>}</bundle>                
-        <bundle>mvn:org.apache.plc4x/plc4j-driver-s7/${apache.plc4x.version>}</bundle>        
+        <feature>config_devices</feature>  
+        <!--           
+        <bundle>mvn:org.apache.plc4x/plc4j-protocol-s7/${apache.plc4x.version}</bundle>      
+        -->          
+        <bundle>mvn:org.apache.plc4x/plc4j-driver-s7/${apache.plc4x.version}</bundle>        
     </feature>    
     
     <feature name='config_mb_drv' description='${project.name}' version='${project.version}'>

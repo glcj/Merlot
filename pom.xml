@@ -33,7 +33,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0http://maven.apache.org/xsd
         <apache.commons.configuration2.version>2.6</apache.commons.configuration2.version>
         <apache.commons.collections4.version>4.0</apache.commons.collections4.version> 
         <apache.commons.text.version>1.8</apache.commons.text.version> 
-        
+        <apache.commons.beanutils.version>1.9.4</apache.commons.beanutils.version> 
         
         <apache.shiro.version>1.7.1</apache.shiro.version>
         <apache.plc4x.version>0.9.0-SNAPSHOT</apache.plc4x.version>
@@ -73,7 +73,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0http://maven.apache.org/xsd
         <jackson.version>2.12.2</jackson.version>
         <servlet.api.version>4.0.1</servlet.api.version>
         <jserialcomm.version>2.6.2</jserialcomm.version>
-        <bit.io.version>2.0.5</bit.io.version>
+        <bit.io.version>1.5.4</bit.io.version>
+        <io.vavr.version>0.10.3</io.vavr.version>
         <hikaricp.version>2.4.7</hikaricp.version>
         <c3p0.version>0.9.5.4</c3p0.version>
         <jfreechart.version>1.5.3</jfreechart.version>
