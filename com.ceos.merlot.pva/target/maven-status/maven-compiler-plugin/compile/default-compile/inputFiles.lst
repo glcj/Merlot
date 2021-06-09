@@ -1,9 +1,0 @@
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/impl/MerlotPvaServerImpl.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/api/MerlotPvaServer.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/core/MerlotRPCClientImpl.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/api/MerlotPvaClient.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/command/MerlotPVGetCommand.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/command/MerlotPVInfoCommand.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/command/MerlotPVPutCommand.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/command/MerlotPVListCommand.java
-/home/cgarcia/git/Merlot/com.ceos.merlot.pva/src/main/java/com/ceos/merlot/pva/impl/MerlotPvaClientImpl.java
