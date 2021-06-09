@@ -159,6 +159,7 @@
                     <libraries>
                         <library>mvn:org.apache.iotdb/tsfile/${apache.iotdb.version};type:=boot</library>
                         <library>mvn:com.ceos.merlot.branding/com.ceos.merlot.branding/${project.version};type:=boot</library>
+                        <library>mvn:com.github.jinahya/bit-io/${bit.io.version};type:=boot</library>
                     </libraries>
                     <installedBundles>
                         <!--

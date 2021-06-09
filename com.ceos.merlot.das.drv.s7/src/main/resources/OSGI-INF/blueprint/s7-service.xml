@@ -19,7 +19,7 @@
 
     <reference id="servicePLC4XS7"
         interface="org.apache.plc4x.java.api.PlcDriver"
-        filter="(component.name=org.apache.plc4x.java.s7.S7PlcDriver)"
+        filter="(org.apache.plc4x.driver.code=s7)" 
         timeout="10000"
         availability="mandatory">
         <reference-listener bind-method="bind" unbind-method="unbind" ref="S7DriverReferring" />
@@ -31,6 +31,7 @@
       
     <bean id="S7DriverReferring" class="com.ceos.merlot.das.drv.s7.impl.S7ReferringDriverImpl" scope="singleton">
         <argument ref="blueprintBundleContext"/>
+        <argument ref="serviceEventAdmin"/>        
     </bean>
 
     <bean id="S7DeviceFactory" class="com.ceos.merlot.das.drv.s7.core.S7DeviceFactory" scope="singleton">
@@ -39,8 +40,10 @@
     </bean>
     
     <bean id="S7EventProcessor" class="com.ceos.merlot.das.drv.s7.impl.S7EventProcessorImpl" scope="singleton">
+        <!--
         <argument ref="blueprintBundleContext"/>
         <argument ref="serviceEventAdmin"/>
+         -->
     </bean>    
 
     <service ref="S7DriverReferring" interface="org.osgi.service.device.Driver">

@@ -33,7 +33,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0http://maven.apache.org/xsd
         <apache.commons.configuration2.version>2.6</apache.commons.configuration2.version>
         <apache.commons.collections4.version>4.0</apache.commons.collections4.version> 
         <apache.commons.text.version>1.8</apache.commons.text.version> 
-        <apache.commons.beanutils.version>1.9.4</apache.commons.beanutils.version> 
+        <commons-beanutils.version>1.9.4</commons-beanutils.version> 
         
         <apache.shiro.version>1.7.1</apache.shiro.version>
         <apache.plc4x.version>0.9.0-SNAPSHOT</apache.plc4x.version>

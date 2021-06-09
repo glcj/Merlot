@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1623183816086
-Build-Jdk: 11.0.9.1
+Bnd-LastModified: 1623255467483
+Build-Jdk: 11.0.11
 Built-By: cgarcia
 Bundle-Blueprint: OSGI-INF/blueprint/xmlrpc-iotdb-service.xml
 Bundle-ClassPath: .,javax.servlet-api-4.0.1.jar,org.apache.karaf.util-4.

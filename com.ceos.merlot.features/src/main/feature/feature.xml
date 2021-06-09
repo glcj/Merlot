@@ -52,14 +52,18 @@ under the License.
         <bundle>mvn:commons-logging/commons-logging/${apache.commons.logging.version}</bundle>  
         <bundle>mvn:commons-lang/commons-lang/${apache.commons.lang.version}</bundle>   
         <bundle>mvn:commons-io/commons-io/${apache.commons.io.version}</bundle> 
-                           
+        <bundle>mvn:commons-collections/commons-collections/3.2.2</bundle> 
+        <bundle>mvn:commons-beanutils/commons-beanutils/1.9.4</bundle>            
+                                          
         <bundle>mvn:org.apache.commons/commons-configuration2/${apache.commons.configuration2.version}</bundle>              
         <bundle>mvn:org.apache.commons/commons-collections4/${apache.commons.collections4.version}</bundle>
         <bundle>mvn:org.apache.commons/commons-text/${apache.commons.text.version}</bundle>
         <bundle>mvn:org.apache.commons/commons-lang3/${apache.commons.lang3.version}</bundle>
-        <bundle>mvn:commons-beanutils/commons-beanutils/1.9.4</bundle>
+
         
         <bundle>mvn:com.google.protobuf/protobuf-java/${google.protobuf.java.version}</bundle>
+        <bundle>mvn:com.google.protobuf.nano/protobuf-javanano/3.1.0</bundle>  
+        <!-- <bundle>mvn:com.jcraft/jzlib/1.1.3</bundle> -->
              
         <bundle>wrap:mvn:io.netty/netty-all/${netty.version}/$Bundle-SymbolicName=netty-all&amp;Bundle-Version=${netty.version}&amp;Export-Package=*;version=&quot;${netty.version}&quot;,!*</bundle>        
         
@@ -93,8 +97,14 @@ under the License.
         <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle>         
         <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle> 
         <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle>  
-        <bundle>mvn:com.github.jinahya/bit-io/${bit.io.version}</bundle>   
-        <bundle>mvn:io.vavr/vavr/${io.vavr.version}</bundle>       
+        <bundle>wrap:mvn:com.github.jinahya/bit-io/${bit.io.version}/$Export-Package=com.github.jinahya.bit.io.DefaultBitInput;version=&quot;${bit.io.version}&quot;,!*</bundle>          
+        <!-- <bundle>mvn:com.github.jinahya/bit-io/${bit.io.version}</bundle> -->
+        <bundle>mvn:io.vavr/vavr/${io.vavr.version}</bundle> 
+        <!-- 
+        <bundle>mvn:org.apache.aries.spifly/org.apache.aries.spifly.weaver-internal/1.3.2</bundle>
+        <bundle>mvn:org.apache.aries.spifly/org.apache.aries.spifly.core-internal/1.3.2</bundle>
+        <bundle>mvn:org.apache.aries.spifly/org.apache.aries.spifly.dynamic.bundle/1.3.2</bundle>     
+        -->        
         <!--                                               
         <bundle>wrap:mvn:org.apache.aries.blueprint/org.apache.aries.blueprint/1.1.0/$Export-Package=*;version=&quot;1.1.0&quot;,!*</bundle>                       
         <bundle>wrap:mvn:org.apache.aries.proxy/org.apache.aries.proxy.api/1.1.1/$Export-Package=*;version=&quot;1.1.1&quot;,!*</bundle>                       
@@ -125,7 +135,7 @@ under the License.
     <feature name='config_epics_core' description='${project.name}' version='${project.version}'>
         <!-- <bundle>wrap:mvn:org.glassfish.corba/glassfish-corba-omgapi/4.2.2/$Export-Package=*;version=&quot;4.2.2&quot;,!*</bundle> -->
         <bundle>wrap:mvn:org.epics/epics-util/${epics.util.version}/$Export-Package=*;version=&quot;${epics.util.version}&quot;,!*</bundle>         
-        <bundle>wrap:mvn:org.epics/epics-pvdata/${epics.pvdata.version}/$Export-Package=*;version=&quot;${epics.pvdata.version}&quot;,!*</bundle>   
+        <bundle>wrap:mvn:org.epics/epics-pvdata/${epics.pvdata.version}/$Export-Package=*;veplc4j-spirsion=&quot;${epics.pvdata.version}&quot;,!*</bundle>   
         <bundle>wrap:mvn:org.epics/epics-ntypes/${epics.ntypes.version}/$Export-Package=*;version=&quot;${epics.ntypes.version}&quot;,!*</bundle>  
         <bundle>wrap:mvn:org.epics/jca/${epics.jca.version}/$Export-Package=*;version=&quot;${epics.jca.version}&quot;,!*</bundle>          
         <bundle>wrap:mvn:org.epics/epics-pvaccess/${epics.pvaccess.version}/$overwrite=merge&amp;Export-Package=org.epics.pvaccess.server.impl.remote.*,*;version=&quot;${epics.pvaccess.version}&quot;,!*</bundle> 
@@ -178,7 +188,9 @@ under the License.
         <feature>config_libs</feature>             
         <bundle>mvn:com.fazecast/jSerialComm/${jserialcomm.version}</bundle>       
         <bundle>mvn:org.apache.plc4x/plc4j-api/${apache.plc4x.version}</bundle> 
-        <bundle>mvn:org.apache.plc4x/plc4j-spi/${apache.plc4x.version}</bundle>     
+        <bundle>mvn:org.apache.plc4x/plc4j-spi/${apache.plc4x.version}</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-osgi/${apache.plc4x.version}</bundle>
+        <bundle>mvn:org.apache.plc4x/plc4j-transport-tcp/${apache.plc4x.version}</bundle>      
         <!--   
         <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-on-tcp/${apache.plc4x.version}</bundle>
         <bundle>mvn:org.apache.plc4x/plc4j-protocol-iso-tp/${apache.plc4x.version}</bundle>
