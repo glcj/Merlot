@@ -198,30 +198,27 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     }
 
     private void doSubscription() {
-        if (matcher.group(SUBSCRIPTION_TYPE) != null) {
-            if (matcher.group(EVENT_MODE_TYPE) != null) {
-                plcsubscription.addEventField("MODE", "MODE");               
-            }
-            if (matcher.group(EVENT_SYSTEM_TYPE) != null) {
-                plcsubscription.addEventField("SYS", "SYS");
-            }
-            if (matcher.group(EVENT_USER_TYPE)  != null) {
-                plcsubscription.addEventField("USR", "USR");                    
-            }
-            if (matcher.group(EVENT_ALARM_TYPE) != null) {
-                plcsubscription.addEventField("ALM", "ALM");                      
-            }
-            
-            sub = plcsubscription.build();
-            try {
+        try {
+            if (matcher.group(SUBSCRIPTION_TYPE) != null) {
+                if (matcher.group(EVENT_MODE_TYPE) != null) {
+                    plcsubscription.addEventField("MODE", "MODE");               
+                }
+                if (matcher.group(EVENT_SYSTEM_TYPE) != null) {
+                    plcsubscription.addEventField("SYS", "SYS");
+                }
+                if (matcher.group(EVENT_USER_TYPE)  != null) {
+                    plcsubscription.addEventField("USR", "USR");                    
+                }
+                if (matcher.group(EVENT_ALARM_TYPE) != null) {
+                    plcsubscription.addEventField("ALM", "ALM");                      
+                }
+                sub = plcsubscription.build();
                 subresponse = sub.execute().get();
-                subresponse.getSubscriptionHandles().forEach( h -> h.register(eventConsumer));                
+                subresponse.getSubscriptionHandles().forEach( h -> h.register(eventConsumer));  
+                }
             } catch (Exception ex) {
                 LOGGER.error(ex.toString());
             }
-            
-            
-        }
     }
     
 }

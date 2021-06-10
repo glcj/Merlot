@@ -97,8 +97,8 @@ under the License.
         <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle>         
         <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle> 
         <bundle>wrap:mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}/$Export-Package=*;version=&quot;${jackson.version}&quot;,!*</bundle>  
-        <bundle>wrap:mvn:com.github.jinahya/bit-io/${bit.io.version}/$Export-Package=com.github.jinahya.bit.io.DefaultBitInput;version=&quot;${bit.io.version}&quot;,!*</bundle>          
-        <!-- <bundle>mvn:com.github.jinahya/bit-io/${bit.io.version}</bundle> -->
+        <!-- <bundle>wrap:mvn:com.github.jinahya/bit-io/${bit.io.version}/$Export-Package=com.github.jinahya.bit.io.DefaultBitInput;version=&quot;${bit.io.version}&quot;,!*</bundle>          -->
+        <bundle>mvn:com.github.jinahya/bit-io/${bit.io.version}</bundle>
         <bundle>mvn:io.vavr/vavr/${io.vavr.version}</bundle> 
         <!-- 
         <bundle>mvn:org.apache.aries.spifly/org.apache.aries.spifly.weaver-internal/1.3.2</bundle>

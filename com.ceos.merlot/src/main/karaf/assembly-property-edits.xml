@@ -27,6 +27,12 @@ and open the template in the editor.
             <value>org.apache.iotdb.tsfile.read.expression.impl.SingleSeriesExpression;version="0.11.2"</value>
         </edit> 
         <edit>
+            <file>custom.properties</file>
+            <operation>extend</operation>
+            <key>merlot.plc4x.bit-io</key>
+            <value>com.github.jinahya.bit.io;version="1.4.3"</value>
+        </edit>         
+        <edit>
             <file>config.properties</file>
             <operation>extend</operation>
             <key>org.osgi.framework.system.packages</key>
