@@ -59,7 +59,7 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     private static final Logger LOGGER = LoggerFactory.getLogger(S7DeviceImpl.class);    
     public static final String S7_DEVICE_CATEGORY = "com.ceos.s7";
     private static final Pattern EVENT_PATTERN =
-            Pattern.compile("(?<substr>subscription\\=)|(?<mode>MODE)|(?<sys>SYS)|(?<usr>USR)|(?<alm>ALM)");
+            Pattern.compile("(?<substr>subscription=)|(?<mode>MODE)|(?<sys>SYS)|(?<usr>USR)|(?<alm>ALM)");
         
     private static final String SUBSCRIPTION_TYPE = "substr";
     private static final String EVENT_MODE_TYPE = "mode";
@@ -87,8 +87,9 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
             msgEvent = new Event("decanter/process/s7/SYS", ((S7SysEvent) event).getMap());  
             if (event instanceof S7UserEvent)
             msgEvent = new Event("decanter/process/s7/USER", ((S7UserEvent) event).getMap());              
-            if (event instanceof S7UserEvent)
-            msgEvent = new Event("decanter/process/s7/ALARM", ((S7AlarmEvent) event).getMap());            
+            if (event instanceof S7AlarmEvent)
+            msgEvent = new Event("decanter/process/s7/ALARM", ((S7AlarmEvent) event).getMap());
+            if (msgEvent != null)
             eventAdmin.sendEvent(msgEvent);
         }
     };
@@ -112,7 +113,6 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     @Override
     public void start() {     
         LOGGER.info("Starting S7Device ("+url+")");
-        matcher = EVENT_PATTERN.matcher(url);
         if (devDriver != null){
             devDriver.setUrl(url);
             devDriver.start();
@@ -198,27 +198,23 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     }
 
     private void doSubscription() {
-        try {
-            if (matcher.group(SUBSCRIPTION_TYPE) != null) {
-                if (matcher.group(EVENT_MODE_TYPE) != null) {
-                    plcsubscription.addEventField("MODE", "MODE");               
-                }
-                if (matcher.group(EVENT_SYSTEM_TYPE) != null) {
-                    plcsubscription.addEventField("SYS", "SYS");
-                }
-                if (matcher.group(EVENT_USER_TYPE)  != null) {
-                    plcsubscription.addEventField("USR", "USR");                    
-                }
-                if (matcher.group(EVENT_ALARM_TYPE) != null) {
-                    plcsubscription.addEventField("ALM", "ALM");                      
-                }
-                sub = plcsubscription.build();
-                subresponse = sub.execute().get();
-                subresponse.getSubscriptionHandles().forEach( h -> h.register(eventConsumer));  
+        plcsubscription = devDriver.getPlcConnection().subscriptionRequestBuilder();
+        if (plcsubscription != null) {   
+            matcher = EVENT_PATTERN.matcher(url);
+            matcher.find();
+            try {
+                if (matcher.group(SUBSCRIPTION_TYPE) != null) {
+                    while(matcher.find()) {
+                        plcsubscription.addEventField(matcher.group(0), matcher.group(0));
+                    }
+                    sub = plcsubscription.build();
+                    subresponse = sub.execute().get();
+                    subresponse.getSubscriptionHandles().forEach( h -> h.register(eventConsumer));  
                 }
             } catch (Exception ex) {
                 LOGGER.error(ex.toString());
             }
+        }
     }
     
 }
