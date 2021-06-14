@@ -62,10 +62,15 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
             Pattern.compile("(?<substr>subscription=)|(?<mode>MODE)|(?<sys>SYS)|(?<usr>USR)|(?<alm>ALM)");
         
     private static final String SUBSCRIPTION_TYPE = "substr";
-    private static final String EVENT_MODE_TYPE = "mode";
+    private static final String EVENT_MODE_TYPE   = "mode";
     private static final String EVENT_SYSTEM_TYPE = "sys";
-    private static final String EVENT_USER_TYPE = "usr";
-    private static final String EVENT_ALARM_TYPE = "alm";
+    private static final String EVENT_USER_TYPE   = "usr";
+    private static final String EVENT_ALARM_TYPE  = "alm";
+    
+    public static final String TOPIC_EVENT_MODE   = "decanter/process/s7/MODE"; 
+    public static final String TOPIC_EVENT_SYS    = "decanter/process/s7/SYS";
+    public static final String TOPIC_EVENT_USER   = "decanter/process/s7/USER";
+    public static final String TOPIC_EVENT_ALARM  = "decanter/process/s7/ALARM";        
     
     
     private Matcher matcher;
@@ -82,13 +87,13 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
         public void accept(PlcSubscriptionEvent event) {
             Event msgEvent = null;
             if (event instanceof S7ModeEvent)
-            msgEvent = new Event("decanter/process/s7/MODE", ((S7ModeEvent) event).getMap());
+            msgEvent = new Event(TOPIC_EVENT_MODE, ((S7ModeEvent) event).getMap());
             if (event instanceof S7SysEvent)
-            msgEvent = new Event("decanter/process/s7/SYS", ((S7SysEvent) event).getMap());  
+            msgEvent = new Event(TOPIC_EVENT_SYS, ((S7SysEvent) event).getMap());  
             if (event instanceof S7UserEvent)
-            msgEvent = new Event("decanter/process/s7/USER", ((S7UserEvent) event).getMap());              
+            msgEvent = new Event(TOPIC_EVENT_USER, ((S7UserEvent) event).getMap());              
             if (event instanceof S7AlarmEvent)
-            msgEvent = new Event("decanter/process/s7/ALARM", ((S7AlarmEvent) event).getMap());
+            msgEvent = new Event(TOPIC_EVENT_ALARM, ((S7AlarmEvent) event).getMap());
             if (msgEvent != null)
             eventAdmin.sendEvent(msgEvent);
         }
