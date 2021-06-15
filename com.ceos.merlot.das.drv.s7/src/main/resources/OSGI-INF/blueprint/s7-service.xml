@@ -44,7 +44,7 @@
         <argument ref="blueprintBundleContext"/>
         <argument ref="serviceEventAdmin"/>
          -->
-    </bean>    
+    </bean>           
 
     <service ref="S7DriverReferring" interface="org.osgi.service.device.Driver">
         <service-properties>
@@ -62,6 +62,6 @@
         <service-properties>
             <entry key="event.topics" value="decanter/process/s7/*"/>
         </service-properties>
-    </service>        
+    </service>                    
 
 </blueprint>

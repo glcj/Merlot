@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 */
 
-package com.ceos.merlot.das.drv.s7.impl;
+package com.ceos.merlot.grafana.api;
 
 /**
  *
  * @author cgarcia
  */
-class S7UsrEvent {
+public interface GrafanaService {
     
 }

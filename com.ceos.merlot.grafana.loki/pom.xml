@@ -26,13 +26,13 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-    <groupId>com.ceos.merlot.grafana.loki</groupId>
-    <artifactId>com.ceos.merlot.grafana.loki</artifactId>
+    <groupId>com.ceos.merlot.grafana</groupId>
+    <artifactId>com.ceos.merlot.grafana</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
-    <name>Merlot :: grafana :: Decanter Grafana Loki appender</name>
-    <description>Decanter Grafana Loki Appender.</description>
+    <name>Merlot :: grafana :: Grafana servces</name>
+    <description>Loki and Stream Grafana services</description>
 
     <build>
         <plugins>
@@ -45,8 +45,9 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>com.ceos.merlot.grafana.loki*;version=${project.version}</Export-Package>
+                        <Export-Package>com.ceos.merlot.grafana*;version=${project.version}</Export-Package>
                         <Import-Package>*</Import-Package>
+                        <Karaf-Commands>com.ceos.merlot.grafana.command*</Karaf-Commands>                        
                     </instructions>
                 </configuration>
             </plugin>
@@ -59,6 +60,26 @@
                     <maxmem>256M</maxmem>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>src/main/cfg/com.ceos.merlot.grafana.cfg</file>
+                                    <type>cfg</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>                 
         </plugins>
     </build>
     <dependencies>

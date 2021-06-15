@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ceos.merlot.grafana.loki.impl;
+package com.ceos.merlot.grafana.impl;
 
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
@@ -13,18 +13,21 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Dictionary;
+import java.util.concurrent.TimeUnit;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This Loki Appender is based on the reference implementation 
+ * of Karaf (https://github.com/apache/karaf-decanter/tree/main/appender/loki).
  *
  * @author cgarcia
  */
-public class LokiAppenderImpl implements EventHandler {
+public class GrafanaLokiAppenderImpl implements EventHandler {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(LokiAppenderImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(GrafanaLokiAppenderImpl.class);
     
     private final String TIMESTAMP_ITEM = "TIMESTAMP";
     private final String LOG_ITEM = "LOG";
@@ -35,7 +38,7 @@ public class LokiAppenderImpl implements EventHandler {
     private String password = null;
     private Dictionary<String, Object> config;    
 
-    public LokiAppenderImpl() {
+    public GrafanaLokiAppenderImpl() {
     }
         
     public void activate(Dictionary<String, Object> config) {
@@ -66,8 +69,8 @@ public class LokiAppenderImpl implements EventHandler {
                 
                 String log = (String) event.getProperty(LOG_ITEM);
                 Instant timestamp = (Instant) event.getProperty(TIMESTAMP_ITEM);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-                
-                String jsonPush = "{\"streams\": [{ \"stream\": { \"job\": \"decanter\" }, \"values\": [ [ \"" + System.currentTimeMillis() * 1000L * 1000L + "\", \"" + log + "\" ] ] }]}";
+                long nanos = TimeUnit.SECONDS.toNanos(timestamp.getEpochSecond()) + timestamp.getNano();
+                String jsonPush = "{\"streams\": [{ \"stream\": { \"job\": \"decanter\" }, \"values\": [ [ \"" + nanos + "\", \"" + log + "\" ] ] }]}";
                 
                 try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()))) {
                     writer.write(jsonPush);
