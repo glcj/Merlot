@@ -31,7 +31,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
-    <name>Merlot :: grafana :: Grafana servces</name>
+    <name>Merlot :: grafana :: Grafana services</name>
     <description>Loki and Stream Grafana services</description>
 
     <build>
@@ -92,6 +92,27 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <version>6.0.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.config</groupId>
+            <artifactId>org.apache.karaf.config.core</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-buffer</artifactId>
+            <version>4.1.60.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ceos.merlot.model</groupId>
+            <artifactId>com.ceos.merlot.model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

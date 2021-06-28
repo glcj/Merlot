@@ -44,7 +44,27 @@
         <argument ref="blueprintBundleContext"/>
         <argument ref="serviceEventAdmin"/>
          -->
-    </bean>           
+    </bean>
+    
+    <bean id="S7ModeEventProcessor" class="com.ceos.merlot.das.drv.s7.impl.S7ModeEventProcessorImpl" scope="singleton">
+        <argument ref="blueprintBundleContext"/>
+        <argument ref="serviceEventAdmin"/>
+    </bean>
+    
+    <bean id="S7SysEventProcessor" class="com.ceos.merlot.das.drv.s7.impl.S7SysEventProcessorImpl" scope="singleton">
+        <argument ref="blueprintBundleContext"/>
+        <argument ref="serviceEventAdmin"/>
+    </bean>    
+    
+    <bean id="S7UserEventProcessor" class="com.ceos.merlot.das.drv.s7.impl.S7UserEventProcessorImpl" scope="singleton">
+        <argument ref="blueprintBundleContext"/>
+        <argument ref="serviceEventAdmin"/>
+    </bean>  
+    
+    <bean id="S7AlarmEventProcessor" class="com.ceos.merlot.das.drv.s7.impl.S7AlarmEventProcessorImpl" scope="singleton">
+        <argument ref="blueprintBundleContext"/>
+        <argument ref="serviceEventAdmin"/>
+    </bean>                                                                                                                                                                                                                                            
 
     <service ref="S7DriverReferring" interface="org.osgi.service.device.Driver">
         <service-properties>
@@ -62,6 +82,30 @@
         <service-properties>
             <entry key="event.topics" value="decanter/process/s7/*"/>
         </service-properties>
-    </service>                    
+    </service>  
+    
+    <service ref="S7ModeEventProcessor" interface="org.osgi.service.event.EventHandler">
+        <service-properties>
+            <entry key="event.topics" value="decanter/process/s7/mode"/>
+        </service-properties>
+    </service> 
+    
+    <service ref="S7SysEventProcessor" interface="org.osgi.service.event.EventHandler">
+        <service-properties>
+            <entry key="event.topics" value="decanter/process/s7/sys"/>
+        </service-properties>
+    </service>  
+    
+    <service ref="S7UserEventProcessor" interface="org.osgi.service.event.EventHandler">
+        <service-properties>
+            <entry key="event.topics" value="decanter/process/s7/user"/>
+        </service-properties>
+    </service> 
+    
+    <service ref="S7AlarmEventProcessor" interface="org.osgi.service.event.EventHandler">
+        <service-properties>
+            <entry key="event.topics" value="decanter/process/s7/alarm"/>
+        </service-properties>
+    </service>    
 
 </blueprint>

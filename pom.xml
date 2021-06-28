@@ -256,7 +256,7 @@
         
     <module>com.ceos.merlot</module>
           
-    <module>com.ceos.merlot.grafana.loki</module>
+    <module>com.ceos.merlot.grafana</module>
       
   </modules>
   

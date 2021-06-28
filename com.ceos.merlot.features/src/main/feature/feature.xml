@@ -159,9 +159,7 @@ under the License.
         <bundle start-level="50">wrap:mvn:com.ceos.merlot.model/com.ceos.merlot.model/${project.version}/$Export-Package=*;version=&quot;${project.version}&quot;,!*</bundle>
         <configfile finalname="/etc/com.ceos.merlot.model.cfg">mvn:com.ceos.merlot.model/com.ceos.merlot.model/${project.version}/cfg</configfile>        
     </feature> 
-    
-      
-    
+              
     <feature name='config_modbus_devices' description='${project.name}' version='${project.version}'>
         <feature>config_libs</feature>
         <feature>config_epics_core</feature>
@@ -387,7 +385,13 @@ under the License.
         <bundle>wrap:mvn:org.apache.iotdb/iotdb-session/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle>
         <bundle start-level="90">wrap:mvn:com.ceos.merlot.htc/com.ceos.merlot.htc/${project.version}/$Export-Package=*;version=&quot;${project.version}&quot;,!*</bundle>                           
         <configfile finalname="/etc/com.ceos.merlot.htc.server.cfg">mvn:com.ceos.merlot.htc/com.ceos.merlot.htc/${project.version}/cfg</configfile>                        
-    </feature>                                                                      
+    </feature>   
+    
+    <feature name='config_grafana' description='${project.name}' version='${project.version}'>
+        <feature>config_model</feature>
+        <bundle>mvn:com.ceos.merlot.grafana/com.ceos.merlot.grafana/${project.version}</bundle>
+        <configfile finalname="/etc/com.ceos.merlot.grafana.cfg">mvn:com.ceos.merlot.grafana/com.ceos.merlot.grafana/${project.version}/cfg</configfile>                
+    </feature>                                                                       
 
 <!--          
                                                                   

@@ -23,7 +23,8 @@ import org.slf4j.LoggerFactory;
  * @author cgarcia
  */
 public class ModelImpl implements Model {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModelImpl.class);     
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModelImpl.class); 
+    
     private static final String CONFIG_PID = "com.ceos.merlot.model";    
     private final BundleContext bundleContext;
     private final ConfigRepository configRepository;
@@ -592,16 +593,13 @@ public class ModelImpl implements Model {
         }
         return null;        
     }         
+ 
+    class Node {
+        public UUID uuid;
+        public String id;
+        public String description;
+        public HashMap<UUID,Node> nodes;
+    }   
 
-    
-    
-  
-     class Node {
-         public UUID uuid;
-         public String id;
-         public String description;
-         public HashMap<UUID,Node> nodes;
-     }   
-    
     
 }

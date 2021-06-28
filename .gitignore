@@ -23,3 +23,5 @@
 /com.ceos.merlot.rpc/target/
 /com.ceos.merlot.scheduler/target/
 /com.ceos.merlot.loki.grafana/target/
+/com.ceos.merlot.grafana.loki/target/
+/com.ceos.merlot.grafana/target/

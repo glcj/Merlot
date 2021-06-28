@@ -17,12 +17,24 @@ specific language governing permissions and limitations
 under the License.
 */
 
-package com.ceos.merlot.grafana.impl;
+package com.ceos.merlot.grafana.api;
+
+import java.util.Dictionary;
 
 /**
  *
  * @author cgarcia
  */
-public class GrafanaJsonConnectorImpl {
+public interface GrafanaService {
+    
+    public void init();
+    
+    public void destroy();
+    
+    public void start();
+    
+    public void stop();   
+    
+    public void update(Dictionary<String, Object> config);    
     
 }

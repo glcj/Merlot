@@ -19,6 +19,7 @@ under the License.
 
 package com.ceos.merlot.grafana.impl;
 
+import com.ceos.merlot.grafana.api.GrafanaService;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -28,6 +29,8 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.Dictionary;
 import java.util.concurrent.TimeUnit;
+import org.apache.karaf.config.core.ConfigRepository;
+import org.osgi.framework.BundleContext;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
@@ -37,13 +40,18 @@ import org.slf4j.LoggerFactory;
  *
  * @author cgarcia
  */
-public class GrafanaStreamAppenderImpl implements EventHandler {
+public class GrafanaStreamAppenderImpl implements GrafanaService, EventHandler {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(GrafanaLokiAppenderImpl.class);
+    
+    private static final String CONFIG_PID = "com.ceos.merlot.grafana";    
+    private final BundleContext bundleContext;
+    private final ConfigRepository configRepository;
     
     private final String TIMESTAMP_ITEM = "TIMESTAMP";
     private final String LOG_ITEM = "LOG";
     
+    private boolean started = false;    
     private String url;
     private String tenant = null;
     private String username = null;
@@ -51,10 +59,36 @@ public class GrafanaStreamAppenderImpl implements EventHandler {
     private String key = null;    
     private Dictionary<String, Object> config;    
 
-    public GrafanaStreamAppenderImpl() {
+    public GrafanaStreamAppenderImpl(BundleContext bundleContext, ConfigRepository configRepository) {
+        this.bundleContext = bundleContext;
+        this.configRepository = configRepository;
     }
-        
-    public void activate(Dictionary<String, Object> config) {
+
+    @Override
+    public void init() {
+        System.out.println("GrafanaStreamAppenderImpl.init");
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("GrafanaStreamAppenderImpl.destroy");
+    }
+
+    @Override
+    public void start() {
+        System.out.println("GrafanaStreamAppenderImpl.start");
+        started = true;
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("GrafanaStreamAppenderImpl.stop");
+        started = false;
+    }    
+    
+    
+    public void update(Dictionary<String, Object> config) {
+        System.out.println("Actualizando Stream");        
         this.config = config;
         url = (config.get("stream.url") != null) ? (String) config.get("stream.url") : "http://localhost:3000/api/live/push/merlot";
         tenant = (config.get("stream.tenant") != null) ? (String) config.get("stream.tenant") : null;
@@ -66,6 +100,8 @@ public class GrafanaStreamAppenderImpl implements EventHandler {
     
     @Override
     public void handleEvent(Event event) {
+        System.out.println("GrafanaStreamAppenderImpl: " + event.getProperty("prueba"));        
+        if (!started) return;        
             try {
                 HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
                 connection.setDoOutput(true);
@@ -98,4 +134,5 @@ public class GrafanaStreamAppenderImpl implements EventHandler {
                 LOGGER.warn("Error occurred while pushing to Loki", e);
             }
     }    
+
 }

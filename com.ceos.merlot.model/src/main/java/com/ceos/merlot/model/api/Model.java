@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author cgarcia
  */
 public interface Model {
-    
+        
     public void init();
     
     public void destroy();
