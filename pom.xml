@@ -74,9 +74,9 @@
     <apache.karaf.decanter.version>2.7.0</apache.karaf.decanter.version>
             
         
-    <apache.iotdb.version>0.11.2</apache.iotdb.version>
+    <apache.iotdb.version>0.12.1</apache.iotdb.version>
             
-    <apache.iotdb.client.version>0.11.2</apache.iotdb.client.version>
+    <apache.iotdb.client.version>0.12.1</apache.iotdb.client.version>
             
         
     <apache.thrift.version>0.14.1</apache.thrift.version>

@@ -41,6 +41,7 @@ import org.apache.plc4x.java.api.messages.PlcSubscriptionRequest;
 import org.apache.plc4x.java.api.messages.PlcSubscriptionResponse;
 import org.apache.plc4x.java.api.model.PlcSubscriptionHandle;
 import org.apache.plc4x.java.s7.events.S7AlarmEvent;
+import org.apache.plc4x.java.s7.events.S7Event;
 import org.apache.plc4x.java.s7.events.S7ModeEvent;
 import org.apache.plc4x.java.s7.events.S7SysEvent;
 import org.apache.plc4x.java.s7.events.S7UserEvent;
@@ -58,15 +59,19 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(S7DeviceImpl.class);    
     public static final String S7_DEVICE_CATEGORY = "com.ceos.s7";
+    private static final Pattern AS_PATTERN =
+            Pattern.compile("^(?<as>[A-Za-z]\\w*)(=\\w*)");
     private static final Pattern EVENT_PATTERN =
             Pattern.compile("(?<substr>subscription=)|(?<mode>MODE)|(?<sys>SYS)|(?<usr>USR)|(?<alm>ALM)");
         
+    private static final String AS_NAME = "as";    
     private static final String SUBSCRIPTION_TYPE = "substr";
     private static final String EVENT_MODE_TYPE   = "mode";
     private static final String EVENT_SYSTEM_TYPE = "sys";
     private static final String EVENT_USER_TYPE   = "usr";
     private static final String EVENT_ALARM_TYPE  = "alm";
     
+    public static final String AS_ID = "AS_ID";
     public static final String TOPIC_EVENT_MODE   = "decanter/process/s7/mode"; 
     public static final String TOPIC_EVENT_SYS    = "decanter/process/s7/sys";
     public static final String TOPIC_EVENT_USER   = "decanter/process/s7/user";
@@ -74,9 +79,11 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
     
     
     private Matcher matcher;
+    private String as = "ASXX";
     private PlcSubscriptionRequest.Builder plcsubscription = null;
     private PlcSubscriptionRequest sub = null;
     private PlcSubscriptionResponse subresponse = null;
+    
         
     private S7Driver devDriver = null;
     
@@ -86,7 +93,7 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
         @Override
         public void accept(PlcSubscriptionEvent event) {
             Event msgEvent = null;
-            
+            ((S7Event) event).getMap().put(AS_ID, as);
             if (event instanceof S7ModeEvent)
             msgEvent = new Event(TOPIC_EVENT_MODE, ((S7ModeEvent) event).getMap());
             if (event instanceof S7SysEvent)
@@ -205,10 +212,17 @@ public class S7DeviceImpl extends BasicDeviceImpl implements S7Device {
 
     private void doSubscription() {
         plcsubscription = devDriver.getPlcConnection().subscriptionRequestBuilder();
-        if (plcsubscription != null) {   
-            matcher = EVENT_PATTERN.matcher(url);
-            matcher.find();
-            try {
+        if (plcsubscription != null) {
+            try {            
+                matcher = AS_PATTERN.matcher(url);
+                matcher.find();
+                if (matcher.group(AS_NAME) != null) {
+                    as = matcher.group(1);
+                }                
+
+                matcher = EVENT_PATTERN.matcher(url);
+                matcher.find();
+
                 if (matcher.group(SUBSCRIPTION_TYPE) != null) {
                     while(matcher.find()) {
                         plcsubscription.addEventField(matcher.group(0), matcher.group(0));

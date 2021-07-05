@@ -17,36 +17,17 @@ specific language governing permissions and limitations
 under the License.
 */
 
-package com.ceos.merlot.das.drv.s7.impl;
+package com.ceos.merlot.das.drv.s7.api;
 
-import com.ceos.merlot.das.drv.s7.api.S7EventProcessor;
-import com.ceos.merlot.model.core.PhysicalModelEnum;
-import java.util.HashMap;
-import java.util.Map;
-import org.osgi.framework.BundleContext;
 import org.osgi.service.event.Event;
-import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author cgarcia
  */
-public class S7AlarmEventProcessorImpl extends S7EventProcessorImpl{
-    private static final Logger LOGGER = LoggerFactory.getLogger(S7AlarmEventProcessorImpl.class);
-
-    public S7AlarmEventProcessorImpl(BundleContext bundleContext, EventAdmin eventAdmin) {
-        super(bundleContext, eventAdmin);
-    }
+public interface S7EventProcessor extends EventHandler  {
     
-    /**
-     * 
-     */
-    @Override    
-    public String EventProcessing(final Event event) { 
-        return null;
-    }      
-        
+    public String EventProcessing(final Event event);    
+    
 }

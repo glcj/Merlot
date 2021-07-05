@@ -41,7 +41,7 @@ public class S7ReferringDriverImpl  implements Driver {
     private static final Logger LOGGER = LoggerFactory.getLogger(S7ReferringDriverImpl.class);
     private static final String COM_CEOS_S7_DEVICE_CATEGORY = "com.ceos.s7";
     private BundleContext bc;  
-    final EventAdmin eventAdmin;
+    private final EventAdmin eventAdmin;
     private PlcDriver plcdriver = null;
 
     public S7ReferringDriverImpl (BundleContext bc, EventAdmin eventAdmin) {

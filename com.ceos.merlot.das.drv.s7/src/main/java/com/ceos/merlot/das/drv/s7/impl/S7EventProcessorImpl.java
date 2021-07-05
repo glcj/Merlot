@@ -19,60 +19,66 @@ under the License.
 
 package com.ceos.merlot.das.drv.s7.impl;
 
+import com.ceos.merlot.das.drv.s7.api.S7EventProcessor;
+import com.ceos.merlot.model.core.PhysicalModelEnum;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.plc4x.java.s7.readwrite.types.ModeTransitionType;
+import org.osgi.framework.BundleContext;
 import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author cgarcia
  */
-public class S7EventProcessorImpl implements EventHandler{
+public class S7EventProcessorImpl implements S7EventProcessor {
 
-    private static final String EVENT_MODE = "MODE";
-    private static final String EVENT_SYS = "SYS";
-    private static final String EVENT_USER = "USER";
-    private static final String EVENT_ALARM8 = "ALARM8";    
-    private static final String EVENT_NOTIFY = "NOTIFY"; 
-    private static final String EVENT_ALARMSQ = "ALARMSQ"; 
-    private static final String EVENT_ALARMS = "ALARMS";   
-    private static final String EVENT_NOTIFY8 = "NOTIFY8";     
-    private static final String EVENT_ALARMACK_IND = "ALARMACK_IND";
+    private static final Logger LOGGER = LoggerFactory.getLogger(S7EventProcessorImpl.class);
+    public static final String TOPIC_EVENT_LOKI  = "decanter/appender/s7/loki/";     
+    
+    protected final BundleContext bundleContext;
+    protected final EventAdmin eventAdmin;    
+    
+    
+    public S7EventProcessorImpl(BundleContext bundleContext, EventAdmin eventAdmin) {
+        this.bundleContext = bundleContext;
+        this.eventAdmin = eventAdmin;
+    }    
+    
     
     @Override
     public void handleEvent(Event event) {
-        StringBuilder sb = new StringBuilder();
-        String eventtype = (String) event.getProperty("TYPE");
-        if (EVENT_MODE.equals(eventtype))   sb.append(ModeEvent(event));
-        if (EVENT_SYS.equals(eventtype))    sb.append(SysEvent(event));
-        if (EVENT_USER.equals(eventtype))   sb.append(UserEvent(event));
+        System.out.println("Procesando un Evento MODO."); 
+        Map<String, Object> properties = new HashMap<>();        
+        String strLOG = EventProcessing(event);
+
+        //TODO: Buscar informacion en el arbol S88
+        properties.put("AS", event.getProperty("AS_NAME"));
+        
+        properties.put(PhysicalModelEnum.ENTERPRISE.name(),"PDVSA");
+        properties.put(PhysicalModelEnum.SITE.name(),"REFINACION");
+        properties.put(PhysicalModelEnum.AREA.name(),"FCC");
+        properties.put(PhysicalModelEnum.UNIT.name(),"B51");
+        properties.put(PhysicalModelEnum.CELL.name(),"CELL");
+        properties.put(PhysicalModelEnum.EMODULE.name(),"EMODULE");
+        properties.put(PhysicalModelEnum.CMODULE.name(),"CMODULE");        
+        
+        properties.put("LOG", strLOG);
+        properties.put("TIMESTAMP", event.getProperty("TIMESTAMP"));
+        
+        Event msgEvent = new Event(TOPIC_EVENT_LOKI, properties);
+        eventAdmin.sendEvent(msgEvent);
+        System.out.println("El modo: " + strLOG);
         
     }
-    
-    private String ModeEvent(Event event){
-        StringBuilder sb = new StringBuilder("CPU is in : ");        
-        if (ModeTransitionType.isDefined((short) event.getProperty("CURRENT_MODE"))){
-            short currentmode = (short) event.getProperty("CURRENT_MODE");
-            sb.append(ModeTransitionType.enumForValue(currentmode).name());
-        } else {
-            sb.append("UNDEFINED");
-        }
-        return sb.toString();
+
+    @Override
+    public String EventProcessing(Event event) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    private String SysEvent(Event event){
-    
-        return null;
-    }    
-    
-    private String UserEvent(Event event){
-    
-        return null;
-    }    
-    
-    private String AlarmEvent(Event event){
-    
-        return null;
-    }        
-    
+        
 }

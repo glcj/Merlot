@@ -154,9 +154,9 @@ public class IoTDBServerAdminCommand implements Action {
 
         //Statistics Monitor configuration
         table.addRow().addContent("enable_stat_monitor", confIoTDB.isEnableStatMonitor()); //=false
-        table.addRow().addContent("back_loop_period_in_second", confIoTDB.getBackLoopPeriodSec()); //=5
-        table.addRow().addContent("stat_monitor_detect_freq_in_second", confIoTDB.getStatMonitorDetectFreqSec()); //=600
-        table.addRow().addContent("stat_monitor_retain_interval_in_second", confIoTDB.getStatMonitorRetainIntervalSec()); //=600
+        //table.addRow().addContent("back_loop_period_in_second", confIoTDB.getBackLoopPeriodSec()); //=5
+        //table.addRow().addContent("stat_monitor_detect_freq_in_second", confIoTDB.getStatMonitorDetectFreqSec()); //=600
+        //table.addRow().addContent("stat_monitor_retain_interval_in_second", confIoTDB.getStatMonitorRetainIntervalSec()); //=600
         table.addRow().addContent("schema_manager_cache_size", confIoTDB.getmManagerCacheSize()); //=300000
 
         //External sort Configuration
