@@ -72,14 +72,14 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>src/main/cfg/com.ceos.merlot.model.cfg</file>
+                                    <file>src/main/cfg/com.ceos.merlot.model.cfg</file>                                   
                                     <type>cfg</type>
-                                </artifact>                              
+                                </artifact>                                                             
                             </artifacts>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>                    
+            </plugin>                                                                                                                
         </plugins>
     </build>
     <dependencies>

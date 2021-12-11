@@ -24,7 +24,7 @@ import com.ceos.merlot.model.core.PhysicalModelEnum;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.plc4x.java.s7.events.S7ModeEvent;
-import org.apache.plc4x.java.s7.readwrite.types.ModeTransitionType;
+import org.apache.plc4x.java.s7.readwrite.ModeTransitionType;
 import org.apache.plc4x.java.s7.utils.S7EventHelper;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.event.Event;

@@ -175,6 +175,7 @@
                         <feature>wrapper</feature>
                         <feature>com.ceos.merlot.features</feature>
                         <feature>config_libs</feature>
+                        <feature>config_h2</feature>                                                
                         <feature>config_scheduler</feature>
                         <feature>config_epics_core</feature>
                         <feature>config_epics_gpclient</feature>
@@ -207,15 +208,13 @@
                     <bootFeatures>
                         <!-- standard distribution -->
                         <feature>com.ceos.merlot.features</feature>                        
-                        <feature>standard</feature>
-                        <feature>jndi</feature>
-                        <feature>pax-jdbc</feature>
-                        <feature>pax-jdbc-config</feature>
-                        <feature>pax-jdbc-h2</feature>
-                        <feature>jdbc</feature>  
+                        <feature>standard</feature>                        
+                        <feature>config_model</feature> 
+                        <!--
                         <feature>config_modbus_devices</feature>
                         <feature>config_modbus_server</feature>
                         <feature>config_modbus_sim</feature>                                                               
+                        -->
                         <!-- minimal distribution -->
                         <!--<feature>minimal</feature>-->
                     </bootFeatures>

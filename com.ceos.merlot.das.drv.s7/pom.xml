@@ -166,7 +166,7 @@
         <dependency>
             <groupId>org.apache.plc4x</groupId>
             <artifactId>plc4j-transport-tcp</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>${apache.plc4x.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ceos.merlot.model</groupId>

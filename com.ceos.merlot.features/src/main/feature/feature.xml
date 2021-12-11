@@ -20,9 +20,10 @@ under the License.
 */
 -->
 <features name="${project.artifactId}-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+
     <repository>mvn:org.apache.karaf.features/enterprise/${apache.karaf.version}/xml/features</repository>
-    <repository>mvn:org.ops4j.pax.jdbc/pax-jdbc-features/1.4.0/xml/features</repository>
-    
+    <repository>mvn:org.ops4j.pax.jdbc/pax-jdbc-features/1.5.0/xml/features</repository>
+
     <feature name='${project.artifactId}' description='${project.name}' version='${project.version}'>
         <details>${project.description}</details>        
 
@@ -34,11 +35,10 @@ under the License.
         	
 	<!-- Encrypt -->
 	<!-- <bundle start-level="80">wrap:mvn:org.jasypt/jasypt/1.9.2/$Export-Package=*;version=&quot;1.9.2&quot;,!*</bundle> -->
-        
-	<bundle>wrap:mvn:org.bouncycastle/bcprov-jdk15on/1.64/$Export-Package=*;version=&quot;1.64&quot;,!*</bundle>                        	
-
-	<feature>openjpa</feature>                    
-                              
+        <!--
+	<bundle>wrap:mvn:org.bouncycastle/bcprov-jdk15on/1.69/$Export-Package=*;version=&quot;1.69&quot;,!*</bundle>                        	
+        -->
+                                          
     </feature>
     
 
@@ -121,7 +121,6 @@ under the License.
         -->
       
         
-        
     </feature>    
 
     <feature name='config_scheduler' description='${project.name}' version='${project.version}'>
@@ -130,7 +129,40 @@ under the License.
         <bundle>wrap:mvn:org.quartz-scheduler/quartz/${quartz.version}/$Export-Package=*;version=&quot;${quartz.version}&quot;,!*</bundle> 
         <bundle start-level="50">wrap:mvn:com.ceos.merlot.scheduler/com.ceos.merlot.scheduler/${project.version}/$Export-Package=*;version=&quot;${project.version}&quot;,!*</bundle>         
     </feature> 
-
+    
+    <feature name='config_h2' description='${project.name}' version='${project.version}'>
+        <feature>transaction</feature>      
+        <feature>jndi</feature>
+        <feature>jdbc</feature>        
+        <feature>pax-jdbc-h2</feature>
+        <feature>pax-jdbc-pool-dbcp2</feature>
+        <feature>pax-jdbc-config</feature>
+        <config name="org.ops4j.datasource-model.cfg">
+################################################################################
+#
+#    Licensed to the Apache Software Foundation (ASF) under one or more
+#    contributor license agreements.  See the NOTICE file distributed with
+#    this work for additional information regarding copyright ownership.
+#    The ASF licenses this file to You under the Apache License, Version 2.0
+#    (the "License"); you may not use this file except in compliance with
+#    the License.  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
+################################################################################
+osgi.jdbc.driver.name=H2 JDBC Driver
+pool=dbcp2
+xa=true
+url=jdbc:h2:file:./model
+dataSourceName=model                             
+        </config>
+    </feature>     
 
     <feature name='config_epics_core' description='${project.name}' version='${project.version}'>
         <!-- <bundle>wrap:mvn:org.glassfish.corba/glassfish-corba-omgapi/4.2.2/$Export-Package=*;version=&quot;4.2.2&quot;,!*</bundle> -->
@@ -150,13 +182,13 @@ under the License.
         <bundle>wrap:mvn:org.epics/gpclient-loc/${gpclient.loc.version}/$Export-Package=*;version=&quot;${gpclient.loc.version}&quot;,!*</bundle>
         <bundle>wrap:mvn:org.epics/gpclient-pva/${gpclient.pva.version}/$Export-Package=*;version=&quot;${gpclient.pva.version}&quot;,!*</bundle>
         <bundle>wrap:mvn:org.epics/gpclient-ca/${gpclient.ca.version}$Export-Package=*;version=&quot;${gpclient.ca.version}&quot;,!*</bundle>
-        <bundle>wrap:mvn:org.epics/vtype/${epics.vtype.version}/$Export-Package=*;version=&quot;${epics.vtype.version}&quot;,!*</bundle>
-         
+        <bundle>wrap:mvn:org.epics/vtype/${epics.vtype.version}/$Export-Package=*;version=&quot;${epics.vtype.version}&quot;,!*</bundle>         
     </feature> 
      
     <feature name='config_model' description='${project.name}' version='${project.version}'>
         <feature>config_epics_core</feature>
-        <bundle start-level="50">wrap:mvn:com.ceos.merlot.model/com.ceos.merlot.model/${project.version}/$Export-Package=*;version=&quot;${project.version}&quot;,!*</bundle>
+        <feature>config_h2</feature>
+        <bundle start-level="80">wrap:mvn:com.ceos.merlot.model/com.ceos.merlot.model/${project.version}/$Export-Package=*;version=&quot;${project.version}&quot;,!*</bundle>
         <configfile finalname="/etc/com.ceos.merlot.model.cfg">mvn:com.ceos.merlot.model/com.ceos.merlot.model/${project.version}/cfg</configfile>        
     </feature> 
               
@@ -309,7 +341,7 @@ under the License.
         <bundle>wrap:mvn:com.bugsnag/bugsnag/${bugsnag.version}/$Export-Package=*;version=&quot;${bugsnag.version}&quot;,!*</bundle>         
         <bundle>wrap:mvn:me.tongfei/progressbar/${progressbar.version}/$Export-Package=*;version=&quot;${progressbar.version}&quot;,!*</bundle> 
         <bundle>wrap:mvn:org.jfree/jfreechart/${jfreechart.version}/$Export-Package=*;version=&quot;${jfreechart.version}&quot;,!*</bundle> 
-        <bundle>wrap:mvn:io.moquette/moquette-broker/0.13/$Export-Package=*;version=&quot;0.13&quot;,!*</bundle>          
+        <bundle>wrap:mvn:io.moquette/moquette-broker/0.15/$Export-Package=*;version=&quot;0.15&quot;,!*</bundle>          
         <bundle>wrap:mvn:javax.inject/javax.inject/1/$Export-Package=*;version=&quot;1&quot;,!*</bundle> 
         
         <bundle>wrap:mvn:org.apache.thrift/libthrift/${apache.thrift.version}/$Export-Package=*;version=&quot;${apache.thrift.version}&quot;,!*</bundle>           
