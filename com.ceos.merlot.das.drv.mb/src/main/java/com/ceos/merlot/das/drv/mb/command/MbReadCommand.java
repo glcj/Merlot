@@ -44,11 +44,11 @@ import org.apache.plc4x.java.api.model.PlcField;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.device.Device;
-import org.apache.plc4x.java.modbus.field.ModbusFieldCoil;
-import org.apache.plc4x.java.modbus.field.ModbusField;
-import org.apache.plc4x.java.modbus.field.ModbusFieldHoldingRegister;
-import org.apache.plc4x.java.modbus.field.ModbusFieldInputRegister;
-import org.apache.plc4x.java.modbus.field.ModbusExtendedRegister;
+import org.apache.plc4x.java.modbus.base.field.ModbusFieldCoil;
+import org.apache.plc4x.java.modbus.base.field.ModbusField;
+import org.apache.plc4x.java.modbus.base.field.ModbusFieldHoldingRegister;
+import org.apache.plc4x.java.modbus.base.field.ModbusFieldInputRegister;
+import org.apache.plc4x.java.modbus.base.field.ModbusExtendedRegister;
 
 /**
  *

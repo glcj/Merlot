@@ -282,12 +282,11 @@ dataSourceName=model
     
     <feature name='config_tsfile' description='${project.name}' version='${project.version}'>
         <feature>config_libs</feature>
-        <!-- <bundle>wrap:mvn:org.slf4j/slf4j-api/1.7.28/$Export-Package=*;version=&quot;1.7.28&quot;,!*</bundle> -->
-        <bundle>wrap:mvn:ch.qos.logback/logback-classic/1.1.11/$Export-Package=*;version=&quot;1.1.11&quot;,!*</bundle>
-        <bundle>wrap:mvn:ch.qos.logback/logback-core/1.1.11/$Export-Package=*;version=&quot;1.1.11&quot;,!*</bundle>    
-        <bundle>wrap:mvn:com.alibaba/fastjson/1.2.70/$Export-Package=*;version=&quot;1.2.70&quot;,!*</bundle>                       
-        <bundle>wrap:mvn:org.xerial.snappy/snappy-java/1.1.7.2/$Export-Package=*;version=&quot;1.1.7.2&quot;,!*</bundle>         
-        <!-- <bundle>wrap:mvn:commons-io/commons-io/2.5/$Export-Package=*;version=&quot;2.5&quot;,!*</bundle> -->
+        <bundle>wrap:mvn:ch.qos.logback/logback-classic/1.1.11/$Export-Package=*;version=&quot;1.1.11&quot;,!*</bundle>        
+        <bundle>wrap:mvn:org.xerial.snappy/snappy-java/1.1.7.2/$Export-Package=*;version=&quot;1.1.7.2&quot;,!*</bundle> 
+        <bundle>wrap:mvn:commons-io/commons-io/2.5/$Export-Package=*;version=&quot;2.5&quot;,!*</bundle>
+        <bundle>wrap:mvn:org.lz4/lz4-java/1.8.0/$Export-Package=*;version=&quot;1.8.0&quot;,!*</bundle>
+        <bundle>wrap:mvn:com.google.code.gson/gson/2.9.0/$Export-Package=*;version=&quot;2.9.0&quot;,!*</bundle>
         <bundle>wrap:mvn:org.apache.iotdb/tsfile/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle>
     </feature>   
     
@@ -366,9 +365,16 @@ dataSourceName=model
         <bundle>wrap:mvn:commons-io/commons-io/2.5/$Export-Package=*;version=&quot;2.5&quot;,!*</bundle> -->        
              
         <!-- <bundle>wrap:mvn:org.apache.iotdb/tsfile/0.10.0/$Export-Package=*;version=&quot;0.10.0&quot;,!*</bundle> -->
+        <bundle>wrap:mvn:org.apache.iotdb/service-rpc/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle> 
+        <bundle>wrap:mvn:org.apache.iotdb/iotdb-antlr/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle>  
+        
+        <bundle>wrap:mvn:org.apache.iotdb/iotdb-thrift-sync/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle>  
+        <bundle>wrap:mvn:org.apache.iotdb/influxdb-thrift/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle>                 
         <bundle>wrap:mvn:org.apache.iotdb/iotdb-cli/${apache.iotdb.client.version}/$Export-Package=*;version=&quot;${apache.iotdb.client.version}&quot;,!*</bundle>                                                                                                      
         <bundle>wrap:mvn:org.apache.iotdb/iotdb-server/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle>  
-        <bundle>wrap:mvn:org.apache.iotdb/service-rpc/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle>  
+        <bundle>wrap:mvn:org.apache.iotdb/iotdb-thrift/${apache.iotdb.version}/$Export-Package=*;version=&quot;${apache.iotdb.version}&quot;,!*</bundle> 
+
+ 
         
         <!-- <bundle>wrap:mvn:org.apache.karaf.shell/org.apache.karaf.shell.core/${apache.karaf.version}/$Export-Package=*;version=&quot;${apache.karaf.version}&quot;,!*</bundle> -->
         <bundle>wrap:mvn:javax.servlet/javax.servlet-api/${servlet.api.version}/$Export-Package=*;version=&quot;${servlet.api.version}&quot;,!*</bundle>                                             

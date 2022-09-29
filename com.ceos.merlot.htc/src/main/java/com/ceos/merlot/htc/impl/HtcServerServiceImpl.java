@@ -25,6 +25,7 @@ import java.util.Dictionary;
 import java.util.List;
 import org.apache.iotdb.rpc.BatchExecutionException;
 import org.apache.iotdb.rpc.IoTDBConnectionException;
+import org.apache.iotdb.rpc.StatementExecutionException;
 import org.apache.iotdb.session.Session;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
 import org.apache.karaf.config.core.ConfigRepository;
@@ -290,7 +291,7 @@ public class HtcServerServiceImpl implements HtcService, HtcConsumer {
             LOGGER.info(ex.toString());
             connected = false;
             return false;
-        } catch (BatchExecutionException ex) {
+        } catch (StatementExecutionException ex) {
             LOGGER.info(ex.toString());
             return false;
         }

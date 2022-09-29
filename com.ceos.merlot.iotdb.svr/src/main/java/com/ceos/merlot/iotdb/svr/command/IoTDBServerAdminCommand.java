@@ -76,7 +76,7 @@ public class IoTDBServerAdminCommand implements Action {
         table.column("value");            
         
 
-        table.addRow().addContent("metrics_port",confIoTDB.getMetricsPort()); //=8181
+        //table.addRow().addContent("metrics_port",confIoTDB.getMetricsPort()); //=8181
 
         //RPC Configuration
         table.addRow().addContent("rpc_address", confIoTDB.getRpcAddress()); //=0.0.0.0
@@ -129,7 +129,7 @@ public class IoTDBServerAdminCommand implements Action {
         */
         table.addRow().addContent("wal_buffer_size", confIoTDB.getWalBufferSize()); //=16777216
         //table.addRow().addContent("time_zone", confIoTDB.getZoneID()); //=+08:00
-        table.addRow().addContent("tsfile_size_threshold", confIoTDB.getTsFileSizeThreshold()); //=536870912
+        //table.addRow().addContent("tsfile_size_threshold", confIoTDB.getTsFileSizeThreshold()); //=536870912
         table.addRow().addContent("memtable_size_threshold", confIoTDB.getMemtableSizeThreshold()); //=134217728
         table.addRow().addContent("concurrent_flush_thread", confIoTDB.getConcurrentFlushThread()); //=0
         table.addRow().addContent("chunk_buffer_pool_enable", confIoTDB.isChunkBufferPoolEnable()); //=false
@@ -139,13 +139,13 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("upgrade_thread_num", confIoTDB.getUpgradeThreadNum()); //=1
 
         //Merge Configurations
-        table.addRow().addContent("merge_thread_num", confIoTDB.getMergeThreadNum()); //=1
-        table.addRow().addContent("merge_chunk_subthread_num", confIoTDB.getMergeChunkSubThreadNum()); //=4
-        table.addRow().addContent("merge_fileSelection_time_budget", confIoTDB.getMergeFileSelectionTimeBudget()); //=30000
-        table.addRow().addContent("merge_memory_budget", confIoTDB.getMergeMemoryBudget()); //=2147483648
-        table.addRow().addContent("continue_merge_after_reboot", confIoTDB.isContinueMergeAfterReboot()); //=false
+        //table.addRow().addContent("merge_thread_num", confIoTDB.getMergeThreadNum()); //=1
+        //table.addRow().addContent("merge_chunk_subthread_num", confIoTDB.getMergeChunkSubThreadNum()); //=4
+        //table.addRow().addContent("merge_fileSelection_time_budget", confIoTDB.getMergeFileSelectionTimeBudget()); //=30000
+        //table.addRow().addContent("merge_memory_budget", confIoTDB.getMergeMemoryBudget()); //=2147483648
+        //table.addRow().addContent("continue_merge_after_reboot", confIoTDB.isContinueMergeAfterReboot()); //=false
         table.addRow().addContent("merge_interval_sec", confIoTDB.getMergeIntervalSec()); //=3600
-        table.addRow().addContent("force_full_merge", confIoTDB.isForceFullMerge()); //=false
+        //table.addRow().addContent("force_full_merge", confIoTDB.isForceFullMerge()); //=false
         //table.addRow().addContent("chunk_merge_point_threshold", confIoTDB.getChunkMergePointThreshold()); //=20480
 
         //Metadata Cache Configuration
@@ -153,7 +153,7 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("filemeta_chunkmeta_free_memory_proportion", "***"); //=3:6:10
 
         //Statistics Monitor configuration
-        table.addRow().addContent("enable_stat_monitor", confIoTDB.isEnableStatMonitor()); //=false
+        //table.addRow().addContent("enable_stat_monitor", confIoTDB.isEnableStatMonitor()); //=false
         //table.addRow().addContent("back_loop_period_in_second", confIoTDB.getBackLoopPeriodSec()); //=5
         //table.addRow().addContent("stat_monitor_detect_freq_in_second", confIoTDB.getStatMonitorDetectFreqSec()); //=600
         //table.addRow().addContent("stat_monitor_retain_interval_in_second", confIoTDB.getStatMonitorRetainIntervalSec()); //=600
@@ -169,9 +169,9 @@ public class IoTDBServerAdminCommand implements Action {
         table.addRow().addContent("ip_white_list", confIoTDB.getIpWhiteList()); //=0.0.0.0/0
 
         //performance statistic configuration
-        table.addRow().addContent("enable_performance_stat", confIoTDB.isEnablePerformanceStat()); //=false
-        table.addRow().addContent("performance_stat_display_interval", confIoTDB.getPerformanceStatDisplayInterval()); //=60000
-        table.addRow().addContent("performance_stat_memory_in_kb", confIoTDB.getPerformanceStatMemoryInKB()); //=20
+        //table.addRow().addContent("enable_performance_stat", confIoTDB.isEnablePerformanceStat()); //=false
+        //table.addRow().addContent("performance_stat_display_interval", confIoTDB.getPerformanceStatDisplayInterval()); //=60000
+        //table.addRow().addContent("performance_stat_memory_in_kb", confIoTDB.getPerformanceStatMemoryInKB()); //=20
 
         //Configurations for watermark module
         table.addRow().addContent("watermark_module_opened", confIoTDB.isEnableWatermark()); //=false

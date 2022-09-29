@@ -15,8 +15,8 @@
     <maven.bundle.plugin.version>3.5.1</maven.bundle.plugin.version>
     <osgi.version>6.0.0</osgi.version>
     <osgi.compendium.version>5.0.0</osgi.compendium.version>
-    <pax.jdbc.version>1.5.0</pax.jdbc.version>
-    <pax.jdbc.common.version>1.5.0</pax.jdbc.common.version>
+    <pax.jdbc.version>1.5.3</pax.jdbc.version>
+    <pax.jdbc.common.version>1.5.3</pax.jdbc.common.version>
     <pax.logging.api.version>2.0.8</pax.logging.api.version>
     
     <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
@@ -33,8 +33,8 @@
     <apache.plc4x.version>0.10.0-SNAPSHOT</apache.plc4x.version>
     <apache.karaf.version>4.3.2</apache.karaf.version>
     <apache.karaf.decanter.version>2.7.0</apache.karaf.decanter.version>
-    <apache.iotdb.version>0.12.1</apache.iotdb.version>
-    <apache.iotdb.client.version>0.12.1</apache.iotdb.client.version>
+    <apache.iotdb.version>0.13.2</apache.iotdb.version>
+    <apache.iotdb.client.version>0.13.2</apache.iotdb.client.version>
     <apache.thrift.version>0.14.1</apache.thrift.version>
     <apache.log4j.version>2.14.1</apache.log4j.version>
     <epics.jca.version>2.4.6</epics.jca.version>

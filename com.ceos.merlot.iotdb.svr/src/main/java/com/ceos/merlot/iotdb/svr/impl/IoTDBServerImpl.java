@@ -34,7 +34,7 @@ public class IoTDBServerImpl implements IoTDBServer {
     public void init() {
         try {
             IoTDBConfigCheck.getInstance().checkConfig();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             LOGGER.info(ex.getMessage());
         }
         daemon = IoTDB.getInstance();
